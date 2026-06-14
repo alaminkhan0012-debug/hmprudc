@@ -111,7 +111,6 @@
         .login-reset-link:hover {
             color: #fff;
         }
-
         #main-dashboard {
             display: none;
         }
@@ -172,21 +171,28 @@
             object-fit: cover;
         }
         .profile-name-header {
-            font-weight: 600;
-            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
             color: #fff;
             max-width: 160px;
+            text-align: left;
+        }
+        .profile-name-header .name-line {
+            font-size: 13px;
+            font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            display: flex;
-            align-items: baseline;
-            gap: 4px;
         }
-        .profile-role-badge {
+        .profile-name-header .designation-line {
             font-size: 10px;
-            color: rgba(255, 255, 255, 0.7);
             font-weight: 400;
+            opacity: 0.85;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 1px;
         }
         .profile-dropdown-menu {
             display: none;
@@ -311,6 +317,34 @@
             font-weight: 700;
             color: #4a5568;
         }
+        .box-photo {
+            border-left: 5px solid #0288d1;
+        }
+        .box-photo .icon-wrapper {
+            background: #e1f5fe;
+            color: #0288d1;
+        }
+        .box-scan {
+            border-left: 5px solid #e65100;
+        }
+        .box-scan .icon-wrapper {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .box-birth-search {
+            border-left: 5px solid #4caf50;
+        }
+        .box-birth-search .icon-wrapper {
+            background: #efebe9;
+            color: #4caf50;
+        }
+        .box-nid-search {
+            border-left: 5px solid #607d8b;
+        }
+        .box-nid-search .icon-wrapper {
+            background: #f5f5f5;
+            color: #607d8b;
+        }
         .box-nid {
             border-left: 5px solid #2a5298;
         }
@@ -332,20 +366,6 @@
             background: #e7f0fe;
             color: #2b579a;
         }
-        .box-photo {
-            border-left: 5px solid #0288d1;
-        }
-        .box-photo .icon-wrapper {
-            background: #e1f5fe;
-            color: #0288d1;
-        }
-        .box-scan {
-            border-left: 5px solid #e65100;
-        }
-        .box-scan .icon-wrapper {
-            background: #fff3e0;
-            color: #e65100;
-        }
         .box-birth-entry {
             border-left: 5px solid #2e7d32;
         }
@@ -353,26 +373,12 @@
             background: #e8f5e9;
             color: #2e7d32;
         }
-        .box-birth-search {
-            border-left: 5px solid #4caf50;
-        }
-        .box-birth-search .icon-wrapper {
-            background: #efebe9;
-            color: #4caf50;
-        }
         .box-nid-entry {
             border-left: 5px solid #37474f;
         }
         .box-nid-entry .icon-wrapper {
             background: #eceff1;
             color: #37474f;
-        }
-        .box-nid-search {
-            border-left: 5px solid #607d8b;
-        }
-        .box-nid-search .icon-wrapper {
-            background: #f5f5f5;
-            color: #607d8b;
         }
         .box-profile {
             border-left: 5px solid #6a1b9a;
@@ -807,6 +813,21 @@
         .profile-pic-upload-btn:hover {
             background: #2a5298;
         }
+        .photo-studio-preview {
+            background: #f8fafc;
+            border: 2px dashed #dde4ee;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .studio-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -858,7 +879,9 @@
             <div class="profile-dropdown-wrapper" id="profileDropdownWrapper">
                 <div class="profile-trigger" onclick="toggleProfileDropdown()" id="profileTrigger">
                     <div class="profile-pic-header" id="profilePicHeader">👤</div>
-                    <span class="profile-name-header" id="profileNameHeader">এডমিন</span>
+                    <div class="profile-name-header" id="profileNameHeader">
+                        <span class="name-line">এডমিন</span>
+                    </div>
                     <span style="font-size:10px;margin-left:-4px;">▼</span>
                 </div>
                 <div class="profile-dropdown-menu" id="profileDropdownMenu">
@@ -885,24 +908,66 @@
                 <div class="option-box box-profile" onclick="switchSidebarBox('tab-profile-management', this)"><div class="icon-wrapper">👤</div><div class="option-title">১০. প্রোফাইল ও পাসওয়ার্ড</div></div>
             </div>
             <div class="content-area">
-                <div id="tab-passport-photo" class="section-panel active"><div class="form-container"><div class="form-title">🖼️ ১. পাসপোর্ট সাইজ ফোটো আপলোড</div><form id="form-passport-photo" onsubmit="handlePassportSubmit(event)"><div class="form-grid"><div class="form-group"><label>👤 নাম</label><input type="text" id="pp-name" placeholder="নাম লিখুন" required></div><div class="form-group"><label>🏘️ গ্রাম</label><select id="pp-village" required><option value="">-- গ্রাম নির্বাচন করুন --</option><option value="বানাউল">বানাউল</option><option value="চৈতনপুর দক্ষিণ">চৈতনপুর দক্ষিণ</option><option value="চৈতনপুর উত্তর">চৈতনপুর উত্তর</option><option value="হুসেনপুর দক্ষিণ">হুসেনপুর দক্ষিণ</option><option value="হুসেনপুর উত্তর">হুসেনপুর উত্তর</option><option value="উজাইখালী">উজাইখালী</option><option value="আনোয়ারপুর">আনোয়ারপুর</option><option value="টানগোসাইপুর উত্তর">টানগোসাইপুর উত্তর</option><option value="টানগোসাইপুর দক্ষিণ">টানগোসাইপুর দক্ষিণ</option><option value="নামাগোসাইপুর উত্তর">নামাগোসাইপুর উত্তর</option><option value="নামাগোসাইপুর দক্ষিণ">নামাগোসাইপুর দক্ষিণ</option><option value="কৈটুপী">কৈটুপী</option></select></div><div class="form-group"><label>📌 ওয়ার্ড</label><select id="pp-ward"><option value="">-- ওয়ার্ড নির্বাচন --</option><option value="1">১</option><option value="2">২</option><option value="3">৩</option><option value="4">৪</option><option value="5">৫</option><option value="6">৬</option><option value="7">৭</option><option value="8">৮</option><option value="9">৯</option></select></div><div class="form-group"><label>📷 ছবি নির্বাচন</label><input type="file" id="pp-file" accept="image/*" required></div></div><button type="submit" class="btn-submit">📤 আপলোড করুন</button></form></div><div class="search-box"><h4>🔎 পাসপোর্ট ফোটো অনুসন্ধান</h4><div class="form-grid" style="margin-top:10px;"><select id="search-pp-field" onchange="filterPassportTable()"><option value="all">সব ফিল্ড</option><option value="name">নাম</option><option value="village">গ্রাম</option><option value="ward">ওয়ার্ড</option></select><input type="text" id="search-pp-query" placeholder="সার্চ..." oninput="filterPassportTable()"></div></div><table><thead><tr><th>ছবি</th><th>নাম</th><th>গ্রাম</th><th>ওয়ার্ড</th><th>অ্যাকশন</th></tr></thead><tbody id="list-passport-photo"></tbody></table></div>
+                <!-- প্যানেল ১: পাসপোর্ট সাইজ ফোটো -->
+                <div id="tab-passport-photo" class="section-panel active">
+                    <div class="form-container">
+                        <div class="form-title">🖼️ ১. পাসপোর্ট সাইজ ফোটো (অটো ব্যাকগ্রাউন্ড)</div>
+                        <form id="form-passport-photo" onsubmit="handlePassportSubmit(event)">
+                            <div class="form-grid">
+                                <div class="form-group"><label>👤 নাম</label><input type="text" id="pp-name" placeholder="নাম লিখুন" required></div>
+                                <div class="form-group"><label>🏘️ গ্রাম</label><select id="pp-village" required><option value="">-- গ্রাম নির্বাচন করুন --</option><option value="বানাউল">বানাউল</option><option value="চৈতনপুর দক্ষিণ">চৈতনপুর দক্ষিণ</option><option value="চৈতনপুর উত্তর">চৈতনপুর উত্তর</option><option value="হুসেনপুর দক্ষিণ">হুসেনপুর দক্ষিণ</option><option value="হুসেনপুর উত্তর">হুসেনপুর উত্তর</option><option value="উজাইখালী">উজাইখালী</option><option value="আনোয়ারপুর">আনোয়ারপুর</option><option value="টানগোসাইপুর উত্তর">টানগোসাইপুর উত্তর</option><option value="টানগোসাইপুর দক্ষিণ">টানগোসাইপুর দক্ষিণ</option><option value="নামাগোসাইপুর উত্তর">নামাগোসাইপুর উত্তর</option><option value="নামাগোসাইপুর দক্ষিণ">নামাগোসাইপুর দক্ষিণ</option><option value="কৈটুপী">কৈটুপী</option></select></div>
+                                <div class="form-group"><label>📌 ওয়ার্ড</label><select id="pp-ward"><option value="">-- ওয়ার্ড নির্বাচন --</option><option value="1">১</option><option value="2">২</option><option value="3">৩</option><option value="4">৪</option><option value="5">৫</option><option value="6">৬</option><option value="7">৭</option><option value="8">৮</option><option value="9">৯</option></select></div>
+                                <div class="form-group"><label>📷 ছবি নির্বাচন</label><input type="file" id="pp-file" accept="image/*" onchange="handlePassportFileInput(this)" required></div>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>📏 ছবির সাইজ</label>
+                                    <select id="pp-size" onchange="handlePhotoSizeChange()">
+                                        <option value="35x45">পাসপোর্ট সাইজ (35x45 mm)</option>
+                                        <option value="25x30">স্ট্যাম্প সাইজ (25x30 mm)</option>
+                                        <option value="30x40">ভিসা সাইজ (30x40 mm)</option>
+                                        <option value="50x50">স্কয়ার (50x50 mm)</option>
+                                        <option value="custom">কাস্টম</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="custom-size-group" style="display:none;">
+                                    <label>📐 প্রস্থ (mm) x উচ্চতা (mm)</label>
+                                    <div style="display:flex;gap:8px;">
+                                        <input type="number" id="pp-custom-width" placeholder="প্রস্থ" min="10" max="200" value="35" onchange="updatePhotoPreview()">
+                                        <input type="number" id="pp-custom-height" placeholder="উচ্চতা" min="10" max="200" value="45" onchange="updatePhotoPreview()">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>🎨 ব্যাকগ্রাউন্ড রঙ</label>
+                                    <input type="color" id="pp-bg-color" value="#ffffff" onchange="updatePhotoPreview()">
+                                </div>
+                            </div>
+                            <div class="photo-studio-preview" id="pp-studio-preview" style="display:none;">
+                                <canvas id="pp-preview-canvas" style="max-width:300px;max-height:300px;border:2px dashed #ccc;"></canvas>
+                                <p id="pp-preview-msg" style="font-size:13px;color:#666;margin-top:8px;"></p>
+                                <div class="studio-actions">
+                                    <button type="button" class="btn-reset" onclick="autoFixPhoto()">🛠️ অটো ঠিক করুন</button>
+                                    <button type="button" class="btn-submit" onclick="downloadProcessedPhoto()" id="btn-download-photo" style="background:linear-gradient(135deg,#2980b9,#3498db);">📥 ডাউনলোড করুন</button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-submit" id="btn-upload-passport">📤 আর্কাইভে সংরক্ষণ করুন</button>
+                        </form>
+                    </div>
+                    <div class="search-box"><h4>🔎 পাসপোর্ট ফোটো অনুসন্ধান</h4><div class="form-grid" style="margin-top:10px;"><select id="search-pp-field" onchange="filterPassportTable()"><option value="all">সব ফিল্ড</option><option value="name">নাম</option><option value="village">গ্রাম</option><option value="ward">ওয়ার্ড</option></select><input type="text" id="search-pp-query" placeholder="সার্চ..." oninput="filterPassportTable()"></div></div>
+                    <table><thead><tr><th>ছবি</th><th>নাম</th><th>গ্রাম</th><th>ওয়ার্ড</th><th>অ্যাকশন</th></tr></thead><tbody id="list-passport-photo"></tbody></table>
+                </div>
 
+                <!-- প্যানেল ২-৯ (সংক্ষেপিত) -->
                 <div id="tab-nid-scan" class="section-panel"><div class="form-container"><div class="form-title">📷 ২. NID স্ক্যান কপি আপলোড</div><form id="form-nid-scan" onsubmit="handleScanSubmit(event)"><div class="form-group" style="margin-bottom:15px;"><label>📎 ছবি নির্বাচন করুন (NID স্ক্যান কপি)</label><input type="file" id="scan-file" required accept="image/*" onchange="handleScanFileSelect(this)"></div><div id="scan-file-status" class="status-msg"></div><button type="submit" class="btn-submit" id="btn-scan-submit" disabled>আর্কাইভে আপলোড করুন</button></form></div><div class="search-box"><h4>🔎 NID স্ক্যান কপি অনুসন্ধান</h4><div class="form-grid" style="margin-top:10px;"><select id="search-scan-field" onchange="filterScanTable()"><option value="all">সব ফিল্ড</option><option value="nidNo">এন আইডি নাম্বার</option><option value="name">নাম</option><option value="father">পিতার নাম</option><option value="mother">মাতার নাম</option><option value="ward">ওয়ার্ড</option><option value="address">ঠিকানা</option></select><input type="text" id="search-scan-query" placeholder="সার্চ..." oninput="filterScanTable()"></div></div><table><thead><tr><th>এন আইডি</th><th>নাম</th><th>জন্ম তারিখ</th><th>পিতা</th><th>মাতা</th><th>ওয়ার্ড</th><th>ঠিকানা</th><th>অ্যাকশন</th></tr></thead><tbody id="list-nid-scan"></tbody></table></div>
-
                 <div id="tab-birth-search" class="section-panel"><div class="form-container" style="box-shadow:none;padding:0;"><div class="form-title">🔍 ৩. জন্ম নিবন্ধন তথ্য সার্চ</div></div><div class="search-box"><h4>জন্ম নিবন্ধন অনুসন্ধান</h4><div class="form-grid" style="margin-top:10px;"><select id="search-birth-field" onchange="filterBirthTable()"><option value="all">সব ফিল্ড</option><option value="regNo">নিবন্ধন নাম্বার</option><option value="name">নাম</option><option value="dob">জন্ম তারিখ</option><option value="father">পিতা</option><option value="mother">মাতা</option><option value="ward">ওয়ার্ড</option><option value="address">ঠিকানা</option></select><input type="text" id="search-birth-query" placeholder="সার্চ..." oninput="filterBirthTable()"></div></div><table><thead><tr><th>নিবন্ধন নং</th><th>নাম</th><th>জন্ম তারিখ</th><th>পিতা</th><th>মাতা</th><th>ওয়ার্ড</th><th>ঠিকানা</th><th>অ্যাকশন</th></tr></thead><tbody id="list-birth-reg"></tbody></table></div>
-
                 <div id="tab-nid-search" class="section-panel"><div class="form-container" style="box-shadow:none;padding:0;"><div class="form-title">🔍 ৪. NID তথ্য সার্চ প্যানেল</div></div><div class="search-box"><h4>NID তথ্য অনুসন্ধান</h4><div class="form-grid" style="margin-top:10px;"><select id="search-nid-entry-field" onchange="filterNidEntryTable()"><option value="all">সব ফিল্ড</option><option value="voterNo">ভোটার নম্বর</option><option value="name">নাম</option><option value="father">পিতা</option><option value="mother">মাতা</option><option value="ward">ওয়ার্ড</option><option value="village">গ্রাম</option></select><input type="text" id="search-nid-entry-query" placeholder="সার্চ..." oninput="filterNidEntryTable()"></div></div><table><thead><tr><th>ভোটার নম্বর</th><th>নাম</th><th>জন্ম তারিখ</th><th>পিতা</th><th>মাতা</th><th>ওয়ার্ড</th><th>গ্রাম</th><th>অ্যাকশন</th></tr></thead><tbody id="list-nid-entry"></tbody></table></div>
-
                 <div id="tab-nid-pdf" class="section-panel"><div class="form-container"><div class="form-title">🪪 ৫. পিডিএফ এন আই ডি আপলোড</div><form id="form-nid-pdf" onsubmit="handleFileArchiveSubmit(event, 'nid_pdf')"><input type="hidden" id="edit-id-nid_pdf"><input type="hidden" id="nid-number-field"><input type="hidden" id="nid-name"><input type="hidden" id="nid-dob"><input type="hidden" id="nid-father"><input type="hidden" id="nid-mother"><input type="hidden" id="nid-ward"><input type="hidden" id="nid-address"><div class="form-group" style="margin-bottom:15px;"><label>📎 ফাইল নির্বাচন করুন (ডিজিটাল PDF NID ফাইল)</label><input type="file" id="nid-file" required accept=".pdf" onchange="handleFileSelect(this)"></div><div id="file-status" class="status-msg"></div><button type="submit" class="btn-submit" id="btn-nid_pdf" disabled>আর্কাইভে আপলোড করুন</button></form></div><div class="search-box"><h4>পিডিএফ এন আই ডি অনুসন্ধান</h4><div class="form-grid" style="margin-top:10px;"><select id="search-nid-field" onchange="filterNidPdfTable()"><option value="all">সব ফিল্ড</option><option value="nidNo">এন আইডি নাম্বার</option><option value="name">নাম</option><option value="dob">জন্ম তারিখ</option><option value="father">পিতার নাম</option><option value="mother">মাতার নাম</option><option value="ward">ওয়ার্ড</option><option value="address">ঠিকানা</option></select><input type="text" id="search-nid-query" placeholder="সার্চ..." oninput="filterNidPdfTable()"></div></div><table><thead><tr><th>এন আইডি</th><th>নাম</th><th>জন্ম তারিখ</th><th>পিতা</th><th>মাতা</th><th>ওয়ার্ড</th><th>ঠিকানা</th><th>অ্যাকশন</th></tr></thead><tbody id="list-nid_pdf"></tbody></table></div>
-
                 <div id="tab-birth-pdf" class="section-panel"><div class="form-container"><div class="form-title">📜 ৬. জন্ম নিবন্ধন পিডিএফ আপলোড</div><form id="form-birth-pdf" onsubmit="handleBirthPdfSubmit(event)"><div class="form-group" style="margin-bottom:15px;"><label>📎 ফাইল নির্বাচন করুন (জন্ম নিবন্ধন PDF/ছবি)</label><input type="file" id="birth-file" required accept=".pdf,image/*" onchange="handleBirthFileSelect(this)"></div><div id="birth-file-status" class="status-msg"></div><button type="submit" class="btn-submit" id="btn-birth-pdf" disabled>আপলোড ও সংরক্ষণ করুন</button></form></div><div class="search-box"><h4>🔎 জন্ম নিবন্ধন পিডিএফ অনুসন্ধান</h4><div class="form-grid" style="margin-top:10px;"><select id="search-birth-pdf-field" onchange="filterBirthPdfTable()"><option value="all">সব ফিল্ড</option><option value="regNo">নিবন্ধন নাম্বার</option><option value="name">নাম</option><option value="dob">জন্ম তারিখ</option><option value="father">পিতা</option><option value="mother">মাতা</option><option value="ward">ওয়ার্ড</option><option value="address">ঠিকানা</option></select><input type="text" id="search-birth-pdf-query" placeholder="সার্চ..." oninput="filterBirthPdfTable()"></div></div><table><thead><tr><th>নিবন্ধন নং</th><th>নাম</th><th>জন্ম তারিখ</th><th>পিতা</th><th>মাতা</th><th>ওয়ার্ড</th><th>ঠিকানা</th><th>অ্যাকশন</th></tr></thead><tbody id="list-birth-pdf"></tbody></table></div>
-
                 <div id="tab-word-files" class="section-panel"><div class="form-container"><div class="form-title">📝 ৭. চুক্তি নামা আপলোড</div><form id="form-contract" onsubmit="handleContractSubmit(event)"><div class="form-grid"><div class="form-group"><label>📄 ফাইলের নাম</label><input type="text" id="contract-name" placeholder="ফাইলের নাম" required></div><div class="form-group"><label>🏢 অফিসের নাম</label><input type="text" id="contract-office" placeholder="অফিসের নাম" required></div><div class="form-group"><label>📅 তারিখ</label><input type="date" id="contract-date" required></div><div class="form-group"><label>📁 ফাইল নির্বাচন (PDF/Word)</label><input type="file" id="contract-file" accept=".pdf,.doc,.docx" required></div></div><button type="submit" class="btn-submit">📤 আপলোড করুন</button></form></div><div class="search-box"><h4>🔎 চুক্তি নামা অনুসন্ধান</h4><div class="form-grid" style="margin-top:10px;"><select id="search-contract-field" onchange="filterContractTable()"><option value="all">সব ফিল্ড</option><option value="fileName">ফাইলের নাম</option><option value="officeName">অফিসের নাম</option><option value="date">তারিখ</option></select><input type="text" id="search-contract-query" placeholder="সার্চ..." oninput="filterContractTable()"></div></div><table><thead><tr><th>ফাইলের নাম</th><th>অফিসের নাম</th><th>তারিখ</th><th>অ্যাকশন</th></tr></thead><tbody id="list-contracts"></tbody></table></div>
-
                 <div id="tab-birth-entry" class="section-panel"><div class="form-container"><div class="form-title">📥 ৮. জন্ম নিবন্ধন তথ্য এন্ট্রি</div><form id="form-birth-entry" onsubmit="handleBirthEntrySubmit(event)"><div class="form-grid"><div class="form-group"><label>🔢 নিবন্ধন নাম্বার</label><input type="text" id="birth-reg-no" placeholder="নিবন্ধন নম্বর" required></div><div class="form-group"><label>📌 ওয়ার্ড</label><select id="birth-ward"><option value="">-- ওয়ার্ড নির্বাচন --</option><option value="1">১</option><option value="2">২</option><option value="3">৩</option><option value="4">৪</option><option value="5">৫</option><option value="6">৬</option><option value="7">৭</option><option value="8">৮</option><option value="9">৯</option></select></div><div class="form-group"><label>👤 নাম</label><input type="text" id="birth-name" placeholder="পূর্ণ নাম" required></div><div class="form-group"><label>📅 জন্ম তারিখ</label><input type="date" id="birth-dob" required></div><div class="form-group"><label>👩 মাতার নাম</label><input type="text" id="birth-mother" placeholder="মাতার নাম" required></div><div class="form-group"><label>👨 পিতার নাম</label><input type="text" id="birth-father" placeholder="পিতার নাম" required></div><div class="form-group" style="grid-column:span 2;"><label>📍 ঠিকানা</label><select id="birth-address" required><option value="">-- ঠিকানা নির্বাচন --</option><option value="বানাউল">বানাউল</option><option value="চৈতনপুর দক্ষিণ">চৈতনপুর দক্ষিণ</option><option value="চৈতনপুর উত্তর">চৈতনপুর উত্তর</option><option value="হুসেনপুর দক্ষিণ">হুসেনপুর দক্ষিণ</option><option value="হুসেনপুর উত্তর">হুসেনপুর উত্তর</option><option value="উজাইখালী">উজাইখালী</option><option value="আনোয়ারপুর">আনোয়ারপুর</option><option value="টানগোসাইপুর উত্তর">টানগোসাইপুর উত্তর</option><option value="টানগোসাইপুর দক্ষিণ">টানগোসাইপুর দক্ষিণ</option><option value="নামাগোসাইপুর উত্তর">নামাগোসাইপুর উত্তর</option><option value="নামাগোসাইপুর দক্ষিণ">নামাগোসাইপুর দক্ষিণ</option><option value="কৈটুপী">কৈটুপী</option></select></div></div><button type="submit" class="btn-submit">💾 এন্ট্রি সংরক্ষণ করুন</button></form></div></div>
-
                 <div id="tab-nid-entry" class="section-panel"><div class="form-container"><div class="form-title">📥 ৯. NID তথ্য এন্ট্রি ফরম</div><form id="form-nid-entry" onsubmit="handleNidEntrySubmit(event)"><div class="form-grid"><div class="form-group"><label>👤 নাম</label><input type="text" id="nid-entry-name" placeholder="পূর্ণ নাম" required></div><div class="form-group"><label>🆔 ভোটার নম্বর</label><input type="text" id="nid-entry-voter" placeholder="ভোটার নম্বর" required></div><div class="form-group"><label>👨 পিতার নাম</label><input type="text" id="nid-entry-father" placeholder="পিতার নাম" required></div><div class="form-group"><label>👩 মাতার নাম</label><input type="text" id="nid-entry-mother" placeholder="মাতার নাম" required></div><div class="form-group"><label>📅 জন্ম তারিখ</label><input type="date" id="nid-entry-dob" required></div><div class="form-group"><label>📌 ওয়ার্ড</label><select id="nid-entry-ward"><option value="">-- ওয়ার্ড নির্বাচন --</option><option value="1">১</option><option value="2">২</option><option value="3">৩</option><option value="4">৪</option><option value="5">৫</option><option value="6">৬</option><option value="7">৭</option><option value="8">৮</option><option value="9">৯</option></select></div><div class="form-group"><label>🏘️ গ্রাম</label><select id="nid-entry-village" required><option value="">-- গ্রাম নির্বাচন করুন --</option><option value="বানাউল">বানাউল</option><option value="চৈতনপুর দক্ষিণ">চৈতনপুর দক্ষিণ</option><option value="চৈতনপুর উত্তর">চৈতনপুর উত্তর</option><option value="হুসেনপুর দক্ষিণ">হুসেনপুর দক্ষিণ</option><option value="হুসেনপুর উত্তর">হুসেনপুর উত্তর</option><option value="উজাইখালী">উজাইখালী</option><option value="আনোয়ারপুর">আনোয়ারপুর</option><option value="টানগোসাইপুর উত্তর">টানগোসাইপুর উত্তর</option><option value="টানগোসাইপুর দক্ষিণ">টানগোসাইপুর দক্ষিণ</option><option value="নামাগোসাইপুর উত্তর">নামাগোসাইপুর উত্তর</option><option value="নামাগোসাইপুর দক্ষিণ">নামাগোসাইপুর দক্ষিণ</option><option value="কৈটুপী">কৈটুপী</option></select></div></div><button type="submit" class="btn-submit">💾 এন্ট্রি সংরক্ষণ করুন</button></form></div></div>
 
+                <!-- প্যানেল ১০: প্রোফাইল ও পাসওয়ার্ড -->
                 <div id="tab-profile-management" class="section-panel">
                     <div class="form-container">
                         <div class="form-title">🖼️ প্রোফাইল ছবি</div>
@@ -918,36 +983,19 @@
                         <div id="profile-pic-msg" style="font-size:13px;margin-top:5px;"></div>
                     </div>
                     <div class="form-container">
-                        <div class="form-title">👤 নতুন প্রোফাইল তৈরি করুন</div>
-                        <form id="form-create-profile" onsubmit="handleCreateProfile(event)">
+                        <div class="form-title">✏️ নিজের নাম ও পদবী সেট করুন</div>
+                        <form id="form-display-name" onsubmit="handleDisplayNameSubmit(event)">
                             <div class="form-grid">
-                                <div class="form-group"><label>👤 ইউজারনেম</label><input type="text" id="profile-username" placeholder="ইউজারনেম" required></div>
-                                <div class="form-group"><label>🔒 পাসওয়ার্ড</label><input type="password" id="profile-password" placeholder="পাসওয়ার্ড" required></div>
-                                <div class="form-group"><label>🔒 পাসওয়ার্ড নিশ্চিত করুন</label><input type="password" id="profile-confirm-password" placeholder="আবার লিখুন" required></div>
-                                <div class="form-group"><label>🛡️ ভূমিকা</label><select id="profile-role"><option value="user">সাধারণ ব্যবহারকারী</option><option value="admin">এডমিন</option></select></div>
-                                <div class="form-group"><label>🔐 নিরাপত্তা প্রশ্ন</label><select id="profile-security-question"><option value="আপনার প্রিয় খাবার কি?">আপনার প্রিয় খাবার কি?</option><option value="আপনার জন্মস্থান কোথায়?">আপনার জন্মস্থান কোথায়?</option><option value="আপনার পোষা প্রাণীর নাম কি?">আপনার পোষা প্রাণীর নাম কি?</option><option value="আপনার প্রথম স্কুলের নাম কি?">আপনার প্রথম স্কুলের নাম কি?</option><option value="আপনার প্রিয় রঙ কি?">আপনার প্রিয় রঙ কি?</option></select></div>
-                                <div class="form-group"><label>✍️ নিরাপত্তা প্রশ্নের উত্তর</label><input type="text" id="profile-security-answer" placeholder="উত্তর লিখুন" required></div>
+                                <div class="form-group"><label>👤 আপনার পূর্ণ নাম</label><input type="text" id="display-fullname" placeholder="আপনার নাম লিখুন" required></div>
+                                <div class="form-group"><label>💼 পদবী (ডিজিগনেশন)</label><input type="text" id="display-designation" placeholder="যেমন: ইউনিয়ন সচিব" required></div>
                             </div>
-                            <button type="submit" class="btn-submit">➕ প্রোফাইল তৈরি করুন</button>
-                            <div id="profile-create-msg" style="margin-top:10px;font-size:13px;"></div>
+                            <button type="submit" class="btn-submit">💾 সংরক্ষণ করুন</button>
+                            <div id="display-name-msg" style="margin-top:10px;font-size:13px;"></div>
                         </form>
                     </div>
-                    <div class="form-container">
-                        <div class="form-title">🔒 নিজের পাসওয়ার্ড পরিবর্তন করুন</div>
-                        <form id="form-change-password" onsubmit="handleChangePassword(event)">
-                            <div class="form-grid">
-                                <div class="form-group"><label>🔑 বর্তমান পাসওয়ার্ড</label><input type="password" id="change-old-password" placeholder="বর্তমান পাসওয়ার্ড" required></div>
-                                <div class="form-group"><label>🔒 নতুন পাসওয়ার্ড</label><input type="password" id="change-new-password" placeholder="নতুন পাসওয়ার্ড" required></div>
-                                <div class="form-group"><label>🔒 নতুন পাসওয়ার্ড নিশ্চিত করুন</label><input type="password" id="change-confirm-password" placeholder="আবার লিখুন" required></div>
-                            </div>
-                            <button type="submit" class="btn-submit">💾 পাসওয়ার্ড পরিবর্তন করুন</button>
-                            <div id="change-password-msg" style="margin-top:10px;font-size:13px;"></div>
-                        </form>
-                    </div>
-                    <div class="form-container">
-                        <div class="form-title">📋 সকল ব্যবহারকারী তালিকা</div>
-                        <table><thead><tr><th>ইউজারনেম</th><th>ভূমিকা</th><th>নিরাপত্তা প্রশ্ন</th><th>অ্যাকশন</th></tr></thead><tbody id="list-users"></tbody></table>
-                    </div>
+                    <div class="form-container"><div class="form-title">👤 নতুন প্রোফাইল তৈরি করুন</div><form id="form-create-profile" onsubmit="handleCreateProfile(event)"><div class="form-grid"><div class="form-group"><label>👤 ইউজারনেম</label><input type="text" id="profile-username" placeholder="ইউজারনেম" required></div><div class="form-group"><label>🔒 পাসওয়ার্ড</label><input type="password" id="profile-password" placeholder="পাসওয়ার্ড" required></div><div class="form-group"><label>🔒 পাসওয়ার্ড নিশ্চিত করুন</label><input type="password" id="profile-confirm-password" placeholder="আবার লিখুন" required></div><div class="form-group"><label>🛡️ ভূমিকা</label><select id="profile-role"><option value="user">সাধারণ ব্যবহারকারী</option><option value="admin">এডমিন</option></select></div><div class="form-group"><label>🔐 নিরাপত্তা প্রশ্ন</label><select id="profile-security-question"><option value="আপনার প্রিয় খাবার কি?">আপনার প্রিয় খাবার কি?</option><option value="আপনার জন্মস্থান কোথায়?">আপনার জন্মস্থান কোথায়?</option><option value="আপনার পোষা প্রাণীর নাম কি?">আপনার পোষা প্রাণীর নাম কি?</option><option value="আপনার প্রথম স্কুলের নাম কি?">আপনার প্রথম স্কুলের নাম কি?</option><option value="আপনার প্রিয় রঙ কি?">আপনার প্রিয় রঙ কি?</option></select></div><div class="form-group"><label>✍️ নিরাপত্তা প্রশ্নের উত্তর</label><input type="text" id="profile-security-answer" placeholder="উত্তর লিখুন" required></div></div><button type="submit" class="btn-submit">➕ প্রোফাইল তৈরি করুন</button><div id="profile-create-msg" style="margin-top:10px;font-size:13px;"></div></form></div>
+                    <div class="form-container"><div class="form-title">🔒 নিজের পাসওয়ার্ড পরিবর্তন করুন</div><form id="form-change-password" onsubmit="handleChangePassword(event)"><div class="form-grid"><div class="form-group"><label>🔑 বর্তমান পাসওয়ার্ড</label><input type="password" id="change-old-password" placeholder="বর্তমান পাসওয়ার্ড" required></div><div class="form-group"><label>🔒 নতুন পাসওয়ার্ড</label><input type="password" id="change-new-password" placeholder="নতুন পাসওয়ার্ড" required></div><div class="form-group"><label>🔒 নতুন পাসওয়ার্ড নিশ্চিত করুন</label><input type="password" id="change-confirm-password" placeholder="আবার লিখুন" required></div></div><button type="submit" class="btn-submit">💾 পাসওয়ার্ড পরিবর্তন করুন</button><div id="change-password-msg" style="margin-top:10px;font-size:13px;"></div></form></div>
+                    <div class="form-container"><div class="form-title">📋 সকল ব্যবহারকারী তালিকা</div><table><thead><tr><th>ইউজারনেম</th><th>ভূমিকা</th><th>নিরাপত্তা প্রশ্ন</th><th>অ্যাকশন</th></tr></thead><tbody id="list-users"></tbody></table></div>
                 </div>
             </div>
         </div>
@@ -958,18 +1006,7 @@
     <div id="scan-edit-modal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeScanEditModal()">&times;</span><h3 style="color:#1e3c72;margin-bottom:15px;">✏️ স্ক্যান রেকর্ড এডিট করুন</h3><div class="form-grid"><div class="form-group"><label>এন আইডি নম্বর</label><input type="text" id="scan-edit-nidNo"></div><div class="form-group"><label>নাম</label><input type="text" id="scan-edit-name"></div><div class="form-group"><label>জন্ম তারিখ</label><input type="date" id="scan-edit-dob"></div><div class="form-group"><label>পিতার নাম</label><input type="text" id="scan-edit-father"></div><div class="form-group"><label>মাতার নাম</label><input type="text" id="scan-edit-mother"></div><div class="form-group"><label>ওয়ার্ড</label><input type="text" id="scan-edit-ward"></div><div class="form-group" style="grid-column:span 2;"><label>ঠিকানা</label><textarea id="scan-edit-address" rows="2"></textarea></div></div><button class="btn-submit" onclick="saveScanEditFromModal()">💾 সেভ করুন</button></div></div>
     <div id="birth-edit-modal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeBirthEditModal()">&times;</span><h3 style="color:#1e3c72;margin-bottom:15px;">✏️ জন্ম নিবন্ধন এডিট</h3><div class="form-grid"><div class="form-group"><label>নিবন্ধন নাম্বার</label><input type="text" id="birth-edit-regNo"></div><div class="form-group"><label>ওয়ার্ড</label><input type="text" id="birth-edit-ward"></div><div class="form-group"><label>নাম</label><input type="text" id="birth-edit-name"></div><div class="form-group"><label>জন্ম তারিখ</label><input type="date" id="birth-edit-dob"></div><div class="form-group"><label>মাতা</label><input type="text" id="birth-edit-mother"></div><div class="form-group"><label>পিতা</label><input type="text" id="birth-edit-father"></div><div class="form-group" style="grid-column:span 2;"><label>ঠিকানা</label><textarea id="birth-edit-address" rows="2"></textarea></div></div><button class="btn-submit" onclick="saveBirthEditFromModal()">💾 সেভ করুন</button></div></div>
     <div id="nid-entry-edit-modal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeNidEntryEditModal()">&times;</span><h3 style="color:#1e3c72;margin-bottom:15px;">✏️ NID তথ্য এডিট</h3><div class="form-grid"><div class="form-group"><label>ভোটার নম্বর</label><input type="text" id="nid-entry-edit-voter"></div><div class="form-group"><label>নাম</label><input type="text" id="nid-entry-edit-name"></div><div class="form-group"><label>জন্ম তারিখ</label><input type="date" id="nid-entry-edit-dob"></div><div class="form-group"><label>পিতার নাম</label><input type="text" id="nid-entry-edit-father"></div><div class="form-group"><label>মাতার নাম</label><input type="text" id="nid-entry-edit-mother"></div><div class="form-group"><label>ওয়ার্ড</label><input type="text" id="nid-entry-edit-ward"></div><div class="form-group"><label>গ্রাম</label><input type="text" id="nid-entry-edit-village"></div></div><button class="btn-submit" onclick="saveNidEntryEditFromModal()">💾 সেভ করুন</button></div></div>
-
-    <div id="admin-reset-password-modal" class="modal">
-        <div class="modal-content" style="max-width:420px;">
-            <span class="close-modal" onclick="closeAdminResetModal()">&times;</span>
-            <h3 style="color:#1e3c72;margin-bottom:15px;">🔑 ব্যবহারকারীর পাসওয়ার্ড রিসেট</h3>
-            <p style="margin-bottom:12px;">ইউজারনেম: <strong id="admin-reset-target-username"></strong></p>
-            <div class="form-group" style="margin-bottom:12px;"><label>🔒 নতুন পাসওয়ার্ড সেট করুন</label><input type="password" id="admin-reset-new-password" placeholder="নতুন পাসওয়ার্ড"></div>
-            <div class="form-group" style="margin-bottom:15px;"><label>🔒 পাসওয়ার্ড নিশ্চিত করুন</label><input type="password" id="admin-reset-confirm-password" placeholder="আবার লিখুন"></div>
-            <button class="btn-submit" onclick="adminResetUserPassword()" style="width:100%;">✅ রিসেট করুন</button>
-            <div id="admin-reset-msg" style="margin-top:10px;font-size:13px;"></div>
-        </div>
-    </div>
+    <div id="admin-reset-password-modal" class="modal"><div class="modal-content" style="max-width:420px;"><span class="close-modal" onclick="closeAdminResetModal()">&times;</span><h3 style="color:#1e3c72;margin-bottom:15px;">🔑 ব্যবহারকারীর পাসওয়ার্ড রিসেট</h3><p style="margin-bottom:12px;">ইউজারনেম: <strong id="admin-reset-target-username"></strong></p><div class="form-group" style="margin-bottom:12px;"><label>🔒 নতুন পাসওয়ার্ড সেট করুন</label><input type="password" id="admin-reset-new-password" placeholder="নতুন পাসওয়ার্ড"></div><div class="form-group" style="margin-bottom:15px;"><label>🔒 পাসওয়ার্ড নিশ্চিত করুন</label><input type="password" id="admin-reset-confirm-password" placeholder="আবার লিখুন"></div><button class="btn-submit" onclick="adminResetUserPassword()" style="width:100%;">✅ রিসেট করুন</button><div id="admin-reset-msg" style="margin-top:10px;font-size:13px;"></div></div></div>
 
     <div style="display:none;">
         <input type="hidden" id="scan-hidden-nid"><input type="hidden" id="scan-hidden-name"><input type="hidden" id="scan-hidden-dob"><input type="hidden" id="scan-hidden-father"><input type="hidden" id="scan-hidden-mother"><input type="hidden" id="scan-hidden-ward"><input type="hidden" id="scan-hidden-address"><input type="hidden" id="scan-hidden-fileData">
@@ -984,42 +1021,35 @@
             scanAutoFillInProgress = false,
             birthAutoFill = false;
         let resetTargetUser = null;
-        let currentViewFileData = null;
-        let currentViewFileName = '';
+        let currentViewFileData = null,
+            currentViewFileName = '';
         let pendingProfilePicData = null;
+        let ppOriginalImage = null,
+            ppProcessedDataUrl = null;
 
         function seedDefaultUsers() {
             return [
-                { id: 1, username: 'admin', password: 'admin', role: 'admin', securityQuestion: 'আপনার জন্মস্থান কোথায়?',
-                    securityAnswer: 'ঢাকা' },
-                { id: 2, username: 'user', password: '1234', role: 'user', securityQuestion: 'আপনার প্রিয় খাবার কি?',
-                    securityAnswer: 'বিরিয়ানি' }
+                { id: 1, username: 'admin', password: 'admin', role: 'admin', securityQuestion: 'আপনার জন্মস্থান কোথায়?', securityAnswer: 'ঢাকা' },
+                { id: 2, username: 'user', password: '1234', role: 'user', securityQuestion: 'আপনার প্রিয় খাবার কি?', securityAnswer: 'বিরিয়ানি' }
             ];
         }
 
         async function initDB() {
             try {
                 let m = await localforage.getItem('sys_archive_master_v44');
-                if (m) {
-                    masterDB.nid_pdf = m.nid_pdf || [];
+                if (m) { masterDB.nid_pdf = m.nid_pdf || [];
                     masterDB.passport_photo = m.passport_photo || [];
                     masterDB.nid_scan = m.nid_scan || [];
                     masterDB.birth_reg = m.birth_reg || [];
                     masterDB.nid_entry = m.nid_entry || [];
-                    masterDB.contracts = m.contracts || [];
-                }
+                    masterDB.contracts = m.contracts || []; }
                 let u = await localforage.getItem('sys_users_v2');
-                if (u && u.length > 0) {
-                    userDB = u;
-                } else {
-                    userDB = seedDefaultUsers();
-                    await localforage.setItem('sys_users_v2', userDB);
-                }
-            } catch (e) {
-                userDB = seedDefaultUsers();
-            }
+                if (u && u.length > 0) { userDB = u; } else { userDB = seedDefaultUsers();
+                    await localforage.setItem('sys_users_v2', userDB); }
+            } catch (e) { userDB = seedDefaultUsers(); }
             renderAll();
             renderUserTable();
+            loadDisplayName();
         }
 
         window.onload = async function() {
@@ -1035,19 +1065,34 @@
             document.addEventListener('click', function(e) {
                 const wrapper = document.getElementById('profileDropdownWrapper');
                 const menu = document.getElementById('profileDropdownMenu');
-                if (wrapper && menu && !wrapper.contains(e.target)) {
-                    menu.classList.remove('show');
-                }
+                if (wrapper && menu && !wrapper.contains(e.target)) menu.classList.remove('show');
             });
         };
 
+        async function loadDisplayName() {
+            const currentUser = sessionStorage.getItem('currentUser') || 'admin';
+            const key = 'display_name_' + currentUser;
+            const saved = await localforage.getItem(key);
+            if (saved) {
+                if (document.getElementById('display-fullname')) document.getElementById('display-fullname').value = saved.fullName || '';
+                if (document.getElementById('display-designation')) document.getElementById('display-designation').value = saved.designation || '';
+            }
+        }
+
         async function updateProfileUI() {
-            const currentUser = sessionStorage.getItem('currentUser') || 'এডমিন';
-            const currentRole = sessionStorage.getItem('currentUserRole') || 'admin';
-            const roleText = currentRole === 'admin' ? 'এডমিন' : 'ব্যবহারকারী';
-            document.getElementById('profileNameHeader').innerHTML = `${currentUser} <span class="profile-role-badge">(${roleText})</span>`;
-            document.getElementById('dropdownName').textContent = currentUser;
-            document.getElementById('dropdownRole').textContent = roleText;
+            const currentUser = sessionStorage.getItem('currentUser') || 'admin';
+            const key = 'display_name_' + currentUser;
+            const saved = await localforage.getItem(key);
+            let nameText = currentUser,
+                desigText = '';
+            if (saved && saved.fullName) { nameText = saved.fullName;
+                desigText = saved.designation || ''; }
+            // হেডারে নাম ও পদবী কলাম আকারে
+            const headerName = document.getElementById('profileNameHeader');
+            headerName.innerHTML = `<span class="name-line">${nameText}</span>` + (desigText ? `<span class="designation-line">${desigText}</span>` : '');
+            document.getElementById('dropdownName').textContent = nameText;
+            document.getElementById('dropdownRole').textContent = desigText || (sessionStorage.getItem('currentUserRole') === 'admin' ? 'এডমিন' : 'ব্যবহারকারী');
+            // ছবি
             const picKey = 'profile_pic_' + currentUser;
             const savedPic = await localforage.getItem(picKey);
             const picHeader = document.getElementById('profilePicHeader');
@@ -1059,46 +1104,46 @@
                 dropdownPic.innerHTML = imgHTML;
                 if (previewPic) previewPic.innerHTML = imgHTML;
             } else {
-                const initial = currentUser.charAt(0).toUpperCase();
+                const initial = nameText.charAt(0).toUpperCase();
                 picHeader.textContent = initial;
                 dropdownPic.textContent = initial;
                 if (previewPic) previewPic.textContent = initial;
             }
         }
 
-        function toggleProfileDropdown() {
-            const menu = document.getElementById('profileDropdownMenu');
-            menu.classList.toggle('show');
+        async function handleDisplayNameSubmit(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('display-fullname').value.trim();
+            const designation = document.getElementById('display-designation').value.trim();
+            const currentUser = sessionStorage.getItem('currentUser') || 'admin';
+            await localforage.setItem('display_name_' + currentUser, { fullName, designation });
+            document.getElementById('display-name-msg').style.color = '#27ae60';
+            document.getElementById('display-name-msg').textContent = '✅ নাম ও পদবী সংরক্ষিত হয়েছে!';
+            updateProfileUI();
+            setTimeout(() => { document.getElementById('display-name-msg').textContent = ''; }, 3000);
         }
+
+        function toggleProfileDropdown() { document.getElementById('profileDropdownMenu').classList.toggle('show'); }
 
         function handleProfilePicSelect(input) {
             if (!input.files[0]) return;
             const reader = new FileReader();
             reader.onload = function(e) {
                 pendingProfilePicData = e.target.result;
-                const previewPic = document.getElementById('profilePicPreview');
-                if (previewPic) previewPic.innerHTML = `<img src="${pendingProfilePicData}" alt="preview">`;
+                document.getElementById('profilePicPreview').innerHTML = `<img src="${e.target.result}" alt="preview">`;
                 document.getElementById('profile-pic-msg').style.color = '#27ae60';
                 document.getElementById('profile-pic-msg').textContent = '✅ ছবি নির্বাচিত হয়েছে, সংরক্ষণ করুন।';
             };
             reader.readAsDataURL(input.files[0]);
         }
-
         async function saveProfilePicture() {
-            if (!pendingProfilePicData) {
-                document.getElementById('profile-pic-msg').style.color = '#e74c3c';
-                document.getElementById('profile-pic-msg').textContent = '⚠️ আগে একটি ছবি নির্বাচন করুন!';
-                return;
-            }
+            if (!pendingProfilePicData) { document.getElementById('profile-pic-msg').textContent = '⚠️ আগে একটি ছবি নির্বাচন করুন!'; return; }
             const currentUser = sessionStorage.getItem('currentUser') || 'এডমিন';
-            const picKey = 'profile_pic_' + currentUser;
-            await localforage.setItem(picKey, pendingProfilePicData);
-            document.getElementById('profile-pic-msg').style.color = '#27ae60';
+            await localforage.setItem('profile_pic_' + currentUser, pendingProfilePicData);
             document.getElementById('profile-pic-msg').textContent = '✅ প্রোফাইল ছবি সংরক্ষিত হয়েছে!';
             updateProfileUI();
             document.getElementById('profile-pic-file-input').value = '';
             pendingProfilePicData = null;
-            setTimeout(() => { document.getElementById('profile-pic-msg').textContent = ''; }, 3000);
         }
 
         async function login() {
@@ -1129,49 +1174,24 @@
             alert("ভুল ইউজারনেম বা পাসওয়ার্ড!");
         }
 
-        function logout() {
-            sessionStorage.removeItem('isLoggedIn');
-            sessionStorage.removeItem('currentUser');
-            sessionStorage.removeItem('currentUserRole');
-            location.reload();
-        }
+        function logout() { sessionStorage.clear();
+            location.reload(); }
 
-        function openResetPasswordModal() {
-            document.getElementById('reset-password-modal').style.display = 'flex';
-            document.getElementById('reset-step-1').style.display = 'block';
-            document.getElementById('reset-step-2').style.display = 'none';
-            document.getElementById('reset-step-3').style.display = 'none';
-            document.getElementById('reset-username').value = '';
-            document.getElementById('reset-security-answer').value = '';
-            document.getElementById('reset-new-password').value = '';
-            document.getElementById('reset-confirm-password').value = '';
-            document.getElementById('reset-step1-msg').textContent = '';
-            document.getElementById('reset-step2-msg').textContent = '';
-            document.getElementById('reset-step3-msg').textContent = '';
-            document.getElementById('step-dot-1').className = 'step-dot active';
-            document.getElementById('step-dot-2').className = 'step-dot';
-            document.getElementById('step-dot-3').className = 'step-dot';
-            resetTargetUser = null;
-        }
+        function openResetPasswordModal() { document.getElementById('reset-password-modal').style.display = 'flex'; }
 
-        function closeResetPasswordModal() {
-            document.getElementById('reset-password-modal').style.display = 'none';
-            resetTargetUser = null;
-        }
+        function closeResetPasswordModal() { document.getElementById('reset-password-modal').style.display = 'none';
+            resetTargetUser = null; }
 
         function resetStep1() {
             const username = document.getElementById('reset-username').value.trim();
             if (!username) { document.getElementById('reset-step1-msg').textContent = '⚠️ ইউজারনেম লিখুন!'; return; }
             const foundUser = userDB.find(u => u.username === username);
             if (!foundUser) {
-                if (username === 'admin') resetTargetUser = { username: 'admin', password: 'admin', role: 'admin',
-                    securityQuestion: 'আপনার জন্মস্থান কোথায়?', securityAnswer: 'ঢাকা' };
-                else if (username === 'user') resetTargetUser = { username: 'user', password: '1234', role: 'user',
-                    securityQuestion: 'আপনার প্রিয় খাবার কি?', securityAnswer: 'বিরিয়ানি' };
+                if (username === 'admin') resetTargetUser = { username: 'admin', password: 'admin', role: 'admin', securityQuestion: 'আপনার জন্মস্থান কোথায়?', securityAnswer: 'ঢাকা' };
+                else if (username === 'user') resetTargetUser = { username: 'user', password: '1234', role: 'user', securityQuestion: 'আপনার প্রিয় খাবার কি?', securityAnswer: 'বিরিয়ানি' };
                 else { document.getElementById('reset-step1-msg').textContent = '❌ ইউজারনেম পাওয়া যায়নি!'; return; }
             } else { resetTargetUser = foundUser; }
-            document.getElementById('reset-security-question').textContent = resetTargetUser.securityQuestion ||
-                'কোনো প্রশ্ন সেট করা নেই';
+            document.getElementById('reset-security-question').textContent = resetTargetUser.securityQuestion || 'কোনো প্রশ্ন সেট করা নেই';
             document.getElementById('reset-step-1').style.display = 'none';
             document.getElementById('reset-step-2').style.display = 'block';
             document.getElementById('reset-step-3').style.display = 'none';
@@ -1195,62 +1215,44 @@
         function resetStep2() {
             const answer = document.getElementById('reset-security-answer').value.trim();
             if (!answer) { document.getElementById('reset-step2-msg').textContent = '⚠️ উত্তর লিখুন!'; return; }
-            if (!resetTargetUser || resetTargetUser.securityAnswer !== answer) { document.getElementById(
-                'reset-step2-msg').textContent = '❌ উত্তর সঠিক নয়!'; return; }
+            if (!resetTargetUser || resetTargetUser.securityAnswer !== answer) { document.getElementById('reset-step2-msg').textContent = '❌ উত্তর সঠিক নয়!'; return; }
             document.getElementById('reset-step-2').style.display = 'none';
             document.getElementById('reset-step-3').style.display = 'block';
             document.getElementById('reset-step3-msg').textContent = '';
             document.getElementById('step-dot-2').className = 'step-dot done';
             document.getElementById('step-dot-3').className = 'step-dot active';
         }
-
         async function resetStep3() {
             const newPass = document.getElementById('reset-new-password').value.trim();
             const confirmPass = document.getElementById('reset-confirm-password').value.trim();
-            if (!newPass || newPass.length < 3) { document.getElementById('reset-step3-msg').textContent =
-                    '⚠️ পাসওয়ার্ড কমপক্ষে ৩ অক্ষরের হতে হবে!'; return; }
-            if (newPass !== confirmPass) { document.getElementById('reset-step3-msg').textContent =
-                    '⚠️ পাসওয়ার্ড মিলছে না!'; return; }
+            if (!newPass || newPass.length < 3) { document.getElementById('reset-step3-msg').textContent = '⚠️ পাসওয়ার্ড কমপক্ষে ৩ অক্ষরের হতে হবে!'; return; }
+            if (newPass !== confirmPass) { document.getElementById('reset-step3-msg').textContent = '⚠️ পাসওয়ার্ড মিলছে না!'; return; }
             if (resetTargetUser) {
                 const idx = userDB.findIndex(u => u.username === resetTargetUser.username);
                 if (idx !== -1) { userDB[idx].password = newPass; } else { resetTargetUser.password = newPass;
                     userDB.push(resetTargetUser); }
                 await localforage.setItem('sys_users_v2', userDB);
-                alert('✅ পাসওয়ার্ড সফলভাবে রিসেট হয়েছে! নতুন পাসওয়ার্ড দিয়ে লগইন করুন।');
+                alert('✅ পাসওয়ার্ড রিসেট হয়েছে!');
                 closeResetPasswordModal();
-                document.getElementById('password').value = '';
-                document.getElementById('password').focus();
             }
         }
 
-        function openAdminResetModal(username) {
-            document.getElementById('admin-reset-target-username').textContent = username;
-            document.getElementById('admin-reset-new-password').value = '';
-            document.getElementById('admin-reset-confirm-password').value = '';
-            document.getElementById('admin-reset-msg').textContent = '';
+        function openAdminResetModal(username) { document.getElementById('admin-reset-target-username').textContent = username;
             document.getElementById('admin-reset-password-modal').style.display = 'flex';
-            resetTargetUser = userDB.find(u => u.username === username);
-        }
+            resetTargetUser = userDB.find(u => u.username === username); }
 
-        function closeAdminResetModal() { document.getElementById('admin-reset-password-modal').style.display = 'none';
-            resetTargetUser = null; }
+        function closeAdminResetModal() { document.getElementById('admin-reset-password-modal').style.display = 'none'; }
         async function adminResetUserPassword() {
             const newPass = document.getElementById('admin-reset-new-password').value.trim();
             const confirmPass = document.getElementById('admin-reset-confirm-password').value.trim();
-            if (!newPass || newPass.length < 3) { document.getElementById('admin-reset-msg').textContent =
-                    '⚠️ পাসওয়ার্ড কমপক্ষে ৩ অক্ষরের হতে হবে!'; return; }
-            if (newPass !== confirmPass) { document.getElementById('admin-reset-msg').textContent =
-                    '⚠️ পাসওয়ার্ড মিলছে না!'; return; }
-            if (resetTargetUser) {
-                const idx = userDB.findIndex(u => u.username === resetTargetUser.username);
-                if (idx !== -1) { userDB[idx].password = newPass;
+            if (!newPass || newPass.length < 3) { document.getElementById('admin-reset-msg').textContent = '⚠️ পাসওয়ার্ড কমপক্ষে ৩ অক্ষরের হতে হবে!'; return; }
+            if (newPass !== confirmPass) { document.getElementById('admin-reset-msg').textContent = '⚠️ পাসওয়ার্ড মিলছে না!'; return; }
+            if (resetTargetUser) { const idx = userDB.findIndex(u => u.username === resetTargetUser.username); if (idx !== -1) { userDB[idx].password = newPass;
                     await localforage.setItem('sys_users_v2', userDB);
                     alert('✅ পাসওয়ার্ড রিসেট সফল!');
                     closeAdminResetModal();
-                    renderUserTable(); }
-            }
+                    renderUserTable(); } }
         }
-
         async function handleCreateProfile(e) {
             e.preventDefault();
             const username = document.getElementById('profile-username').value.trim();
@@ -1277,7 +1279,6 @@
             renderUserTable();
             setTimeout(() => { msgEl.textContent = ''; }, 3000);
         }
-
         async function handleChangePassword(e) {
             e.preventDefault();
             const oldPass = document.getElementById('change-old-password').value.trim();
@@ -1302,11 +1303,8 @@
                 document.getElementById('form-change-password').reset();
                 setTimeout(() => { msgEl.textContent = ''; }, 3000);
             } else {
-                if ((currentUsername === 'admin' && oldPass === 'admin') || (currentUsername === 'user' && oldPass ===
-                        '1234')) {
-                    const newUser = { id: Date.now(), username: currentUsername, password: newPass, role: currentUsername ===
-                            'admin' ? 'admin' : 'user', securityQuestion: 'আপনার জন্মস্থান কোথায়?',
-                        securityAnswer: 'ঢাকা' };
+                if ((currentUsername === 'admin' && oldPass === 'admin') || (currentUsername === 'user' && oldPass === '1234')) {
+                    const newUser = { id: Date.now(), username: currentUsername, password: newPass, role: currentUsername === 'admin' ? 'admin' : 'user', securityQuestion: 'আপনার জন্মস্থান কোথায়?', securityAnswer: 'ঢাকা' };
                     userDB.push(newUser);
                     await localforage.setItem('sys_users_v2', userDB);
                     msgEl.style.color = '#27ae60';
@@ -1329,23 +1327,16 @@
               <td><strong>${u.username}</strong> ${u.username === currentUser ? '<span class="info-badge">আপনি</span>' : ''}</td>
               <td><span class="info-badge ${u.role==='admin'?'admin':''}">${u.role==='admin'?'এডমিন':'ব্যবহারকারী'}</span></td>
               <td>${u.securityQuestion||'-'}</td>
-              <td>
-                <div class="action-flex">
+              <td><div class="action-flex">
                   ${currentRole==='admin' || currentUser===u.username ? `<button class="act-reset" onclick="openAdminResetModal('${u.username}')" title="পাসওয়ার্ড রিসেট">🔑</button>` : ''}
                   ${currentRole==='admin' && u.username!==currentUser ? `<button class="act-delete" onclick="deleteUser('${u.username}')" title="মুছে ফেলুন">🗑️</button>` : ''}
-                </div>
-              </td>
-            </tr>
-          `).join('') : '<tr><td colspan="4">কোনো প্রোফাইল নেই</td></tr>';
+              </div></td></tr>`).join('') : '<tr><td colspan="4">কোনো প্রোফাইল নেই</td></tr>';
         }
-
-        async function deleteUser(username) {
-            if (!confirm(`"${username}" ইউজারটিকে মুছে ফেলতে চান?`)) return;
+        async function deleteUser(username) { if (!confirm(`"${username}" ইউজারটিকে মুছে ফেলতে চান?`)) return;
             userDB = userDB.filter(u => u.username !== username);
             await localforage.setItem('sys_users_v2', userDB);
             renderUserTable();
-            alert('✅ ইউজার মুছে ফেলা হয়েছে!');
-        }
+            alert('✅ ইউজার মুছে ফেলা হয়েছে!'); }
 
         function switchSidebarBox(id, el) {
             document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
@@ -1365,247 +1356,207 @@
             renderContractTable(masterDB.contracts); }
         async function saveToDatabase() { await localforage.setItem('sys_archive_master_v44', masterDB); }
 
-        function handleNidEntrySubmit(e) { e.preventDefault();
-            const voterNo = document.getElementById('nid-entry-voter').value.trim(); if (masterDB.nid_entry.some(r => r
-                    .voterNo === voterNo)) return alert("⚠️ এই ভোটার নম্বরটি ইতিমধ্যে এন্ট্রি করা আছে!"); const record = { id: Date
-                    .now(), voterNo, name: document.getElementById('nid-entry-name').value.trim(), dob: document
-                    .getElementById('nid-entry-dob').value, father: document.getElementById('nid-entry-father').value.trim(),
-                mother: document.getElementById('nid-entry-mother').value.trim(), ward: document.getElementById(
-                    'nid-entry-ward').value, village: document.getElementById('nid-entry-village').value };
-            masterDB.nid_entry.push(record);
-            saveToDatabase().then(() => { renderNidEntryTable(masterDB.nid_entry);
-                document.getElementById('form-nid-entry').reset();
-                alert("✅ NID তথ্য সংরক্ষিত হয়েছে!"); }); }
+        // ============ ফটো স্টুডিও ============
+        function handlePassportFileInput(input) {
+            if (!input.files[0]) { ppOriginalImage = null;
+                ppProcessedDataUrl = null;
+                document.getElementById('pp-studio-preview').style.display = 'none'; return; }
+            const reader = new FileReader();
+            reader.onload = function(e) { const img = new Image();
+                img.onload = function() { ppOriginalImage = img;
+                    updatePhotoPreview(); };
+                img.src = e.target.result; };
+            reader.readAsDataURL(input.files[0]);
+        }
 
-        function renderNidEntryTable(data) { const list = document.getElementById('list-nid-entry'); if (!list) return;
-            list.innerHTML = data.length ? data.map(item =>
-                `<tr><td>${item.voterNo||''}</td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td>${item.village||''}</td><td><div class="action-flex"><button class="act-edit" onclick="openNidEntryEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteNidEntryRecord(${item.id})">🗑️</button></div></td></tr>`
-                ).join('') : '<tr><td colspan="8">কোনো তথ্য নেই</td></tr>'; }
+        function handlePhotoSizeChange() { document.getElementById('custom-size-group').style.display = document.getElementById('pp-size').value === 'custom' ? 'flex' : 'none';
+            updatePhotoPreview(); }
 
-        function filterNidEntryTable() { const field = document.getElementById('search-nid-entry-field').value,
-                query = document.getElementById('search-nid-entry-query').value.toLowerCase();
-            renderNidEntryTable(masterDB.nid_entry.filter(item => { if (!query) return true; if (field === 'all') return Object
-                    .values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '')
-                    .toLowerCase().includes(query); })); }
+        function getTargetDimensionsMM() {
+            const sizeSelect = document.getElementById('pp-size');
+            if (sizeSelect.value === 'custom') { const w = parseInt(document.getElementById('pp-custom-width').value) || 35;
+                const h = parseInt(document.getElementById('pp-custom-height').value) || 45; return { widthMM: Math.min(200, Math.max(10, w)), heightMM: Math.min(200, Math.max(10, h)) }; }
+            const parts = sizeSelect.value.split('x'); return { widthMM: parseInt(parts[0]), heightMM: parseInt(parts[1]) };
+        }
 
-        async function deleteNidEntryRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.nid_entry = masterDB.nid_entry
-                .filter(r => r.id !== id); await saveToDatabase();
-            renderNidEntryTable(masterDB.nid_entry); } }
+        function mmToPixels(mm) { return Math.round(mm * 300 / 25.4); }
 
-        function openNidEntryEditModal(rid) { const rec = masterDB.nid_entry.find(r => r.id == rid); if (!rec) return;
-            document.getElementById('nid-entry-edit-voter').value = rec.voterNo || '';
-            document.getElementById('nid-entry-edit-name').value = rec.name || '';
-            document.getElementById('nid-entry-edit-dob').value = rec.dob || '';
-            document.getElementById('nid-entry-edit-father').value = rec.father || '';
-            document.getElementById('nid-entry-edit-mother').value = rec.mother || '';
-            document.getElementById('nid-entry-edit-ward').value = rec.ward || '';
-            document.getElementById('nid-entry-edit-village').value = rec.village || '';
-            document.getElementById('nid-entry-edit-modal').dataset.recordId = rid;
-            document.getElementById('nid-entry-edit-modal').style.display = 'flex'; }
+        function updatePhotoPreview() {
+            const canvas = document.getElementById('pp-preview-canvas');
+            const previewArea = document.getElementById('pp-studio-preview');
+            const downloadBtn = document.getElementById('btn-download-photo');
+            const msgEl = document.getElementById('pp-preview-msg');
+            if (!ppOriginalImage) { previewArea.style.display = 'none';
+                ppProcessedDataUrl = null; return; }
+            previewArea.style.display = 'block';
+            const dim = getTargetDimensionsMM();
+            const targetW = mmToPixels(dim.widthMM),
+                targetH = mmToPixels(dim.heightMM);
+            canvas.width = targetW;
+            canvas.height = targetH;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = document.getElementById('pp-bg-color').value || '#ffffff';
+            ctx.fillRect(0, 0, targetW, targetH);
+            const img = ppOriginalImage;
+            const scale = Math.max(targetW / img.width, targetH / img.height);
+            const newW = img.width * scale,
+                newH = img.height * scale;
+            ctx.drawImage(img, (targetW - newW) / 2, (targetH - newH) / 2, newW, newH);
+            ppProcessedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+            downloadBtn.style.display = 'inline-flex';
+            msgEl.textContent = `📐 সাইজ: ${dim.widthMM}x${dim.heightMM} mm (${targetW}x${targetH} px)`;
+        }
 
-        function closeNidEntryEditModal() { document.getElementById('nid-entry-edit-modal').style.display = 'none'; }
-        async function saveNidEntryEditFromModal() { const rid = parseInt(document.getElementById('nid-entry-edit-modal')
-                .dataset.recordId), idx = masterDB.nid_entry.findIndex(r => r.id === rid); if (idx !== -1) { masterDB
-                    .nid_entry[idx].voterNo = document.getElementById('nid-entry-edit-voter').value;
-                masterDB.nid_entry[idx].name = document.getElementById('nid-entry-edit-name').value;
-                masterDB.nid_entry[idx].dob = document.getElementById('nid-entry-edit-dob').value;
-                masterDB.nid_entry[idx].father = document.getElementById('nid-entry-edit-father').value;
-                masterDB.nid_entry[idx].mother = document.getElementById('nid-entry-edit-mother').value;
-                masterDB.nid_entry[idx].ward = document.getElementById('nid-entry-edit-ward').value;
-                masterDB.nid_entry[idx].village = document.getElementById('nid-entry-edit-village').value; await
-                saveToDatabase();
-            renderNidEntryTable(masterDB.nid_entry);
-            closeNidEntryEditModal();
-            alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
+        function autoFixPhoto() {
+            if (!ppOriginalImage) return alert("প্রথমে একটি ছবি নির্বাচন করুন!");
+            const bgColorHex = document.getElementById('pp-bg-color').value;
+            const r_bg = parseInt(bgColorHex.slice(1, 3), 16),
+                g_bg = parseInt(bgColorHex.slice(3, 5), 16),
+                b_bg = parseInt(bgColorHex.slice(5, 7), 16);
+            const dim = getTargetDimensionsMM();
+            const targetW = mmToPixels(dim.widthMM),
+                targetH = mmToPixels(dim.heightMM);
+            const canvas = document.createElement('canvas');
+            canvas.width = targetW;
+            canvas.height = targetH;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = bgColorHex;
+            ctx.fillRect(0, 0, targetW, targetH);
+            const img = ppOriginalImage;
+            const scale = Math.max(targetW / img.width, targetH / img.height);
+            ctx.drawImage(img, (targetW - img.width * scale) / 2, (targetH - img.height * scale) / 2, img.width * scale, img.height * scale);
+            const imageData = ctx.getImageData(0, 0, targetW, targetH);
+            const data = imageData.data;
+            const cornerPixels = [];
+            const margin = Math.max(5, Math.floor(Math.min(targetW, targetH) * 0.05));
+            for (let y = 0; y < margin; y++) { for (let x = 0; x < margin; x++) cornerPixels.push([data[(y * targetW + x) * 4], data[(y * targetW + x) * 4 + 1], data[(y * targetW + x) * 4 + 2]]); for (let x = targetW - margin; x < targetW; x++) cornerPixels.push([data[(y * targetW + x) * 4], data[(y * targetW + x) * 4 + 1], data[(y * targetW + x) * 4 + 2]]); }
+            for (let y = targetH - margin; y < targetH; y++) { for (let x = 0; x < margin; x++) cornerPixels.push([data[(y * targetW + x) * 4], data[(y * targetW + x) * 4 + 1], data[(y * targetW + x) * 4 + 2]]); for (let x = targetW - margin; x < targetW; x++) cornerPixels.push([data[(y * targetW + x) * 4], data[(y * targetW + x) * 4 + 1], data[(y * targetW + x) * 4 + 2]]); }
+            let sumR = 0,
+                sumG = 0,
+                sumB = 0;
+            cornerPixels.forEach(p => { sumR += p[0];
+                sumG += p[1];
+                sumB += p[2]; });
+            const avgR = Math.round(sumR / cornerPixels.length),
+                avgG = Math.round(sumG / cornerPixels.length),
+                avgB = Math.round(sumB / cornerPixels.length);
+            const tolerance = 50;
+            const safeMargin = 0.2;
+            const safeX1 = Math.floor(targetW * safeMargin),
+                safeX2 = Math.floor(targetW * (1 - safeMargin));
+            const safeY1 = Math.floor(targetH * safeMargin),
+                safeY2 = Math.floor(targetH * (1 - safeMargin));
+            for (let i = 0; i < data.length; i += 4) {
+                const x = (i / 4) % targetW,
+                    y = Math.floor((i / 4) / targetW);
+                if (x >= safeX1 && x <= safeX2 && y >= safeY1 && y <= safeY2) continue;
+                const dist = Math.sqrt((data[i] - avgR) ** 2 + (data[i + 1] - avgG) ** 2 + (data[i + 2] - avgB) ** 2);
+                if (dist < tolerance) { data[i] = r_bg;
+                    data[i + 1] = g_bg;
+                    data[i + 2] = b_bg; }
+            }
+            ctx.putImageData(imageData, 0, 0);
+            ppProcessedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+            const previewCanvas = document.getElementById('pp-preview-canvas');
+            previewCanvas.width = targetW;
+            previewCanvas.height = targetH;
+            previewCanvas.getContext('2d').drawImage(canvas, 0, 0);
+            document.getElementById('pp-preview-msg').textContent = '✅ অটো ব্যাকগ্রাউন্ড ঠিক করা হয়েছে (চেহারা অপরিবর্তিত)';
+            document.getElementById('btn-download-photo').style.display = 'inline-flex';
+            document.getElementById('pp-studio-preview').style.display = 'block';
+        }
 
-        function handleBirthEntrySubmit(e) { e.preventDefault(); const regNo = document.getElementById('birth-reg-no').value
-                .trim(); if (masterDB.birth_reg.some(r => r.regNo === regNo)) return alert(
-                "⚠️ এই নিবন্ধন নম্বরটি ইতিমধ্যে এন্ট্রি করা আছে!"); const record = { id: Date.now(), regNo, ward: document
-                    .getElementById('birth-ward').value, name: document.getElementById('birth-name').value.trim(), dob: document
-                    .getElementById('birth-dob').value, mother: document.getElementById('birth-mother').value.trim(),
-                father: document.getElementById('birth-father').value.trim(), address: document.getElementById(
-                    'birth-address').value };
-            masterDB.birth_reg.push(record);
-            saveToDatabase().then(() => { renderBirthTable(masterDB.birth_reg);
-                renderBirthPdfTable(masterDB.birth_reg);
-                document.getElementById('form-birth-entry').reset();
-                alert("✅ জন্ম নিবন্ধন তথ্য সংরক্ষিত হয়েছে!"); }); }
-
-        function renderBirthTable(data) { const list = document.getElementById('list-birth-reg'); if (!list) return;
-            list.innerHTML = data.length ? data.map(item =>
-                `<tr><td>${item.regNo||''}</td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td><div class="inner-scroller">${item.address||''}</div></td><td><div class="action-flex"><button class="act-edit" onclick="openBirthEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteBirthRecord(${item.id})">🗑️</button></div></td></tr>`
-                ).join('') : '<tr><td colspan="8">কোনো তথ্য নেই</td></tr>'; }
-
-        function filterBirthTable() { const field = document.getElementById('search-birth-field').value, query = document
-                .getElementById('search-birth-query').value.toLowerCase();
-            renderBirthTable(masterDB.birth_reg.filter(item => { if (!query) return true; if (field === 'all') return Object
-                    .values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '')
-                    .toLowerCase().includes(query); })); }
-
-        async function deleteBirthRecord(id) { if (confirm("সম্পূর্ণ জন্ম নিবন্ধনের তথ্য ও পিডিএফ মুছে ফেলতে চান?")) { masterDB.birth_reg =
-                    masterDB.birth_reg.filter(r => r.id !== id); await saveToDatabase();
-            renderBirthTable(masterDB.birth_reg);
-            renderBirthPdfTable(masterDB.birth_reg); } }
-
-        function openBirthEditModal(rid) { const rec = masterDB.birth_reg.find(r => r.id == rid); if (!rec) return;
-            document.getElementById('birth-edit-regNo').value = rec.regNo || '';
-            document.getElementById('birth-edit-ward').value = rec.ward || '';
-            document.getElementById('birth-edit-name').value = rec.name || '';
-            document.getElementById('birth-edit-dob').value = rec.dob || '';
-            document.getElementById('birth-edit-mother').value = rec.mother || '';
-            document.getElementById('birth-edit-father').value = rec.father || '';
-            document.getElementById('birth-edit-address').value = rec.address || '';
-            document.getElementById('birth-edit-modal').dataset.recordId = rid;
-            document.getElementById('birth-edit-modal').style.display = 'flex'; }
-
-        function closeBirthEditModal() { document.getElementById('birth-edit-modal').style.display = 'none'; }
-        async function saveBirthEditFromModal() { const rid = parseInt(document.getElementById('birth-edit-modal').dataset
-                .recordId), idx = masterDB.birth_reg.findIndex(r => r.id === rid); if (idx !== -1) { ['regNo', 'ward',
-                    'name', 'dob', 'mother', 'father', 'address'
-                ].forEach(k => { masterDB.birth_reg[idx][k] = document.getElementById('birth-edit-' + k).value; }); await
-                saveToDatabase();
-            renderBirthTable(masterDB.birth_reg);
-            renderBirthPdfTable(masterDB.birth_reg);
-            closeBirthEditModal();
-            alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
-
-        function handlePassportSubmit(e) { e.preventDefault(); const fileInput = document.getElementById('pp-file'); if (!fileInput
-                .files[0]) return alert("ছবি নির্বাচন করুন!"); const reader = new FileReader();
-            reader.onload = function(ev) { const record = { id: Date.now(), name: document.getElementById('pp-name').value
-                        .trim(), village: document.getElementById('pp-village').value, ward: document.getElementById(
-                            'pp-ward').value, fileData: ev.target.result };
-                masterDB.passport_photo.push(record);
-                saveToDatabase().then(() => { renderPassportTable(masterDB.passport_photo);
-                    document.getElementById('form-passport-photo').reset();
-                    alert("✅ পাসপোর্ট ফোটো আপলোড সফল!"); }); };
-            reader.readAsDataURL(fileInput.files[0]); }
+        function downloadProcessedPhoto() { if (!ppProcessedDataUrl) return alert("প্রথমে ছবি প্রসেস করুন!");
+            const a = document.createElement('a');
+            a.href = ppProcessedDataUrl;
+            a.download = 'passport_photo.jpg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a); }
+        async function handlePassportSubmit(e) {
+            e.preventDefault(); if (!ppProcessedDataUrl) { if (ppOriginalImage) autoFixPhoto(); else return alert("দয়া করে একটি ছবি নির্বাচন করুন!"); }
+            const record = { id: Date.now(), name: document.getElementById('pp-name').value.trim(), village: document.getElementById('pp-village').value, ward: document.getElementById('pp-ward').value, fileData: ppProcessedDataUrl };
+            masterDB.passport_photo.push(record);
+            await saveToDatabase();
+            renderPassportTable(masterDB.passport_photo);
+            document.getElementById('form-passport-photo').reset();
+            ppOriginalImage = null;
+            ppProcessedDataUrl = null;
+            document.getElementById('pp-studio-preview').style.display = 'none';
+            alert("✅ ক্লিন পাসপোর্ট ফোটো আর্কাইভে সংরক্ষিত হয়েছে!");
+        }
 
         function renderPassportTable(data) { const list = document.getElementById('list-passport-photo'); if (!list) return;
-            list.innerHTML = data.length ? data.map(item =>
-                `<tr><td><img src="${item.fileData}" class="photo-thumb" onclick="openFlashFileModal('${item.name}','${item.fileData}')"></td><td>${item.name||''}</td><td>${item.village||''}</td><td>${item.ward||''}</td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-delete" onclick="deletePassportRecord(${item.id})">🗑️</button></div></td></tr>`
-                ).join('') : '<tr><td colspan="5">কোনো ছবি নেই</td></tr>'; }
+            list.innerHTML = data.length ? data.map(item => `<tr><td><img src="${item.fileData}" class="photo-thumb" onclick="openFlashFileModal('${item.name}','${item.fileData}')"></td><td>${item.name||''}</td><td>${item.village||''}</td><td>${item.ward||''}</td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-delete" onclick="deletePassportRecord(${item.id})">🗑️</button></div></td></tr>`).join('') : '<tr><td colspan="5">কোনো ছবি নেই</td></tr>'; }
 
-        function filterPassportTable() { const field = document.getElementById('search-pp-field').value, query = document
-                .getElementById('search-pp-query').value.toLowerCase();
-            renderPassportTable(masterDB.passport_photo.filter(item => { if (!query) return true; if (field === 'all')
-                    return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[
-                        field] || '').toLowerCase().includes(query); })); }
+        function filterPassportTable() { const field = document.getElementById('search-pp-field').value,
+                query = document.getElementById('search-pp-query').value.toLowerCase();
+            renderPassportTable(masterDB.passport_photo.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
+        async function deletePassportRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.passport_photo = masterDB.passport_photo.filter(r => r.id !== id);
+                await saveToDatabase();
+                renderPassportTable(masterDB.passport_photo); } }
 
-        async function deletePassportRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.passport_photo = masterDB
-                .passport_photo.filter(r => r.id !== id); await saveToDatabase();
-            renderPassportTable(masterDB.passport_photo); } }
-
-        async function performImageOCR(dataUrl) { try { const r = await Tesseract.recognize(dataUrl, 'ben+eng', {
-                    tessedit_pageseg_mode: '6' }); return r.data.text; } catch (e) { return null; } }
+        // ============ NID স্ক্যান ও OCR ============
+        async function performImageOCR(dataUrl) { try { const r = await Tesseract.recognize(dataUrl, 'ben+eng', { tessedit_pageseg_mode: '6' }); return r.data.text; } catch (e) { return null; } }
         async function handleScanFileSelect(input) { const btn = document.getElementById('btn-scan-submit'),
                 status = document.getElementById('scan-file-status'); if (!input.files[0]) { btn.disabled = true;
                 status.textContent = ''; return; }
             btn.disabled = true;
             status.textContent = '⏳ প্রসেসিং (OCR)...';
             scanAutoFillInProgress = true; try { const file = input.files[0]; const reader = new FileReader();
-                reader.onload = async function(e) { const ocrText = await performImageOCR(e.target.result); const text =
-                        ocrText ? recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : ''; if (text) { const
-                            possibleNames = extractPossibleNames(text); let name = possibleNames[0] || "",
+                reader.onload = async function(e) { const ocrText = await performImageOCR(e.target.result); const text = ocrText ? recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : ''; if (text) { const possibleNames = extractPossibleNames(text); let name = possibleNames[0] || "",
                             father = possibleNames[1] || "",
                             mother = possibleNames[2] || "";
 
-                        function extractBetween(startPatterns, endPatterns) { for (let pat of startPatterns) { let regex =
-                                new RegExp(pat, 'i'),
-                                match = text.match(regex); if (match) { let startIdx = match.index + match[0].length,
-                                    sub = text.substring(startIdx),
-                                    endIdx = sub.length; for (let end of endPatterns) { let endRegex = new RegExp(end,
-                                            'i'),
-                                        endMatch = sub.match(endRegex); if (endMatch && endMatch.index < endIdx) endIdx =
-                                            endMatch.index; } return sub.substring(0, endIdx).trim(); } } return ''; } if (
-                                !name) name = extractBetween(['নাম\\s*[:.]?\\s*', 'Name\\s*[:.]?\\s*'], ['পিতা', 'Father',
-                                    'মাতা', 'Mother', 'জন্ম', 'ID'
-                                ]); if (!father) father = extractBetween(['পিতা\\s*[:.]?\\s*', 'Father\\s*[:.]?\\s*'],
-                                ['মাতা', 'Mother', 'জন্ম', 'ঠিকানা', 'ID']); let rawMother = extractBetween([
-                                'মাতা\\s*[:.]?\\s*', 'Mother\\s*[:.]?\\s*'
-                            ], ['জন্ম', 'ঠিকানা', 'ID', 'প্রদানকারী']); if (!rawMother) { let fatherLabel = text.match(
-                                    /(?:পিতা|Father)\s*[:.]?\s*/i); if (fatherLabel) { let afterFather = text.substring(
-                                        fatherLabel.index + fatherLabel[0].length); let nextName = afterFather.match(
-                                        /(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+/i); if (nextName) rawMother =
-                                        nextName[0]; } }
-                        mother = rawMother || mother; let ward = ''; const wardMatch = text.match(
-                            /(?:ওয়ার্ড|Ward)\s*[:.]?\s*(\d+|[০-৯]+)/i); if (wardMatch) ward = wardMatch[1].replace(
-                            /[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d).toString()); let addressStr = ''; const addrIdx = text
-                            .search(/ঠিকানা|Address/i); if (addrIdx !== -1) { let afterLabel = text.substring(addrIdx)
-                                .replace(/^(ঠিকানা|Address)\s*[:.]?\s*/i, ''); const stopRegex =
-                                /(নাম|Name|পিতা|Father|মাতা|Mother|জন্ম|Date of Birth|রক্তের গ্রুপ|Blood Group|ID No|NID No|প্রদানকারী|প্রদানের তারিখ)\s*[:.]/i; const stopMatch =
-                                afterLabel.match(stopRegex);
-                            addressStr = stopMatch ? afterLabel.substring(0, stopMatch.index).trim() : afterLabel.trim(); }
-                        const nidNo = (text.match(/ID\s*NO\s*[:ঃ]?\s*(\d+)/i) || [])[1] || '';
-                        document.getElementById('scan-hidden-nid').value = nidNo;
-                        document.getElementById('scan-hidden-name').value = cleanName(name) || '';
-                        document.getElementById('scan-hidden-dob').value = dobExtract(text);
-                        document.getElementById('scan-hidden-father').value = cleanName(father) || '';
-                        document.getElementById('scan-hidden-mother').value = cleanName(mother) || '';
-                        document.getElementById('scan-hidden-ward').value = ward;
-                        document.getElementById('scan-hidden-address').value = cleanAddress(addressStr) || '';
-                        document.getElementById('scan-hidden-fileData').value = e.target.result;
-                        status.textContent = '✅ OCR সম্পন্ন।'; } else { status.textContent =
-                        '⚠️ OCR ব্যর্থ, কিন্তু আপলোড করা যাবে।';
-                        document.getElementById('scan-hidden-fileData').value = e.target.result; }
-                    btn.disabled = false; };
+                        function extractBetween(sp, ep) { for (let pat of sp) { let regex = new RegExp(pat, 'i'),
+                                    match = text.match(regex); if (match) { let si = match.index + match[0].length,
+                                        sub = text.substring(si),
+                                        ei = sub.length; for (let end of ep) { let er = new RegExp(end, 'i'),
+                                            em = sub.match(er); if (em && em.index < ei) ei = em.index; } return sub.substring(0, ei).trim(); } } return ''; } if (!name) name = extractBetween(['নাম\\s*[:.]?\\s*', 'Name\\s*[:.]?\\s*'], ['পিতা', 'Father', 'মাতা', 'Mother', 'জন্ম', 'ID']); if (!father) father = extractBetween(['পিতা\\s*[:.]?\\s*', 'Father\\s*[:.]?\\s*'], ['মাতা', 'Mother', 'জন্ম', 'ঠিকানা', 'ID']);
+                    let rawMother = extractBetween(['মাতা\\s*[:.]?\\s*', 'Mother\\s*[:.]?\\s*'], ['জন্ম', 'ঠিকানা', 'ID', 'প্রদানকারী']); if (!rawMother) { let fl = text.match(/(?:পিতা|Father)\s*[:.]?\s*/i); if (fl) { let af = text.substring(fl.index + fl[0].length); let nn = af.match(/(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+/i); if (nn) rawMother = nn[0]; } }
+                    mother = rawMother || mother;
+                    let ward = ''; const wm = text.match(/(?:ওয়ার্ড|Ward)\s*[:.]?\s*(\d+|[০-৯]+)/i); if (wm) ward = wm[1].replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d).toString());
+                    let addressStr = ''; const ai = text.search(/ঠিকানা|Address/i); if (ai !== -1) { let al = text.substring(ai).replace(/^(ঠিকানা|Address)\s*[:.]?\s*/i, ''); const sr = /(নাম|Name|পিতা|Father|মাতা|Mother|জন্ম|Date of Birth|রক্তের গ্রুপ|Blood Group|ID No|NID No|প্রদানকারী|প্রদানের তারিখ)\s*[:.]/i; const sm = al.match(sr);
+                        addressStr = sm ? al.substring(0, sm.index).trim() : al.trim(); }
+                    const nidNo = (text.match(/ID\s*NO\s*[:ঃ]?\s*(\d+)/i) || [])[1] || '';
+                    document.getElementById('scan-hidden-nid').value = nidNo;
+                    document.getElementById('scan-hidden-name').value = cleanName(name) || '';
+                    document.getElementById('scan-hidden-dob').value = dobExtract(text);
+                    document.getElementById('scan-hidden-father').value = cleanName(father) || '';
+                    document.getElementById('scan-hidden-mother').value = cleanName(mother) || '';
+                    document.getElementById('scan-hidden-ward').value = ward;
+                    document.getElementById('scan-hidden-address').value = cleanAddress(addressStr) || '';
+                    document.getElementById('scan-hidden-fileData').value = e.target.result;
+                    status.textContent = '✅ OCR সম্পন্ন।'; } else { status.textContent = '⚠️ OCR ব্যর্থ, কিন্তু আপলোড করা যাবে।';
+                    document.getElementById('scan-hidden-fileData').value = e.target.result; }
+                btn.disabled = false; };
                 reader.readAsDataURL(file); } catch (e) { status.textContent = '⚠️ ব্যর্থ।';
                 btn.disabled = false; } finally { scanAutoFillInProgress = false; } }
 
-        function dobExtract(text) { let dob = "1980-01-01"; let dmSlash = text.match(
-                /(?:Date\s*of\s*Birth|জন্ম\s*তারিখ)\s*[:.]?\s*(\d{2}\/\d{2}\/\d{4})/i); if (dmSlash) { let parts = dmSlash[1]
-                    .split('/');
-                dob = parts[2] + '-' + parts[1] + '-' + parts[0]; return dob; } let dm = text.match(
-                /(?:Date\s*of\s*Birth|জন্ম\s*তারিখ)\s*[:.]?\s*(\d{2}\s*[a-zA-Z]{3}\s*\d{4})/i); if (dm) { const p = dm[1]
-                    .split(/\s+/),
-                    m = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09',
-                        oct: '10', nov: '11', dec: '12' };
-                dob = p[2] + '-' + (m[p[1].toLowerCase().substr(0, 3)] || '01') + '-' + p[0].padStart(2, '0'); return dob; }
-            let alt = text.match(/\b\d{4}-\d{2}-\d{2}\b/); if (alt) dob = alt[0]; return dob; }
+        function dobExtract(text) { let dob = "1980-01-01"; let ds = text.match(/(?:Date\s*of\s*Birth|জন্ম\s*তারিখ)\s*[:.]?\s*(\d{2}\/\d{2}\/\d{4})/i); if (ds) { let parts = ds[1].split('/');
+                dob = parts[2] + '-' + parts[1] + '-' + parts[0]; return dob; } let dm = text.match(/(?:Date\s*of\s*Birth|জন্ম\s*তারিখ)\s*[:.]?\s*(\d{2}\s*[a-zA-Z]{3}\s*\d{4})/i); if (dm) { const p = dm[1].split(/\s+/),
+                    m = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
+                dob = p[2] + '-' + (m[p[1].toLowerCase().substr(0, 3)] || '01') + '-' + p[0].padStart(2, '0'); return dob; } let alt = text.match(/\b\d{4}-\d{2}-\d{2}\b/); if (alt) dob = alt[0]; return dob; }
 
-        function handleScanSubmit(e) { e.preventDefault(); if (scanAutoFillInProgress) return alert("প্রসেসিং চলছে...");
-            const nidNo = document.getElementById('scan-hidden-nid').value || "NID-" + Date.now(); if (nidNo && masterDB
-                .nid_scan.some(r => r.nidNo === nidNo)) return alert(
-                "⚠️ এই এনআইডি নম্বরের স্ক্যান কপি ইতিমধ্যে আপলোড করা আছে!"); const record = { id: Date.now(), nidNo,
-                name: document.getElementById('scan-hidden-name').value || "অজানা", dob: document.getElementById(
-                    'scan-hidden-dob').value || "1980-01-01", father: document.getElementById('scan-hidden-father')
-                    .value || "পাওয়া যায়নি", mother: document.getElementById('scan-hidden-mother').value || "",
-                ward: document.getElementById('scan-hidden-ward').value || "", address: document.getElementById(
-                    'scan-hidden-address').value || "", fileData: document.getElementById('scan-hidden-fileData')
-                    .value || "" };
-            masterDB.nid_scan.push(record); if (!masterDB.nid_entry.some(r => r.voterNo === nidNo)) masterDB.nid_entry.push({
-                id: Date.now() + 1,
-                voterNo: nidNo,
-                name: record.name,
-                dob: record.dob,
-                father: record.father,
-                mother: record.mother || "",
-                ward: record.ward,
-                village: record.address
-            });
+        function handleScanSubmit(e) { e.preventDefault(); if (scanAutoFillInProgress) return alert("প্রসেসিং চলছে..."); const nidNo = document.getElementById('scan-hidden-nid').value || "NID-" + Date.now(); if (nidNo && masterDB.nid_scan.some(r => r.nidNo === nidNo)) return alert("⚠️ এই এনআইডি নম্বরের স্ক্যান কপি ইতিমধ্যে আপলোড করা আছে!"); const record = { id: Date.now(), nidNo, name: document.getElementById('scan-hidden-name').value || "অজানা", dob: document.getElementById('scan-hidden-dob').value || "1980-01-01", father: document.getElementById('scan-hidden-father').value || "পাওয়া যায়নি", mother: document.getElementById('scan-hidden-mother').value || "", ward: document.getElementById('scan-hidden-ward').value || "", address: document.getElementById('scan-hidden-address').value || "", fileData: document.getElementById('scan-hidden-fileData').value || "" };
+            masterDB.nid_scan.push(record); if (!masterDB.nid_entry.some(r => r.voterNo === nidNo)) masterDB.nid_entry.push({ id: Date.now() + 1, voterNo: nidNo, name: record.name, dob: record.dob, father: record.father, mother: record.mother || "", ward: record.ward, village: record.address });
             saveToDatabase().then(() => { renderScanTable(masterDB.nid_scan);
                 renderNidEntryTable(masterDB.nid_entry);
                 document.getElementById('form-nid-scan').reset();
-                ['scan-hidden-nid', 'scan-hidden-name', 'scan-hidden-dob', 'scan-hidden-father', 'scan-hidden-mother',
-                    'scan-hidden-ward', 'scan-hidden-address', 'scan-hidden-fileData'
-                ].forEach(id => document.getElementById(id).value = '');
+                ['scan-hidden-nid', 'scan-hidden-name', 'scan-hidden-dob', 'scan-hidden-father', 'scan-hidden-mother', 'scan-hidden-ward', 'scan-hidden-address', 'scan-hidden-fileData'].forEach(id => document.getElementById(id).value = '');
                 document.getElementById('scan-file-status').textContent = '';
                 document.getElementById('btn-scan-submit').disabled = true;
                 alert("✅ NID স্ক্যান কপি আপলোড সফল!"); }); }
 
         function renderScanTable(data) { const list = document.getElementById('list-nid-scan'); if (!list) return;
-            list.innerHTML = data.length ? data.map(item =>
-                `<tr><td><strong>${item.nidNo||''}</strong></td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td><div class="inner-scroller">${item.address||''}</div></td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-edit" onclick="openScanEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteScanRecord(${item.id})">🗑️</button></div></td></tr>`
-                ).join('') : '<tr><td colspan="8">কোনো স্ক্যান কপি নেই</td></tr>'; }
+            list.innerHTML = data.length ? data.map(item => `<tr><td><strong>${item.nidNo||''}</strong></td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td><div class="inner-scroller">${item.address||''}</div></td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-edit" onclick="openScanEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteScanRecord(${item.id})">🗑️</button></div></td></tr>`).join('') : '<tr><td colspan="8">কোনো স্ক্যান কপি নেই</td></tr>'; }
 
         function filterScanTable() { const field = document.getElementById('search-scan-field')?.value,
                 query = document.getElementById('search-scan-query')?.value.toLowerCase(); if (!field) return;
-            renderScanTable(masterDB.nid_scan.filter(item => { if (!query) return true; if (field === 'all') return Object
-                    .values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '')
-                    .toLowerCase().includes(query); })); }
-
-        async function deleteScanRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.nid_scan = masterDB.nid_scan.filter(
-                    r => r.id !== id); await saveToDatabase();
-            renderScanTable(masterDB.nid_scan); } }
+            renderScanTable(masterDB.nid_scan.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
+        async function deleteScanRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.nid_scan = masterDB.nid_scan.filter(r => r.id !== id);
+                await saveToDatabase();
+                renderScanTable(masterDB.nid_scan); } }
 
         function openScanEditModal(rid) { const rec = masterDB.nid_scan.find(r => r.id == rid); if (!rec) return;
             document.getElementById('scan-edit-nidNo').value = rec.nidNo || '';
@@ -1619,101 +1570,104 @@
             document.getElementById('scan-edit-modal').style.display = 'flex'; }
 
         function closeScanEditModal() { document.getElementById('scan-edit-modal').style.display = 'none'; }
-        async function saveScanEditFromModal() { const rid = parseInt(document.getElementById('scan-edit-modal').dataset
-                .recordId), idx = masterDB.nid_scan.findIndex(r => r.id === rid); if (idx !== -1) { ['nidNo', 'name', 'dob',
-                    'father', 'mother', 'ward', 'address'
-                ].forEach(k => { masterDB.nid_scan[idx][k] = document.getElementById('scan-edit-' + k).value; }); await
-                saveToDatabase();
-            renderScanTable(masterDB.nid_scan);
-            closeScanEditModal();
-            alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
+        async function saveScanEditFromModal() { const rid = parseInt(document.getElementById('scan-edit-modal').dataset.recordId),
+                idx = masterDB.nid_scan.findIndex(r => r.id === rid); if (idx !== -1) { ['nidNo', 'name', 'dob', 'father', 'mother', 'ward', 'address'].forEach(k => { masterDB.nid_scan[idx][k] = document.getElementById('scan-edit-' + k).value; });
+                await saveToDatabase();
+                renderScanTable(masterDB.nid_scan);
+                closeScanEditModal();
+                alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
 
-        async function renderPdfToImageUrl(file) { try { const arrayBuffer = await file.arrayBuffer(); const pdf = await pdfjsLib
-                .getDocument({ data: arrayBuffer }).promise; const page = await pdf.getPage(1); const viewport = page
-                .getViewport({ scale: 3 }); const canvas = document.createElement('canvas');
-            canvas.width = viewport.width;
-            canvas.height = viewport.height; const ctx = canvas.getContext('2d'); await page.render({ canvasContext: ctx,
-                viewport: viewport }).promise; return canvas.toDataURL('image/png'); } catch (e) { return null; } }
+        // ============ জন্ম নিবন্ধন ============
+        function handleBirthEntrySubmit(e) { e.preventDefault(); const regNo = document.getElementById('birth-reg-no').value.trim(); if (masterDB.birth_reg.some(r => r.regNo === regNo)) return alert("⚠️ এই নিবন্ধন নম্বরটি ইতিমধ্যে এন্ট্রি করা আছে!"); const record = { id: Date.now(), regNo, ward: document.getElementById('birth-ward').value, name: document.getElementById('birth-name').value.trim(), dob: document.getElementById('birth-dob').value, mother: document.getElementById('birth-mother').value.trim(), father: document.getElementById('birth-father').value.trim(), address: document.getElementById('birth-address').value };
+            masterDB.birth_reg.push(record);
+            saveToDatabase().then(() => { renderBirthTable(masterDB.birth_reg);
+                renderBirthPdfTable(masterDB.birth_reg);
+                document.getElementById('form-birth-entry').reset();
+                alert("✅ জন্ম নিবন্ধন তথ্য সংরক্ষিত হয়েছে!"); }); }
+
+        function renderBirthTable(data) { const list = document.getElementById('list-birth-reg'); if (!list) return;
+            list.innerHTML = data.length ? data.map(item => `<tr><td>${item.regNo||''}</td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td><div class="inner-scroller">${item.address||''}</div></td><td><div class="action-flex"><button class="act-edit" onclick="openBirthEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteBirthRecord(${item.id})">🗑️</button></div></td></tr>`).join('') : '<tr><td colspan="8">কোনো তথ্য নেই</td></tr>'; }
+
+        function filterBirthTable() { const field = document.getElementById('search-birth-field').value,
+                query = document.getElementById('search-birth-query').value.toLowerCase();
+            renderBirthTable(masterDB.birth_reg.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
+        async function deleteBirthRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.birth_reg = masterDB.birth_reg.filter(r => r.id !== id);
+                await saveToDatabase();
+                renderBirthTable(masterDB.birth_reg);
+                renderBirthPdfTable(masterDB.birth_reg); } }
+
+        function openBirthEditModal(rid) { const rec = masterDB.birth_reg.find(r => r.id == rid); if (!rec) return;
+            document.getElementById('birth-edit-regNo').value = rec.regNo || '';
+            document.getElementById('birth-edit-ward').value = rec.ward || '';
+            document.getElementById('birth-edit-name').value = rec.name || '';
+            document.getElementById('birth-edit-dob').value = rec.dob || '';
+            document.getElementById('birth-edit-mother').value = rec.mother || '';
+            document.getElementById('birth-edit-father').value = rec.father || '';
+            document.getElementById('birth-edit-address').value = rec.address || '';
+            document.getElementById('birth-edit-modal').dataset.recordId = rid;
+            document.getElementById('birth-edit-modal').style.display = 'flex'; }
+
+        function closeBirthEditModal() { document.getElementById('birth-edit-modal').style.display = 'none'; }
+        async function saveBirthEditFromModal() { const rid = parseInt(document.getElementById('birth-edit-modal').dataset.recordId),
+                idx = masterDB.birth_reg.findIndex(r => r.id === rid); if (idx !== -1) { ['regNo', 'ward', 'name', 'dob', 'mother', 'father', 'address'].forEach(k => { masterDB.birth_reg[idx][k] = document.getElementById('birth-edit-' + k).value; });
+                await saveToDatabase();
+                renderBirthTable(masterDB.birth_reg);
+                renderBirthPdfTable(masterDB.birth_reg);
+                closeBirthEditModal();
+                alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
+
+        // ============ জন্ম নিবন্ধন পিডিএফ ============
+        async function renderPdfToImageUrl(file) { try { const arrayBuffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise; const page = await pdf.getPage(1); const viewport = page.getViewport({ scale: 3 }); const canvas = document.createElement('canvas');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height; const ctx = canvas.getContext('2d');
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise; return canvas.toDataURL('image/png'); } catch (e) { return null; } }
         async function handleBirthFileSelect(input) { const btn = document.getElementById('btn-birth-pdf'),
                 status = document.getElementById('birth-file-status'); if (!input.files[0]) { btn.disabled = true;
                 status.textContent = ''; return; } const file = input.files[0];
             btn.disabled = true;
             status.textContent = '⏳ প্রসেসিং (OCR)...';
-            birthAutoFill = true; try { let dataUrl; if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
-                    dataUrl = await renderPdfToImageUrl(file); } else { dataUrl = await new Promise(resolve => { const reader =
-                            new FileReader();
+            birthAutoFill = true; try { let dataUrl; if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) { dataUrl = await renderPdfToImageUrl(file); } else { dataUrl = await new Promise(resolve => { const reader = new FileReader();
                         reader.onload = () => resolve(reader.result);
-                        reader.readAsDataURL(file); }); } if (!dataUrl) { status.textContent =
-                    '⚠️ পিডিএফ রেন্ডার ব্যর্থ';
+                        reader.readAsDataURL(file); }); } if (!dataUrl) { status.textContent = '⚠️ পিডিএফ রেন্ডার ব্যর্থ';
                 btn.disabled = false;
-                birthAutoFill = false; return; } const ocrText = await performImageOCR(dataUrl); const text = ocrText ?
-                    recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : ''; if (text) { const regMatch = text.match(
-                        /(?:নিবন্ধন\s*নং|Registration\s*No|Birth\s*Registration\s*Number?)\s*[:.]?\s*(\d{10,20})/i) || text
-                        .match(/\b(\d{15,20})\b/); const nameMatch = text.match(
-                        /(?:নাম|Name)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const fatherMatch = text.match(
-                        /(?:পিতা|Father)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const motherMatch = text.match(
-                        /(?:মাতা|Mother)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); let dob = dobExtract(text);
+                birthAutoFill = false; return; } const ocrText = await performImageOCR(dataUrl); const text = ocrText ? recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : ''; if (text) { const regMatch = text.match(/(?:নিবন্ধন\s*নং|Registration\s*No|Birth\s*Registration\s*Number?)\s*[:.]?\s*(\d{10,20})/i) || text.match(/\b(\d{15,20})\b/); const nameMatch = text.match(/(?:নাম|Name)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const fatherMatch = text.match(/(?:পিতা|Father)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const motherMatch = text.match(/(?:মাতা|Mother)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); let dob = dobExtract(text);
                     document.getElementById('birth-hidden-reg').value = regMatch ? regMatch[1] : '';
                     document.getElementById('birth-hidden-name').value = nameMatch ? cleanName(nameMatch[1]) : '';
                     document.getElementById('birth-hidden-dob').value = dob;
                     document.getElementById('birth-hidden-father').value = fatherMatch ? cleanName(fatherMatch[1]) : '';
                     document.getElementById('birth-hidden-mother').value = motherMatch ? cleanName(motherMatch[1]) : '';
-                    status.textContent = regMatch ? '✅ OCR সম্পন্ন! নিবন্ধন নম্বর পাওয়া গেছে।' :
-                        '✅ OCR সম্পন্ন!'; } else { status.textContent = '⚠️ OCR ব্যর্থ, কিন্তু আপলোড করা যাবে।'; } const
-                    reader = new FileReader();
+                    status.textContent = regMatch ? '✅ OCR সম্পন্ন! নিবন্ধন নম্বর পাওয়া গেছে।' : '✅ OCR সম্পন্ন!'; } else { status.textContent = '⚠️ OCR ব্যর্থ, কিন্তু আপলোড করা যাবে।'; } const reader = new FileReader();
                 reader.onload = function(e) { document.getElementById('birth-hidden-fileData').value = e.target.result;
                     btn.disabled = false; };
                 reader.readAsDataURL(file); } catch (e) { status.textContent = '⚠️ ব্যর্থ: ' + e.message;
                 btn.disabled = false; } finally { birthAutoFill = false; } }
-        async function handleBirthPdfSubmit(e) { e.preventDefault(); if (birthAutoFill) return alert("প্রসেসিং চলছে...");
-            const regNo = document.getElementById('birth-hidden-reg').value || 'REG-' + Date.now(); if (regNo && masterDB
-                .birth_reg.some(r => r.regNo === regNo && r.fileData)) return alert(
-                "⚠️ এই নিবন্ধন নম্বরের পিডিএফ ইতিমধ্যে আপলোড করা আছে!"); const record = { id: Date.now(), regNo,
-                name: document.getElementById('birth-hidden-name').value || "অজানা", dob: document.getElementById(
-                    'birth-hidden-dob').value || "1980-01-01", father: document.getElementById('birth-hidden-father')
-                    .value || "পাওয়া যায়নি", mother: document.getElementById('birth-hidden-mother').value || "",
-                ward: '', address: '', fileData: document.getElementById('birth-hidden-fileData').value || "" };
-            const existing = masterDB.birth_reg.find(r => r.regNo === regNo && !r.fileData); if (existing) { existing
-                    .fileData = record.fileData;
+        async function handleBirthPdfSubmit(e) { e.preventDefault(); if (birthAutoFill) return alert("প্রসেসিং চলছে..."); const regNo = document.getElementById('birth-hidden-reg').value || 'REG-' + Date.now(); if (regNo && masterDB.birth_reg.some(r => r.regNo === regNo && r.fileData)) return alert("⚠️ এই নিবন্ধন নম্বরের পিডিএফ ইতিমধ্যে আপলোড করা আছে!"); const record = { id: Date.now(), regNo, name: document.getElementById('birth-hidden-name').value || "অজানা", dob: document.getElementById('birth-hidden-dob').value || "1980-01-01", father: document.getElementById('birth-hidden-father').value || "পাওয়া যায়নি", mother: document.getElementById('birth-hidden-mother').value || "", ward: '', address: '', fileData: document.getElementById('birth-hidden-fileData').value || "" }; const existing = masterDB.birth_reg.find(r => r.regNo === regNo && !r.fileData); if (existing) { existing.fileData = record.fileData;
                 existing.name = record.name || existing.name;
                 existing.dob = record.dob || existing.dob;
                 existing.father = record.father || existing.father;
-                existing.mother = record.mother || existing.mother; } else { masterDB.birth_reg.push(record); } await
-            saveToDatabase();
+                existing.mother = record.mother || existing.mother; } else { masterDB.birth_reg.push(record); } await saveToDatabase();
             renderBirthTable(masterDB.birth_reg);
             renderBirthPdfTable(masterDB.birth_reg);
             document.getElementById('form-birth-pdf').reset();
-            ['birth-hidden-reg', 'birth-hidden-name', 'birth-hidden-dob', 'birth-hidden-father', 'birth-hidden-mother',
-                'birth-hidden-fileData'
-            ].forEach(id => document.getElementById(id).value = '');
+            ['birth-hidden-reg', 'birth-hidden-name', 'birth-hidden-dob', 'birth-hidden-father', 'birth-hidden-mother', 'birth-hidden-fileData'].forEach(id => document.getElementById(id).value = '');
             document.getElementById('birth-file-status').textContent = '';
             document.getElementById('btn-birth-pdf').disabled = true;
             alert("✅ জন্ম নিবন্ধন পিডিএফ সংরক্ষিত হয়েছে!"); }
 
-        function renderBirthPdfTable(data) { const list = document.getElementById('list-birth-pdf'); if (!list) return; const
-                pdfRecords = data.filter(item => item.fileData);
-            list.innerHTML = pdfRecords.length ? pdfRecords.map(item =>
-                `<tr><td>${item.regNo||''}</td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td><div class="inner-scroller">${item.address||''}</div></td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-edit" onclick="openBirthEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteBirthPdfRecord(${item.id})">🗑️</button></div></td></tr>`
-                ).join('') : '<tr><td colspan="8">কোনো পিডিএফ ফাইল নেই</td></tr>'; }
+        function renderBirthPdfTable(data) { const list = document.getElementById('list-birth-pdf'); if (!list) return; const pdfRecords = data.filter(item => item.fileData);
+            list.innerHTML = pdfRecords.length ? pdfRecords.map(item => `<tr><td>${item.regNo||''}</td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td><div class="inner-scroller">${item.address||''}</div></td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-edit" onclick="openBirthEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteBirthPdfRecord(${item.id})">🗑️</button></div></td></tr>`).join('') : '<tr><td colspan="8">কোনো পিডিএফ ফাইল নেই</td></tr>'; }
 
-        function filterBirthPdfTable() { const field = document.getElementById('search-birth-pdf-field').value, query =
-                document.getElementById('search-birth-pdf-query').value.toLowerCase();
-            renderBirthPdfTable(masterDB.birth_reg.filter(item => { if (!query) return true; if (field === 'all') return Object
-                    .values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '')
-                    .toLowerCase().includes(query); })); }
+        function filterBirthPdfTable() { const field = document.getElementById('search-birth-pdf-field').value,
+                query = document.getElementById('search-birth-pdf-query').value.toLowerCase();
+            renderBirthPdfTable(masterDB.birth_reg.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
+        async function deleteBirthPdfRecord(id) { if (confirm("শুধুমাত্র পিডিএফ ফাইলটি মুছে ফেলতে চান? জন্ম নিবন্ধনের তথ্য থেকে যাবে।")) { const idx = masterDB.birth_reg.findIndex(r => r.id === id); if (idx !== -1) { masterDB.birth_reg[idx].fileData = null;
+                    await saveToDatabase();
+                    renderBirthTable(masterDB.birth_reg);
+                    renderBirthPdfTable(masterDB.birth_reg); } } }
 
-        async function deleteBirthPdfRecord(id) { if (confirm(
-                    "শুধুমাত্র পিডিএফ ফাইলটি মুছে ফেলতে চান? জন্ম নিবন্ধনের তথ্য থেকে যাবে।")) { const idx = masterDB.birth_reg
-                    .findIndex(r => r.id === id); if (idx !== -1) { masterDB.birth_reg[idx].fileData = null; await
-                    saveToDatabase();
-                renderBirthTable(masterDB.birth_reg);
-                renderBirthPdfTable(masterDB.birth_reg); } } }
-
-        function handleContractSubmit(e) { e.preventDefault(); const fileInput = document.getElementById('contract-file'); if (
-                !fileInput.files[0]) return alert("ফাইল নির্বাচন করুন!"); const reader = new FileReader();
-            reader.onload = function(ev) { const record = { id: Date.now(), fileName: document.getElementById('contract-name')
-                        .value.trim(), officeName: document.getElementById('contract-office').value.trim(), date: document
-                        .getElementById('contract-date').value, fileData: ev.target.result };
+        // ============ চুক্তি নামা ============
+        function handleContractSubmit(e) { e.preventDefault(); const fileInput = document.getElementById('contract-file'); if (!fileInput.files[0]) return alert("ফাইল নির্বাচন করুন!"); const reader = new FileReader();
+            reader.onload = function(ev) { const record = { id: Date.now(), fileName: document.getElementById('contract-name').value.trim(), officeName: document.getElementById('contract-office').value.trim(), date: document.getElementById('contract-date').value, fileData: ev.target.result };
                 masterDB.contracts.push(record);
                 saveToDatabase().then(() => { renderContractTable(masterDB.contracts);
                     document.getElementById('form-contract').reset();
@@ -1721,130 +1675,89 @@
             reader.readAsDataURL(fileInput.files[0]); }
 
         function renderContractTable(data) { const list = document.getElementById('list-contracts'); if (!list) return;
-            list.innerHTML = data.length ? data.map(item =>
-                `<tr><td>${item.fileName||''}</td><td>${item.officeName||''}</td><td>${item.date||''}</td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.fileName}','${item.fileData}')">👁️</button><button class="act-download" onclick="downloadFile('${item.fileName}','${item.fileData}')" title="ডাউনলোড">📥</button><button class="act-delete" onclick="deleteContractRecord(${item.id})">🗑️</button></div></td></tr>`
-                ).join('') : '<tr><td colspan="4">কোনো ফাইল নেই</td></tr>'; }
+            list.innerHTML = data.length ? data.map(item => `<tr><td>${item.fileName||''}</td><td>${item.officeName||''}</td><td>${item.date||''}</td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.fileName}','${item.fileData}')">👁️</button><button class="act-download" onclick="downloadFile('${item.fileName}','${item.fileData}')" title="ডাউনলোড">📥</button><button class="act-delete" onclick="deleteContractRecord(${item.id})">🗑️</button></div></td></tr>`).join('') : '<tr><td colspan="4">কোনো ফাইল নেই</td></tr>'; }
 
-        function filterContractTable() { const field = document.getElementById('search-contract-field').value, query = document
-                .getElementById('search-contract-query').value.toLowerCase();
-            renderContractTable(masterDB.contracts.filter(item => { if (!query) return true; if (field === 'all') return Object
-                    .values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '')
-                    .toLowerCase().includes(query); })); }
+        function filterContractTable() { const field = document.getElementById('search-contract-field').value,
+                query = document.getElementById('search-contract-query').value.toLowerCase();
+            renderContractTable(masterDB.contracts.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
+        async function deleteContractRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.contracts = masterDB.contracts.filter(r => r.id !== id);
+                await saveToDatabase();
+                renderContractTable(masterDB.contracts); } }
 
-        async function deleteContractRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.contracts = masterDB.contracts
-                .filter(r => r.id !== id); await saveToDatabase();
-            renderContractTable(masterDB.contracts); } }
+        // ============ NID তথ্য এন্ট্রি ============
+        function handleNidEntrySubmit(e) { e.preventDefault(); const voterNo = document.getElementById('nid-entry-voter').value.trim(); if (masterDB.nid_entry.some(r => r.voterNo === voterNo)) return alert("⚠️ এই ভোটার নম্বরটি ইতিমধ্যে এন্ট্রি করা আছে!"); const record = { id: Date.now(), voterNo, name: document.getElementById('nid-entry-name').value.trim(), dob: document.getElementById('nid-entry-dob').value, father: document.getElementById('nid-entry-father').value.trim(), mother: document.getElementById('nid-entry-mother').value.trim(), ward: document.getElementById('nid-entry-ward').value, village: document.getElementById('nid-entry-village').value };
+            masterDB.nid_entry.push(record);
+            saveToDatabase().then(() => { renderNidEntryTable(masterDB.nid_entry);
+                document.getElementById('form-nid-entry').reset();
+                alert("✅ NID তথ্য সংরক্ষিত হয়েছে!"); }); }
 
-        function downloadFile(fileName, dataUrl) {
-            if (!dataUrl) return;
-            const a = document.createElement('a');
-            a.href = dataUrl;
-            a.download = fileName || 'file';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
+        function renderNidEntryTable(data) { const list = document.getElementById('list-nid-entry'); if (!list) return;
+            list.innerHTML = data.length ? data.map(item => `<tr><td>${item.voterNo||''}</td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td>${item.village||''}</td><td><div class="action-flex"><button class="act-edit" onclick="openNidEntryEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteNidEntryRecord(${item.id})">🗑️</button></div></td></tr>`).join('') : '<tr><td colspan="8">কোনো তথ্য নেই</td></tr>'; }
 
-        function recoverBrokenBengali(text) { if (!text) return ""; let t = text; const map = { "Ï": "মো", "Ɔ": "হু",
-                "ƃ": "দ", "Ō": "ল্ল", "ē": "ত্ত", "å": "গ্র", "ũ": "স্ত", "Ŕ": "ব", "ý": "ঞ্জ", "Â": "ম", "⁄": "ি",
-                "€": "ু", "‹": "ে", "›": "ো", "ﬁ": "র্", "Í": "হ", "Î": "য়", "Ì": "স", "Ê": "শ", "Ë": "ষ", "‡": "জ",
-                "·": "ত", "‚": "ন", "„": "প", "‰": "ল", "Ò": "ঃ", "Ó": "ং", "Ô": "ঁ", "ì": "র", "ï": "ি", "î": "ী",
-                "ë": "ে", "ê": "ে", "è": "ে", "é": "ে", "ð": "ড়", "ò": "ঢ়", "ó": "য়", "ô": "ড়", "õ": "ঢ়", "œ": "র্",
-                "›": "ো", "¡": "া", "²": "ু", "³": "ু", "æ": "হ্য", "Æ": "হ্যা", "À": "া", "Á": "া", "Â": "া", "à": "া",
-                "á": "া", "â": "া", "È": "ে", "É": "ে", "Ê": "ে", "è": "ে", "é": "ে", "ê": "ে", "Ì": "ি", "Í": "ি",
-                "Î": "ি", "ì": "ি", "í": "ি", "î": "ি", "Ò": "ো", "Ó": "ো", "Ô": "ো", "ò": "ো", "ó": "ো", "ô": "ো",
-                "Ù": "ু", "Ú": "ু", "Û": "ু", "ù": "ু", "ú": "ু", "û": "ু", "Ý": "ড়", "ý": "ড়", "ÿ": "ড়" }; for (let k in
-                map) t = t.split(k).join(map[k]); const words = { "ছুমাইপুর": "হুমাইপুর", "ছমাইপুর": "হুমাইপুর",
-                "মোহােসনপুর": "হোসেনপুর", "পিশ্চম": "পশ্চিম", "িকশোরগঞ্জ": "কিশোরগঞ্জ", "বাঙিতপুর": "বাজিতপুর" }; for (let k in
-                words) t = t.split(k).join(words[k]); return t.replace(/\s+/g, ' ').trim(); }
+        function filterNidEntryTable() { const field = document.getElementById('search-nid-entry-field').value,
+                query = document.getElementById('search-nid-entry-query').value.toLowerCase();
+            renderNidEntryTable(masterDB.nid_entry.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
+        async function deleteNidEntryRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.nid_entry = masterDB.nid_entry.filter(r => r.id !== id);
+                await saveToDatabase();
+                renderNidEntryTable(masterDB.nid_entry); } }
 
-        function extractPossibleNames(text) { let clean = recoverBrokenBengali(text); const namePattern =
-                /(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+\s*(?:[\u0980-\u09FFঃ]+\s*)*/gi; let names = []; let match; while ((
-                    match = namePattern.exec(clean)) !== null) { let n = match[0].replace(/\s+/g, ' ').trim();
-                n = n.replace(/[0-9০-৯A-Za-z]/g, ' ').replace(/\s+/g, ' ').trim(); if (n.length > 3 && !/ঠিকানা|পিতা|মাতা|নাম|জন্ম|রক্ত|গ্রুপ|Date|ID|No/i
-                    .test(n)) names.push(n); } return [...new Set(names)]; }
+        function openNidEntryEditModal(rid) { const rec = masterDB.nid_entry.find(r => r.id == rid); if (!rec) return;
+            document.getElementById('nid-entry-edit-voter').value = rec.voterNo || '';
+            document.getElementById('nid-entry-edit-name').value = rec.name || '';
+            document.getElementById('nid-entry-edit-dob').value = rec.dob || '';
+            document.getElementById('nid-entry-edit-father').value = rec.father || '';
+            document.getElementById('nid-entry-edit-mother').value = rec.mother || '';
+            document.getElementById('nid-entry-edit-ward').value = rec.ward || '';
+            document.getElementById('nid-entry-edit-village').value = rec.village || '';
+            document.getElementById('nid-entry-edit-modal').dataset.recordId = rid;
+            document.getElementById('nid-entry-edit-modal').style.display = 'flex'; }
 
-        function cleanName(raw) { if (!raw) return ""; let str = recoverBrokenBengali(raw);
-            str = str.replace(
-                /(?:প্রদানকারী\s*কর্তৃপক্ষের\s*স্বাক্ষর|প্রদানের\s*তারিখ|Date\s*of\s*Issue|রক্তের\s*গ্রুপ|Blood\s*Group|প্রদানকারী|জন্ম\s*তারিখ|জন্মস্থান|কিশোরগঞ্জ|ঠিকানা|পোস্ট|ডাকঘর|ID\s*No|NID\s*No|পিতা|মাতা|নাম)[\s:.]*/gi,
-                ' ');
-            str = str.replace(/[0-9০-৯A-Za-z\.\,\;\:\!\?\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\\\|\`\~\"\'\<\>\?\/]/g, ' ');
-            str = str.replace(/[৷॥]/g, ' ');
-            str = str.replace(/\b(?:রগ|তা|কী|পচ|সিন|নে|ar|SR|TR|দিন|দাম|বাইত|পুর|হুমাইপু|পু|জাতীয়|পরিচয়|পত্র)\b/gi, ' ');
-            str = str.replace(/\s+/g, ' ').trim(); let parts = str.split(/\s+/).filter(p => /^[\u0980-\u09FFঃ]+$/.test(p) ||
-                /^(মোঃ|মোছাঃ|মো|মোছা|আঃ)$/i.test(p)); return parts.join(' ') || ""; }
+        function closeNidEntryEditModal() { document.getElementById('nid-entry-edit-modal').style.display = 'none'; }
+        async function saveNidEntryEditFromModal() { const rid = parseInt(document.getElementById('nid-entry-edit-modal').dataset.recordId),
+                idx = masterDB.nid_entry.findIndex(r => r.id === rid); if (idx !== -1) { masterDB.nid_entry[idx].voterNo = document.getElementById('nid-entry-edit-voter').value;
+                masterDB.nid_entry[idx].name = document.getElementById('nid-entry-edit-name').value;
+                masterDB.nid_entry[idx].dob = document.getElementById('nid-entry-edit-dob').value;
+                masterDB.nid_entry[idx].father = document.getElementById('nid-entry-edit-father').value;
+                masterDB.nid_entry[idx].mother = document.getElementById('nid-entry-edit-mother').value;
+                masterDB.nid_entry[idx].ward = document.getElementById('nid-entry-edit-ward').value;
+                masterDB.nid_entry[idx].village = document.getElementById('nid-entry-edit-village').value;
+                await saveToDatabase();
+                renderNidEntryTable(masterDB.nid_entry);
+                closeNidEntryEditModal();
+                alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
 
-        function cleanAddress(raw) { if (!raw) return ""; let str = recoverBrokenBengali(raw);
-            str = str.replace(
-                /(?:নাম|Name|পিতা|Father|মাতা|Mother|রক্তের গ্রুপ|Blood Group|প্রদানকারী|প্রদানের তারিখ|Date of Issue|জন্ম তারিখ|ID No|NID No|জাতীয়|পরিচয়|পত্র)[\s:.]*/gi,
-                ' ');
-            str = str.replace(/[A-Za-z]/g, ' ');
-            str = str.replace(/[!?@#$%^&*()_+={}\[\]\\|`~"'<>]/g, ' ');
-            str = str.replace(/[৷॥]/g, ' ');
-            str = str.replace(/\bদিন\b/gi, ' ');
-            str = str.replace(/\s*-\s*/g, ' - ');
-            str = str.replace(/\s+/g, ' ').trim(); return str || ""; }
-
-        async function performOCR(dataUrl) { try { const r = await Tesseract.recognize(dataUrl, 'ben+eng'); return r.data
-                .text; } catch (e) { return null; } }
+        // ============ NID পিডিএফ ============
+        async function performOCR(dataUrl) { try { const r = await Tesseract.recognize(dataUrl, 'ben+eng'); return r.data.text; } catch (e) { return null; } }
         async function handleFileSelect(input) { const btn = document.getElementById('btn-nid_pdf'),
                 status = document.getElementById('file-status'); if (!input.files[0]) { btn.disabled = true;
                 status.textContent = ''; return; }
             btn.disabled = true;
             status.textContent = '⏳ প্রসেসিং (OCR)...';
             autoFillInProgress = true; try { await triggerNIDAutoFill(input);
-                status.textContent = '✅ সম্পন্ন।'; } catch (e) { status.textContent = '⚠️ ব্যর্থ।'; } finally {
-                autoFillInProgress = false;
+                status.textContent = '✅ সম্পন্ন।'; } catch (e) { status.textContent = '⚠️ ব্যর্থ।'; } finally { autoFillInProgress = false;
                 btn.disabled = false; } }
-        async function triggerNIDAutoFill(input) { const file = input.files[0]; if (!file || (file.type !==
-                'application/pdf' && !file.name.endsWith('.pdf'))) return; const fallback = file.name.replace(/\.pdf$/i,
-                ''); const buffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: buffer })
-            .promise; let rawText = ''; try { const page = await pdf.getPage(1); const vp = page.getViewport({ scale: 3 });
-                const canvas = document.createElement('canvas');
-            canvas.width = vp.width;
-            canvas.height = vp.height; await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
-                const ocr = await performOCR(canvas.toDataURL('image/png')); if (ocr) rawText = ocr.replace(/\s+/g, ' ')
-                    .trim(); else throw new Error('OCR empty'); } catch { for (let i = 1; i <= pdf.numPages; i++) { const page =
-                        await pdf.getPage(i); const content = await page.getTextContent();
-                rawText += content.items.map(it => it.str).join(' ') + ' '; }
-            rawText = rawText.replace(/\s+/g, ' ').trim(); } const text = recoverBrokenBengali(rawText); const possibleNames =
-                extractPossibleNames(text); let name = possibleNames[0] || "",
+        async function triggerNIDAutoFill(input) { const file = input.files[0]; if (!file || (file.type !== 'application/pdf' && !file.name.endsWith('.pdf'))) return; const fallback = file.name.replace(/\.pdf$/i, ''); const buffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: buffer }).promise; let rawText = ''; try { const page = await pdf.getPage(1); const vp = page.getViewport({ scale: 3 }); const canvas = document.createElement('canvas');
+                canvas.width = vp.width;
+                canvas.height = vp.height;
+                await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise; const ocr = await performOCR(canvas.toDataURL('image/png')); if (ocr) rawText = ocr.replace(/\s+/g, ' ').trim(); else throw new Error('OCR empty'); } catch { for (let i = 1; i <= pdf.numPages; i++) { const page = await pdf.getPage(i); const content = await page.getTextContent();
+                    rawText += content.items.map(it => it.str).join(' ') + ' '; }
+                rawText = rawText.replace(/\s+/g, ' ').trim(); } const text = recoverBrokenBengali(rawText); const possibleNames = extractPossibleNames(text); let name = possibleNames[0] || "",
                 father = possibleNames[1] || "",
                 mother = possibleNames[2] || "";
 
-            function extractBetween(startPatterns, endPatterns) { for (let pat of startPatterns) { let regex = new RegExp(pat,
-                        'i'),
-                    match = text.match(regex); if (match) { let startIdx = match.index + match[0].length,
-                        sub = text.substring(startIdx),
-                        endIdx = sub.length; for (let end of endPatterns) { let endRegex = new RegExp(end, 'i'),
-                            endMatch = sub.match(endRegex); if (endMatch && endMatch.index < endIdx) endIdx = endMatch
-                            .index; } return sub.substring(0, endIdx).trim(); } } return ''; } if (!name) name =
-                extractBetween(['নাম\\s*[:.]?\\s*', 'Name\\s*[:.]?\\s*'], ['পিতা', 'Father', 'মাতা', 'Mother', 'জন্ম',
-                    'ID'
-                ]); if (!father) father = extractBetween(['পিতা\\s*[:.]?\\s*', 'Father\\s*[:.]?\\s*'], ['মাতা', 'Mother',
-                    'জন্ম', 'ঠিকানা', 'ID'
-                ]); let rawMother = extractBetween(['মাতা\\s*[:.]?\\s*', 'Mother\\s*[:.]?\\s*'], ['জন্ম', 'ঠিকানা', 'ID',
-                    'প্রদানকারী'
-                ]); if (!rawMother) { let fatherLabel = text.match(/(?:পিতা|Father)\s*[:.]?\s*/i); if (fatherLabel) { let
-                        afterFather = text.substring(fatherLabel.index + fatherLabel[0].length); let nextName = afterFather
-                        .match(/(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+/i); if (nextName) rawMother = nextName[0]; } }
-            mother = rawMother || mother; let ward = ''; const wardMatch = text.match(
-                /(?:ওয়ার্ড|Ward)\s*[:.]?\s*(\d+|[০-৯]+)/i); if (wardMatch) ward = wardMatch[1].replace(/[০-৯]/g, d =>
-                '০১২৩৪৫৬৭৮৯'.indexOf(d).toString()); let addressStr = ''; const addrIdx = text.search(/ঠিকানা|Address/i); if (
-                addrIdx !== -1) { let afterLabel = text.substring(addrIdx).replace(/^(ঠিকানা|Address)\s*[:.]?\s*/i,
-                ''); const stopRegex =
-                    /(নাম|Name|পিতা|Father|মাতা|Mother|জন্ম|Date of Birth|রক্তের গ্রুপ|Blood Group|ID No|NID No|প্রদানকারী|প্রদানের তারিখ)\s*[:.]/i; const stopMatch =
-                    afterLabel.match(stopRegex);
-                addressStr = stopMatch ? afterLabel.substring(0, stopMatch.index).trim() : afterLabel.trim(); } const idMatch =
-                text.match(/ID\s*NO\s*[:ঃ]?\s*(\d+)/i) || text.match(/\b\d{10}\b|\b\d{13}\b|\b\d{17}\b/); const nidNo =
-                idMatch ? (idMatch[1] || idMatch[0]) : "NID-" + Math.floor(Math.random() * 9999); let dob = "1980-01-01";
-            const dm = text.match(
-                /(?:Date\s*of\s*Birth|জন্ম\s*তারিখ)\s*[:.]?\s*(\d{2}\s*[a-zA-Z]{3}\s*\d{4})/i); if (dm) { const p = dm[1]
-                    .split(/\s+/),
-                    m = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09',
-                        oct: '10', nov: '11', dec: '12' };
-                dob = p[2] + '-' + (m[p[1].toLowerCase().substr(0, 3)] || '01') + '-' + p[0].padStart(2, '0'); } else { const
-                    alt = text.match(/\b\d{4}-\d{2}-\d{2}\b/); if (alt) dob = alt[0]; }
+            function extractBetween(sp, ep) { for (let pat of sp) { let regex = new RegExp(pat, 'i'),
+                        match = text.match(regex); if (match) { let si = match.index + match[0].length,
+                            sub = text.substring(si),
+                            ei = sub.length; for (let end of ep) { let er = new RegExp(end, 'i'),
+                                em = sub.match(er); if (em && em.index < ei) ei = em.index; } return sub.substring(0, ei).trim(); } } return ''; } if (!name) name = extractBetween(['নাম\\s*[:.]?\\s*', 'Name\\s*[:.]?\\s*'], ['পিতা', 'Father', 'মাতা', 'Mother', 'জন্ম', 'ID']); if (!father) father = extractBetween(['পিতা\\s*[:.]?\\s*', 'Father\\s*[:.]?\\s*'], ['মাতা', 'Mother', 'জন্ম', 'ঠিকানা', 'ID']);
+            let rawMother = extractBetween(['মাতা\\s*[:.]?\\s*', 'Mother\\s*[:.]?\\s*'], ['জন্ম', 'ঠিকানা', 'ID', 'প্রদানকারী']); if (!rawMother) { let fl = text.match(/(?:পিতা|Father)\s*[:.]?\s*/i); if (fl) { let af = text.substring(fl.index + fl[0].length); let nn = af.match(/(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+/i); if (nn) rawMother = nn[0]; } }
+            mother = rawMother || mother;
+            let ward = ''; const wm = text.match(/(?:ওয়ার্ড|Ward)\s*[:.]?\s*(\d+|[০-৯]+)/i); if (wm) ward = wm[1].replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d).toString());
+            let addressStr = ''; const ai = text.search(/ঠিকানা|Address/i); if (ai !== -1) { let al = text.substring(ai).replace(/^(ঠিকানা|Address)\s*[:.]?\s*/i, ''); const sr = /(নাম|Name|পিতা|Father|মাতা|Mother|জন্ম|Date of Birth|রক্তের গ্রুপ|Blood Group|ID No|NID No|প্রদানকারী|প্রদানের তারিখ)\s*[:.]/i; const sm = al.match(sr);
+                addressStr = sm ? al.substring(0, sm.index).trim() : al.trim(); }
+            const idMatch = text.match(/ID\s*NO\s*[:ঃ]?\s*(\d+)/i) || text.match(/\b\d{10}\b|\b\d{13}\b|\b\d{17}\b/); const nidNo = idMatch ? (idMatch[1] || idMatch[0]) : "NID-" + Math.floor(Math.random() * 9999); let dob = "1980-01-01"; const dm = text.match(/(?:Date\s*of\s*Birth|জন্ম\s*তারিখ)\s*[:.]?\s*(\d{2}\s*[a-zA-Z]{3}\s*\d{4})/i); if (dm) { const p = dm[1].split(/\s+/),
+                    m = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
+                dob = p[2] + '-' + (m[p[1].toLowerCase().substr(0, 3)] || '01') + '-' + p[0].padStart(2, '0'); } else { const alt = text.match(/\b\d{4}-\d{2}-\d{2}\b/); if (alt) dob = alt[0]; }
             document.getElementById('nid-number-field').value = nidNo;
             document.getElementById('nid-name').value = cleanName(name) || fallback || "নাম পাওয়া যায়নি";
             document.getElementById('nid-dob').value = dob;
@@ -1866,119 +1779,86 @@
 
         function closeEditModal() { document.getElementById('edit-modal').style.display = 'none'; }
         async function saveNidEditFromModal() { const rid = parseInt(document.getElementById('edit-modal').dataset.recordId),
-                idx = masterDB.nid_pdf.findIndex(r => r.id === rid); if (idx !== -1) { ['nidNo', 'name', 'dob', 'father',
-                    'mother', 'ward', 'address'
-                ].forEach(k => { masterDB.nid_pdf[idx][k] = document.getElementById('edit-' + k).value; }); await
-                saveToDatabase();
-            renderNidTable(masterDB.nid_pdf);
-            closeEditModal();
-            alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
-        async function handleFileArchiveSubmit(e, dbKey) { e.preventDefault(); if (autoFillInProgress) return alert(
-                "প্রসেসিং চলছে..."); const editId = document.getElementById('edit-id-nid_pdf').value,
+                idx = masterDB.nid_pdf.findIndex(r => r.id === rid); if (idx !== -1) { ['nidNo', 'name', 'dob', 'father', 'mother', 'ward', 'address'].forEach(k => { masterDB.nid_pdf[idx][k] = document.getElementById('edit-' + k).value; });
+                await saveToDatabase();
+                renderNidTable(masterDB.nid_pdf);
+                closeEditModal();
+                alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
+        async function handleFileArchiveSubmit(e, dbKey) { e.preventDefault(); if (autoFillInProgress) return alert("প্রসেসিং চলছে..."); const editId = document.getElementById('edit-id-nid_pdf').value,
                 btn = document.getElementById('btn-nid_pdf'),
-                newNid = document.getElementById('nid-number-field').value; if (!editId && masterDB.nid_pdf.some(r => r
-                    .nidNo === newNid)) return alert("⚠️ এই এনআইডি নম্বরটি ইতিমধ্যে আপলোড করা আছে!"); const record = { id: editId ?
-                    parseInt(editId) : Date.now(), nidNo: newNid || "NID-" + Date.now(), name: document.getElementById(
-                        'nid-name').value || "অজানা", dob: document.getElementById('nid-dob').value || "1980-01-01",
-                father: document.getElementById('nid-father').value || "পাওয়া যায়নি", mother: document.getElementById(
-                    'nid-mother').value || "", ward: document.getElementById('nid-ward').value || "",
-                address: document.getElementById('nid-address').value || "" };
+                newNid = document.getElementById('nid-number-field').value; if (!editId && masterDB.nid_pdf.some(r => r.nidNo === newNid)) return alert("⚠️ এই এনআইডি নম্বরটি ইতিমধ্যে আপলোড করা আছে!"); const record = { id: editId ? parseInt(editId) : Date.now(), nidNo: newNid || "NID-" + Date.now(), name: document.getElementById('nid-name').value || "অজানা", dob: document.getElementById('nid-dob').value || "1980-01-01", father: document.getElementById('nid-father').value || "পাওয়া যায়নি", mother: document.getElementById('nid-mother').value || "", ward: document.getElementById('nid-ward').value || "", address: document.getElementById('nid-address').value || "" };
             btn.innerText = "আপলোড হচ্ছে...";
-            btn.disabled = true; const fileEl = document.getElementById('nid-file'); const save = async () => { try { if (
-                        editId) { const i = masterDB.nid_pdf.findIndex(r => r.id == editId); if (i !== -1) { record
-                            .fileData = masterDB.nid_pdf[i].fileData;
-                        masterDB.nid_pdf[i] = record; } } else masterDB.nid_pdf.push(record); if (!masterDB.nid_entry.some(
-                        r => r.voterNo === record.nidNo)) masterDB.nid_entry.push({ id: Date.now() + 2,
-                    voterNo: record.nidNo,
-                    name: record.name,
-                    dob: record.dob,
-                    father: record.father,
-                    mother: record.mother || "",
-                    ward: record.ward,
-                    village: record.address }); await saveToDatabase();
+            btn.disabled = true; const fileEl = document.getElementById('nid-file'); const save = async () => { try { if (editId) { const i = masterDB.nid_pdf.findIndex(r => r.id == editId); if (i !== -1) { record.fileData = masterDB.nid_pdf[i].fileData;
+                        masterDB.nid_pdf[i] = record; } } else masterDB.nid_pdf.push(record); if (!masterDB.nid_entry.some(r => r.voterNo === record.nidNo)) masterDB.nid_entry.push({ id: Date.now() + 2, voterNo: record.nidNo, name: record.name, dob: record.dob, father: record.father, mother: record.mother || "", ward: record.ward, village: record.address });
+                await saveToDatabase();
                 renderNidTable(masterDB.nid_pdf);
                 renderNidEntryTable(masterDB.nid_entry);
                 document.getElementById('form-nid-pdf').reset();
-                ['nid-number-field', 'nid-name', 'nid-dob', 'nid-father', 'nid-mother', 'nid-ward', 'nid-address']
-                .forEach(id => document.getElementById(id).value = '');
+                ['nid-number-field', 'nid-name', 'nid-dob', 'nid-father', 'nid-mother', 'nid-ward', 'nid-address'].forEach(id => document.getElementById(id).value = '');
                 document.getElementById('file-status').textContent = '';
                 btn.disabled = true;
-                alert("✅ আপলোড সফল!"); } catch (err) { alert("❌ আপলোড ব্যর্থ!"); } finally { btn.innerText =
-                    "আর্কাইভে আপলোড করুন";
+                alert("✅ আপলোড সফল!"); } catch (err) { alert("❌ আপলোড ব্যর্থ!"); } finally { btn.innerText = "আর্কাইভে আপলোড করুন";
                 btn.disabled = false; } }; if (fileEl.files[0]) { const reader = new FileReader();
                 reader.onload = e => { record.fileData = e.target.result;
                     save(); };
                 reader.readAsDataURL(fileEl.files[0]); } else await save(); }
 
         function renderNidTable(data) { const list = document.getElementById('list-nid_pdf'); if (!list) return;
-            list.innerHTML = data.length ? data.map(item =>
-                `<tr><td><strong>${item.nidNo||''}</strong></td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td><div class="inner-scroller">${item.address||''}</div></td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-edit" onclick="openEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteArchiveRecord(${item.id})">🗑️</button></div></td></tr>`
-                ).join('') : '<tr><td colspan="8">কোনো ফাইল নেই</td></tr>'; }
+            list.innerHTML = data.length ? data.map(item => `<tr><td><strong>${item.nidNo||''}</strong></td><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td>${item.dob||''}</td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td><div class="inner-scroller">${item.address||''}</div></td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-edit" onclick="openEditModal(${item.id})">✏️</button><button class="act-delete" onclick="deleteArchiveRecord(${item.id})">🗑️</button></div></td></tr>`).join('') : '<tr><td colspan="8">কোনো ফাইল নেই</td></tr>'; }
 
         function filterNidPdfTable() { const field = document.getElementById('search-nid-field')?.value,
                 query = document.getElementById('search-nid-query')?.value.toLowerCase(); if (!field) return;
-            renderNidTable(masterDB.nid_pdf.filter(item => { if (!query) return true; if (field === 'all') return Object
-                    .values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '')
-                    .toLowerCase().includes(query); })); }
+            renderNidTable(masterDB.nid_pdf.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
+        async function deleteArchiveRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.nid_pdf = masterDB.nid_pdf.filter(r => r.id !== id);
+                await saveToDatabase();
+                renderNidTable(masterDB.nid_pdf); } }
 
-        async function deleteArchiveRecord(id) { if (confirm("মুছে ফেলতে চান?")) { masterDB.nid_pdf = masterDB.nid_pdf.filter(
-                    r => r.id !== id); await saveToDatabase();
-            renderNidTable(masterDB.nid_pdf); } }
+        // ============ কমন ক্লিনিং ============
+        function recoverBrokenBengali(text) { if (!text) return ""; let t = text; const map = { "Ï": "মো", "Ɔ": "হু", "ƃ": "দ", "Ō": "ল্ল", "ē": "ত্ত", "å": "গ্র", "ũ": "স্ত", "Ŕ": "ব", "ý": "ঞ্জ", "Â": "ম", "⁄": "ি", "€": "ু", "‹": "ে", "›": "ো", "ﬁ": "র্", "Í": "হ", "Î": "য়", "Ì": "স", "Ê": "শ", "Ë": "ষ", "‡": "জ", "·": "ত", "‚": "ন", "„": "প", "‰": "ল", "Ò": "ঃ", "Ó": "ং", "Ô": "ঁ", "ì": "র", "ï": "ি", "î": "ী", "ë": "ে", "ê": "ে", "è": "ে", "é": "ে", "ð": "ড়", "ò": "ঢ়", "ó": "য়", "ô": "ড়", "õ": "ঢ়", "œ": "র্", "›": "ো", "¡": "া", "²": "ু", "³": "ু", "æ": "হ্য", "Æ": "হ্যা", "À": "া", "Á": "া", "Â": "া", "à": "া", "á": "া", "â": "া", "È": "ে", "É": "ে", "Ê": "ে", "è": "ে", "é": "ে", "ê": "ে", "Ì": "ি", "Í": "ি", "Î": "ি", "ì": "ি", "í": "ি", "î": "ি", "Ò": "ো", "Ó": "ো", "Ô": "ো", "ò": "ো", "ó": "ো", "ô": "ো", "Ù": "ু", "Ú": "ু", "Û": "ু", "ù": "ু", "ú": "ু", "û": "ু", "Ý": "ড়", "ý": "ড়", "ÿ": "ড়" }; for (let k in map) t = t.split(k).join(map[k]); const words = { "ছুমাইপুর": "হুমাইপুর", "ছমাইপুর": "হুমাইপুর", "মোহােসনপুর": "হোসেনপুর", "পিশ্চম": "পশ্চিম", "িকশোরগঞ্জ": "কিশোরগঞ্জ", "বাঙিতপুর": "বাজিতপুর" }; for (let k in words) t = t.split(k).join(words[k]); return t.replace(/\s+/g, ' ').trim(); }
 
-        function openFlashFileModal(title, b64) {
-            if (!b64) return;
+        function extractPossibleNames(text) { let clean = recoverBrokenBengali(text); const namePattern = /(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+\s*(?:[\u0980-\u09FFঃ]+\s*)*/gi; let names = []; let match; while ((match = namePattern.exec(clean)) !== null) { let n = match[0].replace(/\s+/g, ' ').trim();
+                n = n.replace(/[0-9০-৯A-Za-z]/g, ' ').replace(/\s+/g, ' ').trim(); if (n.length > 3 && !/ঠিকানা|পিতা|মাতা|নাম|জন্ম|রক্ত|গ্রুপ|Date|ID|No/i.test(n)) names.push(n); } return [...new Set(names)]; }
+
+        function cleanName(raw) { if (!raw) return ""; let str = recoverBrokenBengali(raw);
+            str = str.replace(/(?:প্রদানকারী\s*কর্তৃপক্ষের\s*স্বাক্ষর|প্রদানের\s*তারিখ|Date\s*of\s*Issue|রক্তের\s*গ্রুপ|Blood\s*Group|প্রদানকারী|জন্ম\s*তারিখ|জন্মস্থান|কিশোরগঞ্জ|ঠিকানা|পোস্ট|ডাকঘর|ID\s*No|NID\s*No|পিতা|মাতা|নাম)[\s:.]*/gi, ' ');
+            str = str.replace(/[0-9০-৯A-Za-z\.\,\;\:\!\?\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\\\|\`\~\"\'\<\>\?\/]/g, ' ');
+            str = str.replace(/[৷॥]/g, ' ');
+            str = str.replace(/\b(?:রগ|তা|কী|পচ|সিন|নে|ar|SR|TR|দিন|দাম|বাইত|পুর|হুমাইপু|পু|জাতীয়|পরিচয়|পত্র)\b/gi, ' ');
+            str = str.replace(/\s+/g, ' ').trim(); let parts = str.split(/\s+/).filter(p => /^[\u0980-\u09FFঃ]+$/.test(p) || /^(মোঃ|মোছাঃ|মো|মোছা|আঃ)$/i.test(p)); return parts.join(' ') || ""; }
+
+        function cleanAddress(raw) { if (!raw) return ""; let str = recoverBrokenBengali(raw);
+            str = str.replace(/(?:নাম|Name|পিতা|Father|মাতা|Mother|রক্তের গ্রুপ|Blood Group|প্রদানকারী|প্রদানের তারিখ|Date of Issue|জন্ম তারিখ|ID No|NID No|জাতীয়|পরিচয়|পত্র)[\s:.]*/gi, ' ');
+            str = str.replace(/[A-Za-z]/g, ' ');
+            str = str.replace(/[!?@#$%^&*()_+={}\[\]\\|`~"'<>]/g, ' ');
+            str = str.replace(/[৷॥]/g, ' ');
+            str = str.replace(/\bদিন\b/gi, ' ');
+            str = str.replace(/\s*-\s*/g, ' - ');
+            str = str.replace(/\s+/g, ' ').trim(); return str || ""; }
+
+        // ============ ডাউনলোড ও ভিউয়ার ============
+        function downloadFile(fileName, dataUrl) { if (!dataUrl) return; const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = fileName || 'file';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a); }
+
+        function openFlashFileModal(title, b64) { if (!b64) return;
             currentViewFileData = b64;
-            currentViewFileName = title || 'file';
-            const container = document.getElementById('file-view-container');
-            const downloadBtn = document.getElementById('viewer-download-btn');
-            downloadBtn.style.display = 'inline-flex';
-            const isPDF = b64.includes('data:application/pdf') || b64.startsWith('data:application/pdf');
-            const isImage = b64.startsWith('data:image');
-            const isWord = b64.includes('data:application/msword') || b64.includes(
-                'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document') || b64.includes(
-                'data:application/vnd.ms-word');
-            if (isPDF) {
-                container.innerHTML =
-                    `<iframe src="${b64}" width="100%" height="100%" style="border:none;" title="PDF Viewer"></iframe>`;
-            } else if (isImage) {
-                container.innerHTML =
-                    `<img src="${b64}" style="max-width:100%;max-height:100%;object-fit:contain;" alt="Image">`;
-            } else if (isWord) {
-                container.innerHTML = `
-                    <div style="text-align:center;padding:30px;">
-                        <p style="font-size:16px;color:#555;">📄 এটি একটি ওয়ার্ড ডকুমেন্ট। প্রিভিউ সম্ভব নয়।</p>
-                        <p style="font-size:13px;color:#888;margin-top:8px;">ফাইলটি দেখতে দয়া করে ডাউনলোড বাটনে ক্লিক করুন।</p>
-                        <button class="viewer-download-btn" onclick="downloadCurrentViewFile()" style="margin-top:15px;">📥 ডাউনলোড করে দেখুন</button>
-                    </div>`;
-            } else {
-                container.innerHTML =
-                    `<iframe src="${b64}" width="100%" height="100%" style="border:none;" title="File Viewer"></iframe>`;
-            }
+            currentViewFileName = title || 'file'; const container = document.getElementById('file-view-container'); const downloadBtn = document.getElementById('viewer-download-btn');
+            downloadBtn.style.display = 'inline-flex'; const isPDF = b64.includes('data:application/pdf') || b64.startsWith('data:application/pdf'); const isImage = b64.startsWith('data:image'); if (isPDF) { container.innerHTML = `<iframe src="${b64}" width="100%" height="100%" style="border:none;" title="PDF Viewer"></iframe>`; } else if (isImage) { container.innerHTML = `<img src="${b64}" style="max-width:100%;max-height:100%;object-fit:contain;" alt="Image">`; } else { container.innerHTML = `<iframe src="${b64}" width="100%" height="100%" style="border:none;" title="File Viewer"></iframe>`; }
             document.getElementById('global-viewer-modal').style.display = 'flex';
-            document.querySelector('#global-viewer-modal .modal-content').classList.remove('fullscreen');
-        }
+            document.querySelector('#global-viewer-modal .modal-content').classList.remove('fullscreen'); }
 
-        function downloadCurrentViewFile() {
-            if (currentViewFileData) {
-                downloadFile(currentViewFileName, currentViewFileData);
-            }
-        }
+        function downloadCurrentViewFile() { if (currentViewFileData) { downloadFile(currentViewFileName, currentViewFileData); } }
 
-        function closeGlobalModal() {
-            document.getElementById('global-viewer-modal').style.display = 'none';
+        function closeGlobalModal() { document.getElementById('global-viewer-modal').style.display = 'none';
             currentViewFileData = null;
-            currentViewFileName = '';
-            if (document.fullscreenElement) document.exitFullscreen();
-        }
+            currentViewFileName = ''; if (document.fullscreenElement) document.exitFullscreen(); }
 
-        function toggleFullscreen() { const modalContent = document.querySelector('#global-viewer-modal .modal-content'); if (
-                !document.fullscreenElement) { modalContent.requestFullscreen().catch(err => alert(
-                    'ফুলস্ক্রিন সক্রিয় করা যায়নি: ' + err.message)); } else { document.exitFullscreen(); }
+        function toggleFullscreen() { const modalContent = document.querySelector('#global-viewer-modal .modal-content'); if (!document.fullscreenElement) { modalContent.requestFullscreen().catch(err => alert('ফুলস্ক্রিন সক্রিয় করা যায়নি: ' + err.message)); } else { document.exitFullscreen(); }
             modalContent.classList.toggle('fullscreen'); }
-        document.addEventListener('fullscreenchange', () => { const modalContent = document.querySelector(
-            '#global-viewer-modal .modal-content'); if (document.fullscreenElement) modalContent.classList.add(
-            'fullscreen');
-            else modalContent.classList.remove('fullscreen'); });
+        document.addEventListener('fullscreenchange', () => { const modalContent = document.querySelector('#global-viewer-modal .modal-content'); if (document.fullscreenElement) modalContent.classList.add('fullscreen'); else modalContent.classList.remove('fullscreen'); });
         document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeGlobalModal();
                 closeEditModal();
                 closeScanEditModal();
