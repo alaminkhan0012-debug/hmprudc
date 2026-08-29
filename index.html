@@ -304,7 +304,7 @@
                     <div class="section-footer"><button class="dl-all-btn" onclick="downloadAllData('passport_photo','পাসপোর্ট ফোটো')">📦 সমস্ত ডাটা ডাউনলোড করুন</button></div>
                 </div>
 
-                <!-- প্যানেল ২: NID স্ক্যান -->
+                <!-- প্যানেল ২: NID স্ক্যান (শুধু আপলোড ও সার্চ) -->
                 <div id="tab-nid-scan" class="section-panel">
                     <div class="form-container">
                         <div class="form-title">📷 ২. NID স্ক্যান কপি আপলোড</div>
@@ -471,7 +471,7 @@
                             <div id="atd-login-msg" style="margin-top:10px;font-size:13px;"></div>
                         </div>
                         <div id="atd-panel" style="display:none;">
-                            <p style="margin-bottom:15px;color:#27ae60;font-weight:600;">✅ ATD প্যানেলে প্রবেশ করেছেন। এখানে এক এক করে ডিলিট করা যাবে।</p>
+                            <p style="margin-bottom:15px;color:#27ae60;font-weight:600;">✅ ATD প্যানেলে প্রবেশ করেছেন।</p>
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label>ডাটা ক্যাটাগরি</label>
@@ -598,7 +598,7 @@
         </div>
     </div>
 
-    <!-- মডাল: নাম্বার আপডেট এন্ট্রি -->
+    <!-- মডাল: নাম্বার আপডেট -->
     <div id="update-number-modal" class="modal">
         <div class="modal-content" style="max-width:600px;">
             <span class="close-modal" onclick="closeUpdateNumberModal()">&times;</span>
@@ -649,6 +649,30 @@
         let alaminConfirmed = false, secretaryConfirmed = false, completeStatus = false;
         let completeTargetId = null;
 
+        // ============ Tesseract.js দ্রুত কনফিগারেশন ============
+        const TESSERACT_OPTIONS = {
+            workerBlobURL: false,
+            gzip: true,
+            cacheMethod: 'none',
+            tessedit_pageseg_mode: '6',
+            tessedit_do_invert: false,
+            user_defined_dpi: '300'
+        };
+
+        // ============ ডুপ্লিকেট চেক ফাংশন ============
+        function checkDuplicate(category, data, excludeId = null) {
+            return masterDB[category].some(item => {
+                if (excludeId && item.id === excludeId) return false;
+                for (let key in data) {
+                    if (item[key] && data[key] && item[key].toLowerCase() === data[key].toLowerCase()) {
+                        continue;
+                    }
+                    return false;
+                }
+                return true;
+            });
+        }
+
         function seedDefaultUsers() {
             return [
                 { id: 1, username: 'admin', password: 'admin', role: 'admin', securityQuestion: 'আপনার জন্মস্থান কোথায়?', securityAnswer: 'ঢাকা' },
@@ -671,15 +695,9 @@
 
         function setDefaultDate() {
             const dateInput = document.getElementById('app-date');
-            if (dateInput) {
-                const today = new Date().toISOString().split('T')[0];
-                dateInput.value = today;
-            }
+            if (dateInput) { const today = new Date().toISOString().split('T')[0]; dateInput.value = today; }
             const updateDateInput = document.getElementById('update-date');
-            if (updateDateInput) {
-                const today = new Date().toISOString().split('T')[0];
-                updateDateInput.value = today;
-            }
+            if (updateDateInput) { const today = new Date().toISOString().split('T')[0]; updateDateInput.value = today; }
         }
 
         window.onload = async function() {
@@ -951,6 +969,19 @@
         function renderAll() { renderNidTable(masterDB.nid_pdf); renderPassportTable(masterDB.passport_photo); renderScanTable(masterDB.nid_scan); renderBirthPdfTable(masterDB.birth_reg); renderContractTable(masterDB.contracts); renderApplicationTable(masterDB.applications); renderUpdateTable(masterDB.update_numbers); }
         async function saveToDatabase() { await localforage.setItem('sys_archive_master_v44', masterDB); }
 
+        // ============ দ্রুত OCR ফাংশন ============
+        async function performFastOCR(dataUrl) {
+            try {
+                const worker = await Tesseract.createWorker('ben+eng', 1, TESSERACT_OPTIONS);
+                const { data } = await worker.recognize(dataUrl);
+                await worker.terminate();
+                return data.text;
+            } catch (e) {
+                console.error('OCR Error:', e);
+                return null;
+            }
+        }
+
         // ============ ফটো স্টুডিও ============
         function handlePassportFileInput(input) {
             if (!input.files[0]) { ppOriginalImage = null; ppProcessedDataUrl = null; document.getElementById('pp-studio-preview').style.display = 'none'; return; }
@@ -1048,7 +1079,9 @@
         function downloadProcessedPhoto() { if (!ppProcessedDataUrl) return alert("প্রথমে ছবি প্রসেস করুন!"); const a = document.createElement('a'); a.href = ppProcessedDataUrl; a.download = 'passport_photo.jpg'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
         async function handlePassportSubmit(e) {
             e.preventDefault(); if (!ppProcessedDataUrl) { if (ppOriginalImage) autoFixPhoto(); else return alert("দয়া করে একটি ছবি নির্বাচন করুন!"); }
-            const record = { id: Date.now(), name: document.getElementById('pp-name').value.trim(), village: document.getElementById('pp-village').value, ward: document.getElementById('pp-ward').value, fileData: ppProcessedDataUrl };
+            const data = { name: document.getElementById('pp-name').value.trim(), village: document.getElementById('pp-village').value, ward: document.getElementById('pp-ward').value };
+            if (checkDuplicate('passport_photo', data)) { alert('⚠️ এই নাম, গ্রাম ও ওয়ার্ডে ইতিমধ্যে একটি রেকর্ড আছে!'); return; }
+            const record = { id: Date.now(), ...data, fileData: ppProcessedDataUrl };
             masterDB.passport_photo.push(record);
             await saveToDatabase();
             renderPassportTable(masterDB.passport_photo);
@@ -1065,23 +1098,16 @@
             renderPassportTable(masterDB.passport_photo.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
 
         // ============ OCR লজিক ============
-        async function performImageOCR(dataUrl) {
-            try {
-                const r = await Tesseract.recognize(dataUrl, 'ben+eng', { tessedit_pageseg_mode: '6' });
-                return r.data.text;
-            } catch (e) { return null; }
-        }
-
         async function handleScanFileSelect(input) {
             const btn = document.getElementById('btn-scan-submit'), status = document.getElementById('scan-file-status');
             if (!input.files[0]) { btn.disabled = true; status.textContent = ''; return; }
-            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (OCR)...';
+            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (দ্রুত OCR)...';
             scanAutoFillInProgress = true;
             try {
                 const file = input.files[0];
                 const reader = new FileReader();
                 reader.onload = async function(e) {
-                    const ocrText = await performImageOCR(e.target.result);
+                    const ocrText = await performFastOCR(e.target.result);
                     const text = ocrText ? recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : '';
                     if (text) {
                         const possibleNames = extractPossibleNames(text);
@@ -1118,7 +1144,6 @@
                         let village = '';
                         const villagePatterns = ['বানাউল', 'চৈতনপুর দক্ষিণ', 'চৈতনপুর উত্তর', 'হুসেনপুর দক্ষিণ', 'হুসেনপুর উত্তর', 'উজাইখালী', 'আনোয়ারপুর', 'টানগোসাইপুর উত্তর', 'টানগোসাইপুর দক্ষিণ', 'নামাগোসাইপুর উত্তর', 'নামাগোসাইপুর দক্ষিণ', 'কৈটুপী'];
                         for (let v of villagePatterns) { if (text.includes(v)) { village = v; break; } }
-
                         document.getElementById('scan-hidden-fileData').value = e.target.result;
                         status.textContent = '✅ OCR সম্পন্ন।';
                     } else {
@@ -1152,10 +1177,9 @@
         async function saveScanEditFromModal() { const rid = parseInt(document.getElementById('scan-edit-modal').dataset.recordId), idx = masterDB.nid_scan.findIndex(r => r.id === rid); if (idx !== -1) { masterDB.nid_scan[idx].name = document.getElementById('scan-edit-name').value; masterDB.nid_scan[idx].father = document.getElementById('scan-edit-father').value; masterDB.nid_scan[idx].mother = document.getElementById('scan-edit-mother').value; masterDB.nid_scan[idx].ward = document.getElementById('scan-edit-ward').value; masterDB.nid_scan[idx].village = document.getElementById('scan-edit-village').value; await saveToDatabase(); renderScanTable(masterDB.nid_scan); closeScanEditModal(); alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
 
         // ============ PDF NID ============
-        async function performOCR(dataUrl) { try { const r = await Tesseract.recognize(dataUrl, 'ben+eng'); return r.data.text; } catch (e) { return null; } }
         async function handleFileSelect(input) { const btn = document.getElementById('btn-nid_pdf'), status = document.getElementById('file-status'); if (!input.files[0]) { btn.disabled = true; status.textContent = ''; return; }
-            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (OCR)...'; autoFillInProgress = true; try { await triggerNIDAutoFill(input); status.textContent = '✅ সম্পন্ন।'; } catch (e) { status.textContent = '⚠️ ব্যর্থ।'; } finally { autoFillInProgress = false; btn.disabled = false; } }
-        async function triggerNIDAutoFill(input) { const file = input.files[0]; if (!file || (file.type !== 'application/pdf' && !file.name.endsWith('.pdf'))) return; const buffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: buffer }).promise; let rawText = ''; try { const page = await pdf.getPage(1); const vp = page.getViewport({ scale: 2.5 }); const canvas = document.createElement('canvas'); canvas.width = vp.width; canvas.height = vp.height; await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise; const ocr = await performOCR(canvas.toDataURL('image/png')); if (ocr) rawText = ocr.replace(/\s+/g, ' ').trim(); else throw new Error('OCR empty'); } catch { for (let i = 1; i <= pdf.numPages; i++) { const page = await pdf.getPage(i); const content = await page.getTextContent(); rawText += content.items.map(it => it.str).join(' ') + ' '; } rawText = rawText.replace(/\s+/g, ' ').trim(); } const text = recoverBrokenBengali(rawText); const possibleNames = extractPossibleNames(text); let name = possibleNames[0] || "", father = possibleNames[1] || "", mother = possibleNames[2] || "";
+            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (দ্রুত OCR)...'; autoFillInProgress = true; try { await triggerNIDAutoFill(input); status.textContent = '✅ সম্পন্ন।'; } catch (e) { status.textContent = '⚠️ ব্যর্থ।'; } finally { autoFillInProgress = false; btn.disabled = false; } }
+        async function triggerNIDAutoFill(input) { const file = input.files[0]; if (!file || (file.type !== 'application/pdf' && !file.name.endsWith('.pdf'))) return; const buffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: buffer }).promise; let rawText = ''; try { const page = await pdf.getPage(1); const vp = page.getViewport({ scale: 2.5 }); const canvas = document.createElement('canvas'); canvas.width = vp.width; canvas.height = vp.height; await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise; const ocr = await performFastOCR(canvas.toDataURL('image/png')); if (ocr) rawText = ocr.replace(/\s+/g, ' ').trim(); else throw new Error('OCR empty'); } catch { for (let i = 1; i <= pdf.numPages; i++) { const page = await pdf.getPage(i); const content = await page.getTextContent(); rawText += content.items.map(it => it.str).join(' ') + ' '; } rawText = rawText.replace(/\s+/g, ' ').trim(); } const text = recoverBrokenBengali(rawText); const possibleNames = extractPossibleNames(text); let name = possibleNames[0] || "", father = possibleNames[1] || "", mother = possibleNames[2] || "";
             function extractBetween(startPatterns, endPatterns) {
                 for (let pat of startPatterns) {
                     let regex = new RegExp(pat, 'i'), match = text.match(regex);
@@ -1217,7 +1241,7 @@
         // ============ জন্ম নিবন্ধন PDF ============
         async function renderPdfToImageUrl(file) { try { const arrayBuffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise; const page = await pdf.getPage(1); const viewport = page.getViewport({ scale: 2.5 }); const canvas = document.createElement('canvas'); canvas.width = viewport.width; canvas.height = viewport.height; const ctx = canvas.getContext('2d'); await page.render({ canvasContext: ctx, viewport: viewport }).promise; return canvas.toDataURL('image/png'); } catch (e) { return null; } }
         async function handleBirthFileSelect(input) { const btn = document.getElementById('btn-birth-pdf'), status = document.getElementById('birth-file-status'); if (!input.files[0]) { btn.disabled = true; status.textContent = ''; return; } const file = input.files[0];
-            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (OCR)...'; birthAutoFill = true; try { let dataUrl; if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) { dataUrl = await renderPdfToImageUrl(file); } else { dataUrl = await new Promise(resolve => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.readAsDataURL(file); }); } if (!dataUrl) { status.textContent = '⚠️ পিডিএফ রেন্ডার ব্যর্থ'; btn.disabled = false; birthAutoFill = false; return; } const ocrText = await performImageOCR(dataUrl); const text = ocrText ? recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : ''; if (text) { const nameMatch = text.match(/(?:নাম|Name)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const fatherMatch = text.match(/(?:পিতা|Father)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const motherMatch = text.match(/(?:মাতা|Mother)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const record = { id: Date.now(), name: nameMatch ? cleanName(nameMatch[1]) : 'অজানা', father: fatherMatch ? cleanName(fatherMatch[1]) : 'অজানা', mother: motherMatch ? cleanName(motherMatch[1]) : '', ward: '', village: '', fileData: dataUrl }; masterDB.birth_reg.push(record); await saveToDatabase(); renderBirthPdfTable(masterDB.birth_reg); status.textContent = '✅ OCR সম্পন্ন! আপলোড সফল!'; } else { status.textContent = '⚠️ OCR ব্যর্থ, ফাইল সংরক্ষিত হয়েছে।'; } btn.disabled = false; } catch (e) { status.textContent = '⚠️ ব্যর্থ: ' + e.message; btn.disabled = false; } finally { birthAutoFill = false; } }
+            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (দ্রুত OCR)...'; birthAutoFill = true; try { let dataUrl; if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) { dataUrl = await renderPdfToImageUrl(file); } else { dataUrl = await new Promise(resolve => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.readAsDataURL(file); }); } if (!dataUrl) { status.textContent = '⚠️ পিডিএফ রেন্ডার ব্যর্থ'; btn.disabled = false; birthAutoFill = false; return; } const ocrText = await performFastOCR(dataUrl); const text = ocrText ? recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : ''; if (text) { const nameMatch = text.match(/(?:নাম|Name)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const fatherMatch = text.match(/(?:পিতা|Father)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const motherMatch = text.match(/(?:মাতা|Mother)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const record = { id: Date.now(), name: nameMatch ? cleanName(nameMatch[1]) : 'অজানা', father: fatherMatch ? cleanName(fatherMatch[1]) : 'অজানা', mother: motherMatch ? cleanName(motherMatch[1]) : '', ward: '', village: '', fileData: dataUrl }; masterDB.birth_reg.push(record); await saveToDatabase(); renderBirthPdfTable(masterDB.birth_reg); status.textContent = '✅ OCR সম্পন্ন! আপলোড সফল!'; } else { status.textContent = '⚠️ OCR ব্যর্থ, ফাইল সংরক্ষিত হয়েছে।'; } btn.disabled = false; } catch (e) { status.textContent = '⚠️ ব্যর্থ: ' + e.message; btn.disabled = false; } finally { birthAutoFill = false; } }
         async function handleBirthPdfSubmit(e) { e.preventDefault(); if (birthAutoFill) return alert("প্রসেসিং চলছে..."); const fileEl = document.getElementById('birth-file'); if (!fileEl.files[0]) return alert("⚠️ ফাইল নির্বাচন করুন!"); const file = fileEl.files[0]; const fileData = await new Promise(resolve => { const reader = new FileReader(); reader.onload = e => resolve(e.target.result); reader.readAsDataURL(file); }); const record = { id: Date.now(), name: 'অজানা', father: 'অজানা', mother: '', ward: '', village: '', fileData }; masterDB.birth_reg.push(record); await saveToDatabase(); renderBirthPdfTable(masterDB.birth_reg); document.getElementById('form-birth-pdf').reset(); document.getElementById('btn-birth-pdf').disabled = true; alert("✅ জন্ম নিবন্ধন PDF সংরক্ষিত হয়েছে!"); }
 
         function renderBirthPdfTable(data) { const list = document.getElementById('list-birth-pdf'); if (!list) return; const pdfRecords = data.filter(item => item.fileData);
@@ -1251,33 +1275,11 @@
         function handleApplicationSubmit(e) {
             e.preventDefault();
             const editId = document.getElementById('form-application').dataset.editId;
-            const record = {
-                id: editId ? parseInt(editId) : Date.now(),
-                date: document.getElementById('app-date').value,
-                appNo: document.getElementById('app-no').value.trim(),
-                name: document.getElementById('app-name').value.trim(),
-                appType: document.getElementById('app-type').value,
-                alaminReceive: alaminConfirmed,
-                alaminDate: document.getElementById('alamin-date').textContent,
-                feeCollect: document.getElementById('btn-fee-collect').dataset.amount || '',
-                feeCollectDate: document.getElementById('fee-collect-date').textContent,
-                secretaryReceive: secretaryConfirmed,
-                secretaryDate: document.getElementById('secretary-date').textContent,
-                feeReceive: document.getElementById('btn-fee-receive').dataset.amount || '',
-                feeReceiveDate: document.getElementById('fee-receive-date').textContent,
-                completed: completeStatus
-            };
-            if (editId) {
-                const idx = masterDB.applications.findIndex(r => r.id === parseInt(editId));
-                if (idx !== -1) masterDB.applications[idx] = record;
-            } else {
-                masterDB.applications.push(record);
-            }
-            saveToDatabase().then(() => {
-                renderApplicationTable(masterDB.applications);
-                resetApplicationForm();
-                alert("✅ আবেদন সংরক্ষিত হয়েছে!");
-            });
+            const data = { date: document.getElementById('app-date').value, appNo: document.getElementById('app-no').value.trim(), name: document.getElementById('app-name').value.trim(), appType: document.getElementById('app-type').value };
+            if (checkDuplicate('applications', data, editId)) { alert('⚠️ এই আবেদনটি ইতিমধ্যে এন্ট্রি করা আছে!'); return; }
+            const record = { id: editId ? parseInt(editId) : Date.now(), ...data, alaminReceive: alaminConfirmed, alaminDate: document.getElementById('alamin-date').textContent, feeCollect: document.getElementById('btn-fee-collect').dataset.amount || '', feeCollectDate: document.getElementById('fee-collect-date').textContent, secretaryReceive: secretaryConfirmed, secretaryDate: document.getElementById('secretary-date').textContent, feeReceive: document.getElementById('btn-fee-receive').dataset.amount || '', feeReceiveDate: document.getElementById('fee-receive-date').textContent, completed: completeStatus };
+            if (editId) { const idx = masterDB.applications.findIndex(r => r.id === parseInt(editId)); if (idx !== -1) masterDB.applications[idx] = record; } else { masterDB.applications.push(record); }
+            saveToDatabase().then(() => { renderApplicationTable(masterDB.applications); resetApplicationForm(); alert("✅ আবেদন সংরক্ষিত হয়েছে!"); });
         }
 
         function resetApplicationForm() {
