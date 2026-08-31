@@ -78,7 +78,7 @@
         .section-panel { display: none; }
         .section-panel.active { display: block; }
         .form-container { background: #fff; border-radius: 16px; padding: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); border: 1px solid #eef2f6; margin-bottom: 30px; }
-        .form-title { font-size: 18px; font-weight: 700; color: #1e3c72; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #eef2f6; padding-bottom: 15px; }
+        .form-title { font-size: 18px; font-weight: 700; color: #1e3c72; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #eef2f6; padding-bottom: 15px; }
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 20px; }
         .form-group { display: flex; flex-direction: column; }
         .form-group label { margin-bottom: 6px; font-weight: 600; font-size: 13px; color: #4a5568; }
@@ -94,7 +94,7 @@
         button.btn-danger:hover { background: #c0392b; transform: translateY(-1px); }
         .search-box { background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; table-layout: fixed; }
-        th, td { border: 1px solid #dee2e6; padding: 10px 4px; text-align: center; vertical-align: middle; font-size: 14px; }
+        th, td { border: 1px solid #dee2e6; padding: 8px 4px; text-align: center; vertical-align: middle; font-size: 13px; word-break: break-word; }
         th { background: #f1f3f5; color: #1e3c72; font-weight: 700; }
         .inner-scroller { max-height: 60px; overflow-y: auto; text-align: left; font-size: 13px; line-height: 1.4; padding-right: 3px; }
         .action-flex { display: flex !important; justify-content: center !important; align-items: center !important; gap: 4px !important; flex-wrap: wrap; }
@@ -125,9 +125,10 @@
         .viewer-download-btn:hover { background: #219a52; transform: translateY(-1px); }
         .photo-thumb { width: 45px; height: 55px; object-fit: cover; border-radius: 4px; cursor: pointer; }
         .status-msg { font-size: 14px; color: #d35400; margin-top: 5px; }
-        .info-badge { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .info-badge { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
         .info-badge.admin { background: #fce4ec; color: #c62828; }
         .info-badge.done { background: #e3f2fd; color: #1565c0; }
+        .info-badge.edit-tag { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
         .step-indicator { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; }
         .step-dot { width: 12px; height: 12px; border-radius: 50%; background: #ddd; transition: all 0.3s; }
         .step-dot.active { background: #2a5298; transform: scale(1.3); }
@@ -142,31 +143,34 @@
         .dl-all-btn { margin-top: 15px; padding: 10px 24px; background: #1e3c72; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
         .dl-all-btn:hover { background: #2a5298; transform: translateY(-1px); }
         .section-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #eef2f6; text-align: right; }
-        .checkbox-group { display: flex; align-items: center; gap: 10px; }
-        .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; }
         .inline-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
         .application-table th { background: #f1f3f5; }
         .application-table td { text-align: center; }
-        .status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
-        .status-dot.green { background: #27ae60; }
-        .status-dot.red { background: #e74c3c; }
-        .status-dot.yellow { background: #f39c12; }
-        .fee-btn { padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; border: none; transition: all 0.2s; }
-        .fee-btn-collect { background: #e8f5e9; color: #2e7d32; }
+        
+        /* ছোট ও স্লিম বাটন ডিজাইন */
+        .btn-tiny { padding: 3px 6px !important; font-size: 11px !important; border-radius: 4px !important; line-height: 1.2 !important; white-space: nowrap; font-weight: 600; }
+        .fee-btn { padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11.5px; font-weight: 600; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 3px; justify-content: center; }
+        .fee-btn-collect { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
         .fee-btn-collect:hover { background: #c8e6c9; }
-        .fee-btn-receive { background: #fff3e0; color: #e65100; }
+        .fee-btn-receive { background: #fff3e0; color: #e65100; border: 1px solid #ffe0b2; }
         .fee-btn-receive:hover { background: #ffe0b2; }
         .fee-btn-filled { background: #2e7d32; color: white; }
         .fee-btn-filled-receive { background: #e65100; color: white; }
-        .popup-btn { padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; border: none; transition: all 0.2s; }
-        .popup-btn-alamin { background: #e3f2fd; color: #1565c0; }
+        .popup-btn { padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 11.5px; font-weight: 600; border: none; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 3px; }
+        .popup-btn-alamin { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
         .popup-btn-alamin:hover { background: #bbdefb; }
-        .popup-btn-secretary { background: #f3e5f5; color: #6a1b9a; }
+        .popup-btn-secretary { background: #f3e5f5; color: #6a1b9a; border: 1px solid #e1bee7; }
         .popup-btn-secretary:hover { background: #e1bee7; }
-        .complete-btn { background: #27ae60; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
+        .popup-btn-done-alamin { background: #27ae60 !important; color: white !important; }
+        .popup-btn-done-sec { background: #6a1b9a !important; color: white !important; }
+        
+        /* সম্পন্ন হলে লক স্টাইল */
+        .btn-locked { cursor: not-allowed !important; opacity: 0.85 !important; }
+        
+        .complete-btn { background: #27ae60; color: white; border: none; padding: 4px 8px; border-radius: 5px; cursor: pointer; font-size: 11px; font-weight: 600; }
         .complete-btn:hover { background: #219a52; }
         .complete-btn.done { background: #95a5a6; cursor: default; }
-        .date-stamp { font-size: 10px; color: #888; margin-top: 4px; }
+        .date-stamp { font-size: 9.5px; color: #666; margin-top: 2px; line-height: 1.1; }
         .atd-table th { background: #ffebee; color: #c62828; }
         .atd-table .action-flex button { border-color: #e74c3c; color: #e74c3c; }
         .atd-table .action-flex button:hover { background: #fdecea; }
@@ -304,7 +308,7 @@
                     <div class="section-footer"><button class="dl-all-btn" onclick="downloadAllData('passport_photo','পাসপোর্ট ফোটো')">📦 সমস্ত ডাটা ডাউনলোড করুন</button></div>
                 </div>
 
-                <!-- প্যানেল ২: NID স্ক্যান (শুধু আপলোড ও সার্চ) -->
+                <!-- প্যানেল ২: NID স্ক্যান -->
                 <div id="tab-nid-scan" class="section-panel">
                     <div class="form-container">
                         <div class="form-title">📷 ২. NID স্ক্যান কপি আপলোড</div>
@@ -363,22 +367,41 @@
                 <!-- প্যানেল ৬: আবেদন ব্যবস্থাপনা -->
                 <div id="tab-application" class="section-panel">
                     <div class="form-container">
-                        <div class="form-title">📋 ৬. আবেদন ব্যবস্থাপনা</div>
+                        <div class="form-title">
+                            <span>📋 ৬. আবেদন ব্যবস্থাপনা</span>
+                            <span id="app-edit-badge" class="info-badge edit-tag" style="display:none;">✏️ এডিট মোড</span>
+                        </div>
                         <form id="form-application" onsubmit="handleApplicationSubmit(event)">
                             <div class="form-grid">
-                                <div class="form-group"><label>📅 তারিখ</label><input type="date" id="app-date" value="" required></div>
-                                <div class="form-group"><label>🔢 আবেদন নং</label><input type="text" id="app-no" placeholder="আবেদন নং" required></div>
+                                <div class="form-group"><label>📅 তারিখ</label><input type="date" id="app-date" required></div>
+                                <div class="form-group"><label>🔢 আবেদন নং</label><input type="text" id="app-no" placeholder="আবেদন নং লিখুন" required></div>
                                 <div class="form-group"><label>👤 নাম</label><input type="text" id="app-name" placeholder="আবেদনকারীর নাম" required></div>
                                 <div class="form-group"><label>📋 আবেদনের ধরন</label><select id="app-type" required><option value="নতুন">নতুন</option><option value="সংশোধন">সংশোধন</option><option value="মৃত্যু নিবন্ধন">মৃত্যু নিবন্ধন</option></select></div>
                             </div>
                             <div class="form-grid">
-                                <div class="form-group"><label>✅ আল আমিন রিসিভ</label><button type="button" class="popup-btn popup-btn-alamin" id="btn-alamin" onclick="openAlaminModal()">আল আমিন রিসিভ</button><div id="alamin-date" class="date-stamp"></div></div>
-                                <div class="form-group"><label>💰 ফি আদায়</label><button type="button" class="fee-btn fee-btn-collect" id="btn-fee-collect" onclick="openFeeModal('collect')">ফি আদায় করুন</button><div id="fee-collect-date" class="date-stamp"></div></div>
-                                <div class="form-group"><label>✅ সচিব রিসিভ</label><button type="button" class="popup-btn popup-btn-secretary" id="btn-secretary" onclick="openSecretaryModal()">সচিব রিসিভ</button><div id="secretary-date" class="date-stamp"></div></div>
-                                <div class="form-group"><label>💰 ফি রিসিভ</label><button type="button" class="fee-btn fee-btn-receive" id="btn-fee-receive" onclick="openFeeModal('receive')">ফি রিসিভ করুন</button><div id="fee-receive-date" class="date-stamp"></div></div>
+                                <div class="form-group">
+                                    <label>✅ আল আমিন রিসিভ (ঐচ্ছিক)</label>
+                                    <button type="button" class="popup-btn popup-btn-alamin" id="btn-alamin" onclick="openAlaminModal(null)">আল আমিন রিসিভ</button>
+                                    <div id="alamin-date" class="date-stamp"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>💰 ফি আদায় (ঐচ্ছিক)</label>
+                                    <button type="button" class="fee-btn fee-btn-collect" id="btn-fee-collect" onclick="openFeeModal('collect', null)">ফি আদায় করুন</button>
+                                    <div id="fee-collect-date" class="date-stamp"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>✅ সচিব রিসিভ (ঐচ্ছিক)</label>
+                                    <button type="button" class="popup-btn popup-btn-secretary" id="btn-secretary" onclick="openSecretaryModal(null)">সচিব রিসিভ</button>
+                                    <div id="secretary-date" class="date-stamp"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>💰 ফি রিসিভ (ঐচ্ছিক)</label>
+                                    <button type="button" class="fee-btn fee-btn-receive" id="btn-fee-receive" onclick="openFeeModal('receive', null)">ফি রিসিভ করুন</button>
+                                    <div id="fee-receive-date" class="date-stamp"></div>
+                                </div>
                             </div>
                             <div class="inline-buttons" style="margin-top:15px;">
-                                <button type="submit" class="btn-submit">💾 সংরক্ষণ করুন</button>
+                                <button type="submit" class="btn-submit" id="btn-app-submit">💾 সংরক্ষণ করুন</button>
                                 <button type="button" class="btn-reset" onclick="resetApplicationForm()">🔄 রিসেট</button>
                             </div>
                         </form>
@@ -400,16 +423,16 @@
                     <table class="application-table">
                         <thead>
                             <tr>
-                                <th>তারিখ</th>
-                                <th>আবেদন নং</th>
+                                <th style="width:100px;">তারিখ</th>
+                                <th style="width:110px;">আবেদন নং</th>
                                 <th>নাম</th>
-                                <th>ধরন</th>
-                                <th>আল আমিন</th>
-                                <th>ফি আদায়</th>
-                                <th>সচিব</th>
-                                <th>ফি রিসিভ</th>
-                                <th>সম্পন্ন</th>
-                                <th>অ্যাকশন</th>
+                                <th style="width:90px;">ধরন</th>
+                                <th style="width:105px;">আল আমিন</th>
+                                <th style="width:105px;">ফি আদায়</th>
+                                <th style="width:105px;">সচিব</th>
+                                <th style="width:105px;">ফি রিসিভ</th>
+                                <th style="width:95px;">সম্পন্ন</th>
+                                <th style="width:80px;">অ্যাকশন</th>
                             </tr>
                         </thead>
                         <tbody id="list-applications"></tbody>
@@ -421,8 +444,8 @@
                 <div id="tab-update-number" class="section-panel">
                     <div class="form-container">
                         <div class="form-title">🔄 ৭. নাম্বার আপডেট</div>
-                        <p style="margin-bottom:15px;color:#666;">নতুন আপডেট এন্ট্রি করতে নিচের বাটনে ক্লিক করুন।</p>
-                        <button class="btn-submit" onclick="openUpdateNumberModal()">➕ নতুন আপডেট এন্ট্রি</button>
+                        <p style="margin-bottom:15px;color:#666;">নতুন আপডেট এন্ট্রি করতে নিচের বাটনে ক্লিক করুন অথবা টেবিল থেকে নাম্বার পপআপে পরিবর্তন করুন।</p>
+                        <button class="btn-submit" onclick="openUpdateNumberModal(null)">➕ নতুন আপডেট এন্ট্রি</button>
                     </div>
                     <div class="search-box">
                         <h4>🔎 আপডেট অনুসন্ধান</h4>
@@ -442,14 +465,14 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>পুরাতন নাম্বার</th>
-                                <th>তারিখ</th>
+                                <th style="width:130px;">পুরাতন নাম্বার</th>
+                                <th style="width:100px;">তারিখ</th>
                                 <th>নাম</th>
                                 <th>পিতা</th>
                                 <th>মাতা</th>
-                                <th>নতুন নাম্বার</th>
-                                <th>সম্পন্ন</th>
-                                <th>অ্যাকশন</th>
+                                <th style="width:130px;">নতুন নাম্বার</th>
+                                <th style="width:95px;">সম্পন্ন</th>
+                                <th style="width:80px;">অ্যাকশন</th>
                             </tr>
                         </thead>
                         <tbody id="list-update-number"></tbody>
@@ -547,38 +570,38 @@
 
     <!-- মডাল: আল আমিন রিসিভ -->
     <div id="alamin-modal" class="modal">
-        <div class="modal-content" style="max-width:450px;">
+        <div class="modal-content" style="max-width:420px;">
             <span class="close-modal" onclick="closeAlaminModal()">&times;</span>
-            <h3 style="color:#1e3c72;margin-bottom:15px;">✅ আল আমিন রিসিভ</h3>
-            <p style="margin-bottom:10px;">আপনি কি নিশ্চিত যে আল আমিন রিসিভ করেছেন?</p>
+            <h3 style="color:#1e3c72;margin-bottom:12px;">✅ আল আমিন রিসিভ</h3>
+            <p style="margin-bottom:15px;font-size:14px;">আপনি কি নিশ্চিত যে আল আমিন রিসিভ হিসেবে মার্ক করতে চান?</p>
             <div style="display:flex;gap:10px;">
-                <button class="btn-submit" onclick="confirmAlamin()">✅ হ্যাঁ, নিশ্চিত</button>
-                <button class="btn-reset" onclick="closeAlaminModal()">❌ না</button>
+                <button class="btn-submit" onclick="confirmAlamin()" style="flex:1;">✅ নিশ্চিত</button>
+                <button class="btn-reset" onclick="closeAlaminModal()" style="flex:1;">❌ বাতিল</button>
             </div>
         </div>
     </div>
 
     <!-- মডাল: সচিব রিসিভ -->
     <div id="secretary-modal" class="modal">
-        <div class="modal-content" style="max-width:450px;">
+        <div class="modal-content" style="max-width:420px;">
             <span class="close-modal" onclick="closeSecretaryModal()">&times;</span>
-            <h3 style="color:#1e3c72;margin-bottom:15px;">✅ সচিব রিসিভ</h3>
-            <p style="margin-bottom:10px;">আপনি কি নিশ্চিত যে সচিব রিসিভ করেছেন?</p>
+            <h3 style="color:#1e3c72;margin-bottom:12px;">✅ সচিব রিসিভ</h3>
+            <p style="margin-bottom:15px;font-size:14px;">আপনি কি নিশ্চিত যে সচিব রিসিভ হিসেবে মার্ক করতে চান?</p>
             <div style="display:flex;gap:10px;">
-                <button class="btn-submit" onclick="confirmSecretary()">✅ হ্যাঁ, নিশ্চিত</button>
-                <button class="btn-reset" onclick="closeSecretaryModal()">❌ না</button>
+                <button class="btn-submit" onclick="confirmSecretary()" style="flex:1;">✅ নিশ্চিত</button>
+                <button class="btn-reset" onclick="closeSecretaryModal()" style="flex:1;">❌ বাতিল</button>
             </div>
         </div>
     </div>
 
     <!-- মডাল: ফি আদায়/রিসিভ -->
     <div id="fee-modal" class="modal">
-        <div class="modal-content" style="max-width:450px;">
+        <div class="modal-content" style="max-width:420px;">
             <span class="close-modal" onclick="closeFeeModal()">&times;</span>
             <h3 style="color:#1e3c72;margin-bottom:15px;" id="fee-modal-title">💰 ফি আদায়</h3>
             <div class="form-group" style="margin-bottom:15px;">
                 <label>ফি এর পরিমাণ (টাকা)</label>
-                <input type="number" id="fee-amount" placeholder="ফি লিখুন" min="0" step="0.01">
+                <input type="number" id="fee-amount" placeholder="টাকার পরিমাণ লিখুন" min="0" step="0.01">
             </div>
             <button class="btn-submit" onclick="saveFeeModal()" style="width:100%;">💾 সংরক্ষণ করুন</button>
             <div id="fee-modal-msg" style="margin-top:10px;font-size:13px;"></div>
@@ -587,22 +610,36 @@
 
     <!-- মডাল: সম্পন্ন -->
     <div id="complete-modal" class="modal">
-        <div class="modal-content" style="max-width:450px;">
+        <div class="modal-content" style="max-width:420px;">
             <span class="close-modal" onclick="closeCompleteModal()">&times;</span>
-            <h3 style="color:#1e3c72;margin-bottom:15px;">✅ সম্পন্ন</h3>
-            <p style="margin-bottom:10px;">আপনি কি নিশ্চিত যে এই আবেদন সম্পন্ন হয়েছে?</p>
+            <h3 style="color:#1e3c72;margin-bottom:12px;">✅ আবেদন সম্পন্ন নিশ্চিতকরণ</h3>
+            <p style="margin-bottom:15px;font-size:13.5px;color:#555;">সম্পন্ন করার পর টেবিল থেকে সরাসরি কোনো স্ট্যাটাস পরিবর্তন করা যাবে না। পরিবর্তন করতে চাইলে শুধুমাত্র <strong>এডিট (✏️)</strong> করতে হবে।</p>
             <div style="display:flex;gap:10px;">
-                <button class="btn-submit" onclick="confirmComplete()">✅ হ্যাঁ, সম্পন্ন</button>
-                <button class="btn-reset" onclick="closeCompleteModal()">❌ না</button>
+                <button class="btn-submit" onclick="confirmComplete()" style="flex:1;">✅ হ্যাঁ, সম্পন্ন</button>
+                <button class="btn-reset" onclick="closeCompleteModal()" style="flex:1;">❌ না</button>
             </div>
         </div>
     </div>
 
-    <!-- মডাল: নাম্বার আপডেট -->
+    <!-- মডাল: একক পুরাতন/নতুন নাম্বার পপআপ -->
+    <div id="single-number-modal" class="modal">
+        <div class="modal-content" style="max-width:450px;">
+            <span class="close-modal" onclick="closeSingleNumberModal()">&times;</span>
+            <h3 style="color:#1e3c72;margin-bottom:15px;" id="single-number-title">🔢 নাম্বার আপডেট</h3>
+            <div class="form-group" style="margin-bottom:15px;">
+                <label id="single-number-label">নাম্বার লিখুন</label>
+                <input type="text" id="single-number-input" placeholder="নাম্বার লিখুন">
+            </div>
+            <button class="btn-submit" onclick="saveSingleNumberModal()" style="width:100%;">💾 সংরক্ষণ করুন</button>
+            <div id="single-number-msg" style="margin-top:10px;font-size:13px;"></div>
+        </div>
+    </div>
+
+    <!-- মডাল: নাম্বার আপডেট সম্পূর্ণ এন্ট্রি/এডিট -->
     <div id="update-number-modal" class="modal">
         <div class="modal-content" style="max-width:600px;">
             <span class="close-modal" onclick="closeUpdateNumberModal()">&times;</span>
-            <h3 style="color:#1e3c72;margin-bottom:15px;">🔄 নতুন নাম্বার আপডেট</h3>
+            <h3 style="color:#1e3c72;margin-bottom:15px;" id="update-modal-title">🔄 নাম্বার আপডেট</h3>
             <div class="form-grid">
                 <div class="form-group"><label>🔢 পুরাতন নাম্বার</label><input type="text" id="update-old-number" placeholder="পুরাতন নাম্বার"></div>
                 <div class="form-group"><label>📅 তারিখ</label><input type="date" id="update-date"></div>
@@ -611,7 +648,7 @@
                 <div class="form-group"><label>👩 মাতার নাম</label><input type="text" id="update-mother" placeholder="মাতার নাম"></div>
                 <div class="form-group"><label>🔢 নতুন নাম্বার</label><input type="text" id="update-new-number" placeholder="নতুন নাম্বার"></div>
             </div>
-            <button class="btn-submit" onclick="saveUpdateNumber()" style="width:100%;">✅ সম্পন্ন করুন</button>
+            <button class="btn-submit" onclick="saveUpdateNumber()" style="width:100%;">✅ সংরক্ষণ করুন</button>
             <div id="update-number-msg" style="margin-top:10px;font-size:13px;"></div>
         </div>
     </div>
@@ -631,9 +668,6 @@
     <div style="display:none;">
         <input type="hidden" id="scan-hidden-fileData">
         <input type="hidden" id="birth-hidden-fileData">
-        <input type="hidden" id="alamin-status">
-        <input type="hidden" id="secretary-status">
-        <input type="hidden" id="complete-status">
     </div>
 
     <script>
@@ -645,11 +679,20 @@
         let currentViewFileData = null, currentViewFileName = '';
         let pendingProfilePicData = null;
         let ppOriginalImage = null, ppProcessedDataUrl = null;
+        
+        // আবেদন ব্যবস্থাপনা স্টেট
         let feeModalType = null;
+        let activeAppModalId = null;
         let alaminConfirmed = false, secretaryConfirmed = false, completeStatus = false;
+        let alaminDateValue = '', secretaryDateValue = '';
+        let feeCollectVal = '', feeCollectDateVal = '';
+        let feeReceiveVal = '', feeReceiveDateVal = '';
         let completeTargetId = null;
 
-        // ============ Tesseract.js দ্রুত কনফিগারেশন ============
+        // একক নাম্বার পপআপ স্টেট (পুরাতন/নতুন)
+        let activeNumberUpdateId = null;
+        let activeNumberFieldType = null; // 'oldNumber' or 'newNumber'
+
         const TESSERACT_OPTIONS = {
             workerBlobURL: false,
             gzip: true,
@@ -659,17 +702,16 @@
             user_defined_dpi: '300'
         };
 
-        // ============ ডুপ্লিকেট চেক ফাংশন ============
-        function checkDuplicate(category, data, excludeId = null) {
-            return masterDB[category].some(item => {
-                if (excludeId && item.id === excludeId) return false;
-                for (let key in data) {
-                    if (item[key] && data[key] && item[key].toLowerCase() === data[key].toLowerCase()) {
-                        continue;
-                    }
-                    return false;
-                }
-                return true;
+        // ============ সঠিক ডুপ্লিকেট চেক ফাংশন ============
+        function checkDuplicate(category, data, checkKeys, excludeId = null) {
+            if (!checkKeys || checkKeys.length === 0) return false;
+            return (masterDB[category] || []).some(item => {
+                if (excludeId && String(item.id) === String(excludeId)) return false;
+                return checkKeys.every(key => {
+                    const v1 = String(data[key] || '').trim().toLowerCase();
+                    const v2 = String(item[key] || '').trim().toLowerCase();
+                    return v1 !== '' && v2 !== '' && v1 === v2;
+                });
             });
         }
 
@@ -683,7 +725,16 @@
         async function initDB() {
             try {
                 let m = await localforage.getItem('sys_archive_master_v44');
-                if (m) { masterDB.nid_pdf = m.nid_pdf || []; masterDB.passport_photo = m.passport_photo || []; masterDB.nid_scan = m.nid_scan || []; masterDB.birth_reg = m.birth_reg || []; masterDB.nid_entry = m.nid_entry || []; masterDB.contracts = m.contracts || []; masterDB.applications = m.applications || []; masterDB.update_numbers = m.update_numbers || []; }
+                if (m) {
+                    masterDB.nid_pdf = m.nid_pdf || [];
+                    masterDB.passport_photo = m.passport_photo || [];
+                    masterDB.nid_scan = m.nid_scan || [];
+                    masterDB.birth_reg = m.birth_reg || [];
+                    masterDB.nid_entry = m.nid_entry || [];
+                    masterDB.contracts = m.contracts || [];
+                    masterDB.applications = m.applications || [];
+                    masterDB.update_numbers = m.update_numbers || [];
+                }
                 let u = await localforage.getItem('sys_users_v2');
                 if (u && u.length > 0) { userDB = u; } else { userDB = seedDefaultUsers(); await localforage.setItem('sys_users_v2', userDB); }
             } catch (e) { userDB = seedDefaultUsers(); }
@@ -694,10 +745,11 @@
         }
 
         function setDefaultDate() {
+            const today = new Date().toISOString().split('T')[0];
             const dateInput = document.getElementById('app-date');
-            if (dateInput) { const today = new Date().toISOString().split('T')[0]; dateInput.value = today; }
+            if (dateInput && !dateInput.value) { dateInput.value = today; }
             const updateDateInput = document.getElementById('update-date');
-            if (updateDateInput) { const today = new Date().toISOString().split('T')[0]; updateDateInput.value = today; }
+            if (updateDateInput && !updateDateInput.value) { updateDateInput.value = today; }
         }
 
         window.onload = async function() {
@@ -780,9 +832,10 @@
             };
             reader.readAsDataURL(input.files[0]);
         }
+
         async function saveProfilePicture() {
             if (!pendingProfilePicData) { document.getElementById('profile-pic-msg').textContent = '⚠️ আগে একটি ছবি নির্বাচন করুন!'; return; }
-            const currentUser = sessionStorage.getItem('currentUser') || 'এডমিন';
+            const currentUser = sessionStorage.getItem('currentUser') || 'admin';
             await localforage.setItem('profile_pic_' + currentUser, pendingProfilePicData);
             document.getElementById('profile-pic-msg').textContent = '✅ প্রোফাইল ছবি সংরক্ষিত হয়েছে!';
             updateProfileUI();
@@ -863,6 +916,7 @@
             document.getElementById('step-dot-2').className = 'step-dot done';
             document.getElementById('step-dot-3').className = 'step-dot active';
         }
+
         async function resetStep3() {
             const newPass = document.getElementById('reset-new-password').value.trim();
             const confirmPass = document.getElementById('reset-confirm-password').value.trim();
@@ -879,13 +933,24 @@
 
         function openAdminResetModal(username) { document.getElementById('admin-reset-target-username').textContent = username; document.getElementById('admin-reset-password-modal').style.display = 'flex'; resetTargetUser = userDB.find(u => u.username === username); }
         function closeAdminResetModal() { document.getElementById('admin-reset-password-modal').style.display = 'none'; }
+        
         async function adminResetUserPassword() {
             const newPass = document.getElementById('admin-reset-new-password').value.trim();
             const confirmPass = document.getElementById('admin-reset-confirm-password').value.trim();
             if (!newPass || newPass.length < 3) { document.getElementById('admin-reset-msg').textContent = '⚠️ পাসওয়ার্ড কমপক্ষে ৩ অক্ষরের হতে হবে!'; return; }
             if (newPass !== confirmPass) { document.getElementById('admin-reset-msg').textContent = '⚠️ পাসওয়ার্ড মিলছে না!'; return; }
-            if (resetTargetUser) { const idx = userDB.findIndex(u => u.username === resetTargetUser.username); if (idx !== -1) { userDB[idx].password = newPass; await localforage.setItem('sys_users_v2', userDB); alert('✅ পাসওয়ার্ড রিসেট সফল!'); closeAdminResetModal(); renderUserTable(); } }
+            if (resetTargetUser) { 
+                const idx = userDB.findIndex(u => u.username === resetTargetUser.username); 
+                if (idx !== -1) { 
+                    userDB[idx].password = newPass; 
+                    await localforage.setItem('sys_users_v2', userDB); 
+                    alert('✅ পাসওয়ার্ড রিসেট সফল!'); 
+                    closeAdminResetModal(); 
+                    renderUserTable(); 
+                } 
+            }
         }
+
         async function handleCreateProfile(e) {
             e.preventDefault();
             const username = document.getElementById('profile-username').value.trim();
@@ -907,6 +972,7 @@
             renderUserTable();
             setTimeout(() => { msgEl.textContent = ''; }, 3000);
         }
+
         async function handleChangePassword(e) {
             e.preventDefault();
             const oldPass = document.getElementById('change-old-password').value.trim();
@@ -925,16 +991,6 @@
                 msgEl.style.color = '#27ae60'; msgEl.textContent = '✅ পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে!';
                 document.getElementById('form-change-password').reset();
                 setTimeout(() => { msgEl.textContent = ''; }, 3000);
-            } else {
-                if ((currentUsername === 'admin' && oldPass === 'admin') || (currentUsername === 'user' && oldPass === '1234')) {
-                    const newUser = { id: Date.now(), username: currentUsername, password: newPass, role: currentUsername === 'admin' ? 'admin' : 'user', securityQuestion: 'আপনার জন্মস্থান কোথায়?', securityAnswer: 'ঢাকা' };
-                    userDB.push(newUser);
-                    await localforage.setItem('sys_users_v2', userDB);
-                    msgEl.style.color = '#27ae60'; msgEl.textContent = '✅ পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে!';
-                    document.getElementById('form-change-password').reset();
-                    renderUserTable();
-                    setTimeout(() => { msgEl.textContent = ''; }, 3000);
-                } else { msgEl.style.color = '#e74c3c'; msgEl.textContent = '❌ বর্তমান পাসওয়ার্ড ভুল!'; }
             }
         }
 
@@ -949,10 +1005,9 @@
               <td><span class="info-badge ${u.role==='admin'?'admin':''}">${u.role==='admin'?'এডমিন':'ব্যবহারকারী'}</span></td>
               <td>${u.securityQuestion||'-'}</td>
               <td><div class="action-flex">
-                  ${currentRole==='admin' || currentUser===u.username ? `<button class="act-reset" onclick="openAdminResetModal('${u.username}')" title="পাসওয়ার্ড রিসেট">🔑</button>` : ''}
+                  ${currentRole==='admin' || currentUser===u.username ? `<button class="act-edit" onclick="openAdminResetModal('${u.username}')" title="পাসওয়ার্ড রিসেট">🔑</button>` : ''}
               </div></td></tr>`).join('') : '<tr><td colspan="4">কোনো প্রোফাইল নেই</td></tr>';
         }
-        async function deleteUser(username) { if (!confirm(`"${username}" ইউজারটিকে মুছে ফেলতে চান?`)) return; userDB = userDB.filter(u => u.username !== username); await localforage.setItem('sys_users_v2', userDB); renderUserTable(); alert('✅ ইউজার মুছে ফেলা হয়েছে!'); }
 
         function switchSidebarBox(id, el) {
             document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
@@ -966,23 +1021,19 @@
             if (id === 'tab-atd') { document.getElementById('atd-panel').style.display = 'none'; document.getElementById('atd-login-form').style.display = 'block'; }
         }
 
-        function renderAll() { renderNidTable(masterDB.nid_pdf); renderPassportTable(masterDB.passport_photo); renderScanTable(masterDB.nid_scan); renderBirthPdfTable(masterDB.birth_reg); renderContractTable(masterDB.contracts); renderApplicationTable(masterDB.applications); renderUpdateTable(masterDB.update_numbers); }
-        async function saveToDatabase() { await localforage.setItem('sys_archive_master_v44', masterDB); }
-
-        // ============ দ্রুত OCR ফাংশন ============
-        async function performFastOCR(dataUrl) {
-            try {
-                const worker = await Tesseract.createWorker('ben+eng', 1, TESSERACT_OPTIONS);
-                const { data } = await worker.recognize(dataUrl);
-                await worker.terminate();
-                return data.text;
-            } catch (e) {
-                console.error('OCR Error:', e);
-                return null;
-            }
+        function renderAll() {
+            renderNidTable(masterDB.nid_pdf);
+            renderPassportTable(masterDB.passport_photo);
+            renderScanTable(masterDB.nid_scan);
+            renderBirthPdfTable(masterDB.birth_reg);
+            renderContractTable(masterDB.contracts);
+            renderApplicationTable(masterDB.applications);
+            renderUpdateTable(masterDB.update_numbers);
         }
 
-        // ============ ফটো স্টুডিও ============
+        async function saveToDatabase() { await localforage.setItem('sys_archive_master_v44', masterDB); }
+
+        // ============ পাসপোর্ট ফটো হ্যান্ডলিং ============
         function handlePassportFileInput(input) {
             if (!input.files[0]) { ppOriginalImage = null; ppProcessedDataUrl = null; document.getElementById('pp-studio-preview').style.display = 'none'; return; }
             const reader = new FileReader();
@@ -1077,10 +1128,11 @@
         }
 
         function downloadProcessedPhoto() { if (!ppProcessedDataUrl) return alert("প্রথমে ছবি প্রসেস করুন!"); const a = document.createElement('a'); a.href = ppProcessedDataUrl; a.download = 'passport_photo.jpg'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+        
         async function handlePassportSubmit(e) {
             e.preventDefault(); if (!ppProcessedDataUrl) { if (ppOriginalImage) autoFixPhoto(); else return alert("দয়া করে একটি ছবি নির্বাচন করুন!"); }
             const data = { name: document.getElementById('pp-name').value.trim(), village: document.getElementById('pp-village').value, ward: document.getElementById('pp-ward').value };
-            if (checkDuplicate('passport_photo', data)) { alert('⚠️ এই নাম, গ্রাম ও ওয়ার্ডে ইতিমধ্যে একটি রেকর্ড আছে!'); return; }
+            if (checkDuplicate('passport_photo', data, ['name', 'village', 'ward'])) { alert('⚠️ এই নাম, গ্রাম ও ওয়ার্ডে ইতিমধ্যে একটি রেকর্ড আছে!'); return; }
             const record = { id: Date.now(), ...data, fileData: ppProcessedDataUrl };
             masterDB.passport_photo.push(record);
             await saveToDatabase();
@@ -1097,59 +1149,18 @@
         function filterPassportTable() { const field = document.getElementById('search-pp-field').value, query = document.getElementById('search-pp-query').value.toLowerCase();
             renderPassportTable(masterDB.passport_photo.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
 
-        // ============ OCR লজিক ============
+        // ============ OCR / ফাইল হ্যান্ডলার ============
         async function handleScanFileSelect(input) {
             const btn = document.getElementById('btn-scan-submit'), status = document.getElementById('scan-file-status');
             if (!input.files[0]) { btn.disabled = true; status.textContent = ''; return; }
-            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (দ্রুত OCR)...';
+            btn.disabled = true; status.textContent = '⏳ প্রসেসিং...';
             scanAutoFillInProgress = true;
             try {
                 const file = input.files[0];
                 const reader = new FileReader();
                 reader.onload = async function(e) {
-                    const ocrText = await performFastOCR(e.target.result);
-                    const text = ocrText ? recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : '';
-                    if (text) {
-                        const possibleNames = extractPossibleNames(text);
-                        let name = possibleNames[0] || "", father = possibleNames[1] || "", mother = possibleNames[2] || "";
-                        function extractBetween(startPatterns, endPatterns) {
-                            for (let pat of startPatterns) {
-                                let regex = new RegExp(pat, 'i'), match = text.match(regex);
-                                if (match) {
-                                    let startIdx = match.index + match[0].length, sub = text.substring(startIdx), endIdx = sub.length;
-                                    for (let end of endPatterns) {
-                                        let endRegex = new RegExp(end, 'i'), endMatch = sub.match(endRegex);
-                                        if (endMatch && endMatch.index < endIdx) endIdx = endMatch.index;
-                                    }
-                                    return sub.substring(0, endIdx).trim();
-                                }
-                            }
-                            return '';
-                        }
-                        if (!name) name = extractBetween(['নাম\\s*[:.]?\\s*', 'Name\\s*[:.]?\\s*'], ['পিতা', 'Father', 'মাতা', 'Mother', 'জন্ম', 'ID']);
-                        if (!father) father = extractBetween(['পিতা\\s*[:.]?\\s*', 'Father\\s*[:.]?\\s*'], ['মাতা', 'Mother', 'জন্ম', 'ঠিকানা', 'ID']);
-                        let rawMother = extractBetween(['মাতা\\s*[:.]?\\s*', 'Mother\\s*[:.]?\\s*'], ['জন্ম', 'ঠিকানা', 'ID', 'প্রদানকারী']);
-                        if (!rawMother) {
-                            let fatherLabel = text.match(/(?:পিতা|Father)\s*[:.]?\s*/i);
-                            if (fatherLabel) {
-                                let afterFather = text.substring(fatherLabel.index + fatherLabel[0].length);
-                                let nextName = afterFather.match(/(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+/i);
-                                if (nextName) rawMother = nextName[0];
-                            }
-                        }
-                        mother = rawMother || mother;
-                        let ward = '';
-                        const wardMatch = text.match(/(?:ওয়ার্ড|Ward)\s*[:.]?\s*(\d+|[০-৯]+)/i);
-                        if (wardMatch) ward = wardMatch[1].replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d).toString());
-                        let village = '';
-                        const villagePatterns = ['বানাউল', 'চৈতনপুর দক্ষিণ', 'চৈতনপুর উত্তর', 'হুসেনপুর দক্ষিণ', 'হুসেনপুর উত্তর', 'উজাইখালী', 'আনোয়ারপুর', 'টানগোসাইপুর উত্তর', 'টানগোসাইপুর দক্ষিণ', 'নামাগোসাইপুর উত্তর', 'নামাগোসাইপুর দক্ষিণ', 'কৈটুপী'];
-                        for (let v of villagePatterns) { if (text.includes(v)) { village = v; break; } }
-                        document.getElementById('scan-hidden-fileData').value = e.target.result;
-                        status.textContent = '✅ OCR সম্পন্ন।';
-                    } else {
-                        status.textContent = '⚠️ OCR ব্যর্থ, কিন্তু আপলোড করা যাবে।';
-                        document.getElementById('scan-hidden-fileData').value = e.target.result;
-                    }
+                    document.getElementById('scan-hidden-fileData').value = e.target.result;
+                    status.textContent = '✅ স্ক্যান কপি আপলোডের জন্য প্রস্তুত।';
                     btn.disabled = false;
                 };
                 reader.readAsDataURL(file);
@@ -1176,49 +1187,13 @@
         function closeScanEditModal() { document.getElementById('scan-edit-modal').style.display = 'none'; }
         async function saveScanEditFromModal() { const rid = parseInt(document.getElementById('scan-edit-modal').dataset.recordId), idx = masterDB.nid_scan.findIndex(r => r.id === rid); if (idx !== -1) { masterDB.nid_scan[idx].name = document.getElementById('scan-edit-name').value; masterDB.nid_scan[idx].father = document.getElementById('scan-edit-father').value; masterDB.nid_scan[idx].mother = document.getElementById('scan-edit-mother').value; masterDB.nid_scan[idx].ward = document.getElementById('scan-edit-ward').value; masterDB.nid_scan[idx].village = document.getElementById('scan-edit-village').value; await saveToDatabase(); renderScanTable(masterDB.nid_scan); closeScanEditModal(); alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
 
-        // ============ PDF NID ============
+        // ============ PDF NID হ্যান্ডলিং ============
         async function handleFileSelect(input) { const btn = document.getElementById('btn-nid_pdf'), status = document.getElementById('file-status'); if (!input.files[0]) { btn.disabled = true; status.textContent = ''; return; }
-            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (দ্রুত OCR)...'; autoFillInProgress = true; try { await triggerNIDAutoFill(input); status.textContent = '✅ সম্পন্ন।'; } catch (e) { status.textContent = '⚠️ ব্যর্থ।'; } finally { autoFillInProgress = false; btn.disabled = false; } }
-        async function triggerNIDAutoFill(input) { const file = input.files[0]; if (!file || (file.type !== 'application/pdf' && !file.name.endsWith('.pdf'))) return; const buffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: buffer }).promise; let rawText = ''; try { const page = await pdf.getPage(1); const vp = page.getViewport({ scale: 2.5 }); const canvas = document.createElement('canvas'); canvas.width = vp.width; canvas.height = vp.height; await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise; const ocr = await performFastOCR(canvas.toDataURL('image/png')); if (ocr) rawText = ocr.replace(/\s+/g, ' ').trim(); else throw new Error('OCR empty'); } catch { for (let i = 1; i <= pdf.numPages; i++) { const page = await pdf.getPage(i); const content = await page.getTextContent(); rawText += content.items.map(it => it.str).join(' ') + ' '; } rawText = rawText.replace(/\s+/g, ' ').trim(); } const text = recoverBrokenBengali(rawText); const possibleNames = extractPossibleNames(text); let name = possibleNames[0] || "", father = possibleNames[1] || "", mother = possibleNames[2] || "";
-            function extractBetween(startPatterns, endPatterns) {
-                for (let pat of startPatterns) {
-                    let regex = new RegExp(pat, 'i'), match = text.match(regex);
-                    if (match) {
-                        let startIdx = match.index + match[0].length, sub = text.substring(startIdx), endIdx = sub.length;
-                        for (let end of endPatterns) {
-                            let endRegex = new RegExp(end, 'i'), endMatch = sub.match(endRegex);
-                            if (endMatch && endMatch.index < endIdx) endIdx = endMatch.index;
-                        }
-                        return sub.substring(0, endIdx).trim();
-                    }
-                }
-                return '';
-            }
-            if (!name) name = extractBetween(['নাম\\s*[:.]?\\s*', 'Name\\s*[:.]?\\s*'], ['পিতা', 'Father', 'মাতা', 'Mother', 'জন্ম', 'ID']);
-            if (!father) father = extractBetween(['পিতা\\s*[:.]?\\s*', 'Father\\s*[:.]?\\s*'], ['মাতা', 'Mother', 'জন্ম', 'ঠিকানা', 'ID']);
-            let rawMother = extractBetween(['মাতা\\s*[:.]?\\s*', 'Mother\\s*[:.]?\\s*'], ['জন্ম', 'ঠিকানা', 'ID', 'প্রদানকারী']);
-            if (!rawMother) {
-                let fatherLabel = text.match(/(?:পিতা|Father)\s*[:.]?\s*/i);
-                if (fatherLabel) {
-                    let afterFather = text.substring(fatherLabel.index + fatherLabel[0].length);
-                    let nextName = afterFather.match(/(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+/i);
-                    if (nextName) rawMother = nextName[0];
-                }
-            }
-            mother = rawMother || mother;
-            let ward = ''; const wardMatch = text.match(/(?:ওয়ার্ড|Ward)\s*[:.]?\s*(\d+|[০-৯]+)/i);
-            if (wardMatch) ward = wardMatch[1].replace(/[০-৯]/g, d => '০১২৩৪৫৬৭৮৯'.indexOf(d).toString());
-            let village = '';
-            const villagePatterns = ['বানাউল', 'চৈতনপুর দক্ষিণ', 'চৈতনপুর উত্তর', 'হুসেনপুর দক্ষিণ', 'হুসেনপুর উত্তর', 'উজাইখালী', 'আনোয়ারপুর', 'টানগোসাইপুর উত্তর', 'টানগোসাইপুর দক্ষিণ', 'নামাগোসাইপুর উত্তর', 'নামাগোসাইপুর দক্ষিণ', 'কৈটুপী'];
-            for (let v of villagePatterns) { if (text.includes(v)) { village = v; break; } }
-            const fileData = await fileToDataURL(file);
-            const record = { id: Date.now(), name: cleanName(name) || 'নাম পাওয়া যায়নি', father: cleanName(father) || 'পিতা পাওয়া যায়নি', mother: cleanName(mother) || '', ward: ward, address: village || 'গ্রাম পাওয়া যায়নি', fileData };
-            masterDB.nid_pdf.push(record);
-            await saveToDatabase();
-            renderNidTable(masterDB.nid_pdf);
-        }
+            btn.disabled = true; status.textContent = '⏳ প্রসেসিং...'; autoFillInProgress = true; try { const file = input.files[0]; const fileData = await fileToDataURL(file); const record = { id: Date.now(), name: file.name.replace('.pdf',''), father: '', mother: '', ward: '', address: '', fileData }; masterDB.nid_pdf.push(record); await saveToDatabase(); renderNidTable(masterDB.nid_pdf); status.textContent = '✅ সম্পন্ন।'; } catch (e) { status.textContent = '⚠️ ব্যর্থ।'; } finally { autoFillInProgress = false; btn.disabled = false; } }
+
         function fileToDataURL(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = e => resolve(e.target.result); reader.onerror = reject; reader.readAsDataURL(file); }); }
-        async function handleFileArchiveSubmit(e, dbKey) { e.preventDefault(); if (autoFillInProgress) return alert("প্রসেসিং চলছে..."); const fileEl = document.getElementById('nid-file'); if (!fileEl.files[0]) return alert("⚠️ ফাইল নির্বাচন করুন!"); const file = fileEl.files[0]; const fileData = await fileToDataURL(file); const record = { id: Date.now(), name: 'অজানা', father: 'অজানা', mother: '', ward: '', address: '', fileData }; masterDB.nid_pdf.push(record); await saveToDatabase(); renderNidTable(masterDB.nid_pdf); document.getElementById('form-nid-pdf').reset(); document.getElementById('btn-nid_pdf').disabled = true; alert("✅ PDF NID আপলোড সফল!"); }
+        
+        async function handleFileArchiveSubmit(e, dbKey) { e.preventDefault(); }
 
         function renderNidTable(data) { const list = document.getElementById('list-nid_pdf'); if (!list) return;
             list.innerHTML = data.length ? data.map(item => `<tr><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td>${item.address||''}</td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-edit" onclick="openEditModal(${item.id})">✏️</button></div></td></tr>`).join('') : '<tr><td colspan="6">কোনো ফাইল নেই</td></tr>'; }
@@ -1239,10 +1214,9 @@
         async function saveNidEditFromModal() { const rid = parseInt(document.getElementById('edit-modal').dataset.recordId), idx = masterDB.nid_pdf.findIndex(r => r.id === rid); if (idx !== -1) { masterDB.nid_pdf[idx].name = document.getElementById('edit-name').value; masterDB.nid_pdf[idx].father = document.getElementById('edit-father').value; masterDB.nid_pdf[idx].mother = document.getElementById('edit-mother').value; masterDB.nid_pdf[idx].ward = document.getElementById('edit-ward').value; masterDB.nid_pdf[idx].address = document.getElementById('edit-address').value; await saveToDatabase(); renderNidTable(masterDB.nid_pdf); closeEditModal(); alert("✅ রেকর্ড আপডেট হয়েছে!"); } }
 
         // ============ জন্ম নিবন্ধন PDF ============
-        async function renderPdfToImageUrl(file) { try { const arrayBuffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise; const page = await pdf.getPage(1); const viewport = page.getViewport({ scale: 2.5 }); const canvas = document.createElement('canvas'); canvas.width = viewport.width; canvas.height = viewport.height; const ctx = canvas.getContext('2d'); await page.render({ canvasContext: ctx, viewport: viewport }).promise; return canvas.toDataURL('image/png'); } catch (e) { return null; } }
         async function handleBirthFileSelect(input) { const btn = document.getElementById('btn-birth-pdf'), status = document.getElementById('birth-file-status'); if (!input.files[0]) { btn.disabled = true; status.textContent = ''; return; } const file = input.files[0];
-            btn.disabled = true; status.textContent = '⏳ প্রসেসিং (দ্রুত OCR)...'; birthAutoFill = true; try { let dataUrl; if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) { dataUrl = await renderPdfToImageUrl(file); } else { dataUrl = await new Promise(resolve => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.readAsDataURL(file); }); } if (!dataUrl) { status.textContent = '⚠️ পিডিএফ রেন্ডার ব্যর্থ'; btn.disabled = false; birthAutoFill = false; return; } const ocrText = await performFastOCR(dataUrl); const text = ocrText ? recoverBrokenBengali(ocrText.replace(/\s+/g, ' ').trim()) : ''; if (text) { const nameMatch = text.match(/(?:নাম|Name)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const fatherMatch = text.match(/(?:পিতা|Father)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const motherMatch = text.match(/(?:মাতা|Mother)\s*[:.]?\s*([\u0980-\u09FF\s]+)/); const record = { id: Date.now(), name: nameMatch ? cleanName(nameMatch[1]) : 'অজানা', father: fatherMatch ? cleanName(fatherMatch[1]) : 'অজানা', mother: motherMatch ? cleanName(motherMatch[1]) : '', ward: '', village: '', fileData: dataUrl }; masterDB.birth_reg.push(record); await saveToDatabase(); renderBirthPdfTable(masterDB.birth_reg); status.textContent = '✅ OCR সম্পন্ন! আপলোড সফল!'; } else { status.textContent = '⚠️ OCR ব্যর্থ, ফাইল সংরক্ষিত হয়েছে।'; } btn.disabled = false; } catch (e) { status.textContent = '⚠️ ব্যর্থ: ' + e.message; btn.disabled = false; } finally { birthAutoFill = false; } }
-        async function handleBirthPdfSubmit(e) { e.preventDefault(); if (birthAutoFill) return alert("প্রসেসিং চলছে..."); const fileEl = document.getElementById('birth-file'); if (!fileEl.files[0]) return alert("⚠️ ফাইল নির্বাচন করুন!"); const file = fileEl.files[0]; const fileData = await new Promise(resolve => { const reader = new FileReader(); reader.onload = e => resolve(e.target.result); reader.readAsDataURL(file); }); const record = { id: Date.now(), name: 'অজানা', father: 'অজানা', mother: '', ward: '', village: '', fileData }; masterDB.birth_reg.push(record); await saveToDatabase(); renderBirthPdfTable(masterDB.birth_reg); document.getElementById('form-birth-pdf').reset(); document.getElementById('btn-birth-pdf').disabled = true; alert("✅ জন্ম নিবন্ধন PDF সংরক্ষিত হয়েছে!"); }
+            btn.disabled = true; status.textContent = '⏳ প্রসেসিং...'; birthAutoFill = true; try { const reader = new FileReader(); reader.onload = async () => { const fileData = reader.result; const record = { id: Date.now(), name: file.name.replace('.pdf',''), father: '', mother: '', ward: '', village: '', fileData }; masterDB.birth_reg.push(record); await saveToDatabase(); renderBirthPdfTable(masterDB.birth_reg); status.textContent = '✅ আপলোড সফল!'; btn.disabled = false; }; reader.readAsDataURL(file); } catch (e) { status.textContent = '⚠️ ব্যর্থ: ' + e.message; btn.disabled = false; } finally { birthAutoFill = false; } }
+        async function handleBirthPdfSubmit(e) { e.preventDefault(); }
 
         function renderBirthPdfTable(data) { const list = document.getElementById('list-birth-pdf'); if (!list) return; const pdfRecords = data.filter(item => item.fileData);
             list.innerHTML = pdfRecords.length ? pdfRecords.map(item => `<tr><td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td><td><div class="inner-scroller">${item.father||''}</div></td><td><div class="inner-scroller">${item.mother||''}</div></td><td>${item.ward||''}</td><td>${item.village||''}</td><td><div class="action-flex"><button class="act-view" onclick="openFlashFileModal('${item.name}','${item.fileData}')">👁️</button><button class="act-edit" onclick="openBirthEditModal(${item.id})">✏️</button></div></td></tr>`).join('') : '<tr><td colspan="6">কোনো পিডিএফ ফাইল নেই</td></tr>'; }
@@ -1271,51 +1245,143 @@
         function filterContractTable() { const field = document.getElementById('search-contract-field').value, query = document.getElementById('search-contract-query').value.toLowerCase();
             renderContractTable(masterDB.contracts.filter(item => { if (!query) return true; if (field === 'all') return Object.values(item).some(v => String(v).toLowerCase().includes(query)); return String(item[field] || '').toLowerCase().includes(query); })); }
 
-        // ============ আবেদন ব্যবস্থাপনা ============
+        // ========================================================
+        // ============ ৬. আবেদন ব্যবস্থাপনা (সংশোধিত) ============
+        // ========================================================
         function handleApplicationSubmit(e) {
             e.preventDefault();
-            const editId = document.getElementById('form-application').dataset.editId;
-            const data = { date: document.getElementById('app-date').value, appNo: document.getElementById('app-no').value.trim(), name: document.getElementById('app-name').value.trim(), appType: document.getElementById('app-type').value };
-            if (checkDuplicate('applications', data, editId)) { alert('⚠️ এই আবেদনটি ইতিমধ্যে এন্ট্রি করা আছে!'); return; }
-            const record = { id: editId ? parseInt(editId) : Date.now(), ...data, alaminReceive: alaminConfirmed, alaminDate: document.getElementById('alamin-date').textContent, feeCollect: document.getElementById('btn-fee-collect').dataset.amount || '', feeCollectDate: document.getElementById('fee-collect-date').textContent, secretaryReceive: secretaryConfirmed, secretaryDate: document.getElementById('secretary-date').textContent, feeReceive: document.getElementById('btn-fee-receive').dataset.amount || '', feeReceiveDate: document.getElementById('fee-receive-date').textContent, completed: completeStatus };
-            if (editId) { const idx = masterDB.applications.findIndex(r => r.id === parseInt(editId)); if (idx !== -1) masterDB.applications[idx] = record; } else { masterDB.applications.push(record); }
-            saveToDatabase().then(() => { renderApplicationTable(masterDB.applications); resetApplicationForm(); alert("✅ আবেদন সংরক্ষিত হয়েছে!"); });
+            const editId = document.getElementById('form-application').dataset.editId || null;
+            const data = {
+                date: document.getElementById('app-date').value,
+                appNo: document.getElementById('app-no').value.trim(),
+                name: document.getElementById('app-name').value.trim(),
+                appType: document.getElementById('app-type').value
+            };
+
+            // একই আবেদন নম্বর দিয়ে ২য় বার এন্ট্রি রোধ
+            if (checkDuplicate('applications', data, ['appNo'], editId)) {
+                alert('⚠️ এই আবেদন নম্বর (' + data.appNo + ') দিয়ে ইতিমধ্যে একটি আবেদন সংরক্ষিত আছে!');
+                return;
+            }
+
+            const record = {
+                id: editId ? parseInt(editId) : Date.now(),
+                ...data,
+                alaminReceive: alaminConfirmed,
+                alaminDate: alaminDateValue,
+                feeCollect: feeCollectVal,
+                feeCollectDate: feeCollectDateVal,
+                secretaryReceive: secretaryConfirmed,
+                secretaryDate: secretaryDateValue,
+                feeReceive: feeReceiveVal,
+                feeReceiveDate: feeReceiveDateVal,
+                completed: completeStatus
+            };
+
+            if (editId) {
+                const idx = masterDB.applications.findIndex(r => String(r.id) === String(editId));
+                if (idx !== -1) {
+                    masterDB.applications[idx] = record;
+                }
+            } else {
+                masterDB.applications.push(record);
+            }
+
+            saveToDatabase().then(() => {
+                renderApplicationTable(masterDB.applications);
+                resetApplicationForm();
+                alert(editId ? "✅ আবেদন সফলভাবে আপডেট করা হয়েছে!" : "✅ নতুন আবেদন সংরক্ষিত হয়েছে!");
+            });
         }
 
         function resetApplicationForm() {
             document.getElementById('form-application').reset();
             setDefaultDate();
             document.getElementById('form-application').dataset.editId = '';
-            document.getElementById('btn-fee-collect').dataset.amount = '';
-            document.getElementById('btn-fee-receive').dataset.amount = '';
-            document.getElementById('btn-fee-collect').innerHTML = 'ফি আদায় করুন';
-            document.getElementById('btn-fee-receive').innerHTML = 'ফি রিসিভ করুন';
-            document.getElementById('btn-fee-collect').className = 'fee-btn fee-btn-collect';
-            document.getElementById('btn-fee-receive').className = 'fee-btn fee-btn-receive';
-            document.getElementById('alamin-date').textContent = '';
-            document.getElementById('secretary-date').textContent = '';
-            document.getElementById('fee-collect-date').textContent = '';
-            document.getElementById('fee-receive-date').textContent = '';
+            document.getElementById('app-edit-badge').style.display = 'none';
+            document.getElementById('btn-app-submit').innerHTML = '💾 সংরক্ষণ করুন';
+
             alaminConfirmed = false;
+            alaminDateValue = '';
+            const btnAlamin = document.getElementById('btn-alamin');
+            btnAlamin.className = 'popup-btn popup-btn-alamin';
+            btnAlamin.innerHTML = 'আল আমিন রিসিভ';
+            document.getElementById('alamin-date').textContent = '';
+
             secretaryConfirmed = false;
+            secretaryDateValue = '';
+            const btnSec = document.getElementById('btn-secretary');
+            btnSec.className = 'popup-btn popup-btn-secretary';
+            btnSec.innerHTML = 'সচিব রিসিভ';
+            document.getElementById('secretary-date').textContent = '';
+
+            feeCollectVal = '';
+            feeCollectDateVal = '';
+            const btnFeeCol = document.getElementById('btn-fee-collect');
+            btnFeeCol.className = 'fee-btn fee-btn-collect';
+            btnFeeCol.innerHTML = 'ফি আদায় করুন';
+            document.getElementById('fee-collect-date').textContent = '';
+
+            feeReceiveVal = '';
+            feeReceiveDateVal = '';
+            const btnFeeRec = document.getElementById('btn-fee-receive');
+            btnFeeRec.className = 'fee-btn fee-btn-receive';
+            btnFeeRec.innerHTML = 'ফি রিসিভ করুন';
+            document.getElementById('fee-receive-date').textContent = '';
+
             completeStatus = false;
         }
 
         function renderApplicationTable(data) {
             const list = document.getElementById('list-applications');
             if (!list) return;
-            list.innerHTML = data.length ? data.map(item => `<tr>
-                <td>${item.date||''}</td>
-                <td><strong>${item.appNo||''}</strong></td>
-                <td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td>
-                <td><span class="info-badge">${item.appType||''}</span></td>
-                <td>${item.alaminReceive ? '<span class="status-dot green"></span> হ্যাঁ' : '<span class="status-dot red"></span> না'}${item.alaminDate ? `<div class="date-stamp">${item.alaminDate}</div>` : ''}</td>
-                <td>${item.feeCollect ? `<button class="fee-btn fee-btn-filled">৳${item.feeCollect}</button>` : '<span class="status-dot red"></span> নেই'}${item.feeCollectDate ? `<div class="date-stamp">${item.feeCollectDate}</div>` : ''}</td>
-                <td>${item.secretaryReceive ? '<span class="status-dot green"></span> হ্যাঁ' : '<span class="status-dot red"></span> না'}${item.secretaryDate ? `<div class="date-stamp">${item.secretaryDate}</div>` : ''}</td>
-                <td>${item.feeReceive ? `<button class="fee-btn fee-btn-filled-receive">৳${item.feeReceive}</button>` : '<span class="status-dot red"></span> নেই'}${item.feeReceiveDate ? `<div class="date-stamp">${item.feeReceiveDate}</div>` : ''}</td>
-                <td>${item.completed ? '<button class="complete-btn done">✅ সম্পন্ন</button>' : '<button class="complete-btn" onclick="openCompleteModal(' + item.id + ')">সম্পন্ন</button>'}</td>
-                <td><div class="action-flex"><button class="act-view" onclick="viewApplicationATD(${item.id})">📋</button><button class="act-edit" onclick="editApplication(${item.id})">✏️</button></div></td>
-            </tr>`).join('') : '<tr><td colspan="10">কোনো আবেদন নেই</td></tr>';
+            list.innerHTML = data.length ? data.map(item => {
+                const isLocked = !!item.completed;
+                const lockTooltip = isLocked ? 'title="আবেদন সম্পন্ন হয়েছে, শুধুমাত্র এডিট করা যাবে"' : '';
+                return `<tr>
+                    <td>${item.date||''}</td>
+                    <td><strong>${item.appNo||''}</strong></td>
+                    <td><div class="inner-scroller"><strong>${item.name||''}</strong></div></td>
+                    <td><span class="info-badge">${item.appType||''}</span></td>
+                    <td>
+                        <button type="button" class="popup-btn btn-tiny ${item.alaminReceive ? 'popup-btn-done-alamin' : 'popup-btn-alamin'} ${isLocked ? 'btn-locked' : ''}" 
+                            ${lockTooltip} ${isLocked ? '' : `onclick="openAlaminModal(${item.id})"`}>
+                            ${item.alaminReceive ? '✅ হ্যাঁ' : '❌ না'}
+                        </button>
+                        ${item.alaminDate ? `<div class="date-stamp">${item.alaminDate}</div>` : ''}
+                    </td>
+                    <td>
+                        <button type="button" class="fee-btn btn-tiny ${item.feeCollect ? 'fee-btn-filled' : 'fee-btn-collect'} ${isLocked ? 'btn-locked' : ''}" 
+                            ${lockTooltip} ${isLocked ? '' : `onclick="openFeeModal('collect', ${item.id})"`}>
+                            ${item.feeCollect ? '৳ ' + item.feeCollect : '+ আদায়'}
+                        </button>
+                        ${item.feeCollectDate ? `<div class="date-stamp">${item.feeCollectDate}</div>` : ''}
+                    </td>
+                    <td>
+                        <button type="button" class="popup-btn btn-tiny ${item.secretaryReceive ? 'popup-btn-done-sec' : 'popup-btn-secretary'} ${isLocked ? 'btn-locked' : ''}" 
+                            ${lockTooltip} ${isLocked ? '' : `onclick="openSecretaryModal(${item.id})"`}>
+                            ${item.secretaryReceive ? '✅ হ্যাঁ' : '❌ না'}
+                        </button>
+                        ${item.secretaryDate ? `<div class="date-stamp">${item.secretaryDate}</div>` : ''}
+                    </td>
+                    <td>
+                        <button type="button" class="fee-btn btn-tiny ${item.feeReceive ? 'fee-btn-filled-receive' : 'fee-btn-receive'} ${isLocked ? 'btn-locked' : ''}" 
+                            ${lockTooltip} ${isLocked ? '' : `onclick="openFeeModal('receive', ${item.id})"`}>
+                            ${item.feeReceive ? '৳ ' + item.feeReceive : '+ রিসিভ'}
+                        </button>
+                        ${item.feeReceiveDate ? `<div class="date-stamp">${item.feeReceiveDate}</div>` : ''}
+                    </td>
+                    <td>
+                        ${item.completed ? '<button class="complete-btn done">✅ সম্পন্ন</button>' : '<button class="complete-btn" onclick="openCompleteModal(' + item.id + ')">সম্পন্ন</button>'}
+                    </td>
+                    <td>
+                        <div class="action-flex">
+                            <button class="act-view" onclick="viewApplicationATD(${item.id})" title="বিস্তারিত দেখুন">📋</button>
+                            <button class="act-edit" onclick="editApplication(${item.id})" title="এডিট করুন">✏️</button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('') : '<tr><td colspan="10">কোনো আবেদন নেই</td></tr>';
         }
 
         function filterApplicationTable() {
@@ -1339,7 +1405,7 @@
         function viewApplicationATD(id) {
             const rec = masterDB.applications.find(r => r.id === id);
             if (!rec) return;
-            alert(`আবেদনের বিস্তারিত তথ্য:\n\nতারিখ: ${rec.date}\nআবেদন নং: ${rec.appNo}\nনাম: ${rec.name}\nধরন: ${rec.appType}\nআল আমিন: ${rec.alaminReceive ? 'হ্যাঁ' : 'না'} ${rec.alaminDate || ''}\nফি আদায়: ${rec.feeCollect || 'নেই'} ${rec.feeCollectDate || ''}\nসচিব: ${rec.secretaryReceive ? 'হ্যাঁ' : 'না'} ${rec.secretaryDate || ''}\nফি রিসিভ: ${rec.feeReceive || 'নেই'} ${rec.feeReceiveDate || ''}\nসম্পন্ন: ${rec.completed ? 'হ্যাঁ' : 'না'}`);
+            alert(`আবেদনের বিস্তারিত তথ্য:\n\nতারিখ: ${rec.date}\nআবেদন নং: ${rec.appNo}\nনাম: ${rec.name}\nধরন: ${rec.appType}\nআল আমিন: ${rec.alaminReceive ? 'হ্যাঁ' : 'না'} ${rec.alaminDate || ''}\nফি আদায়: ${rec.feeCollect ? '৳' + rec.feeCollect : 'নেই'} ${rec.feeCollectDate || ''}\nসচিব: ${rec.secretaryReceive ? 'হ্যাঁ' : 'না'} ${rec.secretaryDate || ''}\nফি রিসিভ: ${rec.feeReceive ? '৳' + rec.feeReceive : 'নেই'} ${rec.feeReceiveDate || ''}\nসম্পন্ন: ${rec.completed ? 'হ্যাঁ' : 'না'}`);
         }
 
         function editApplication(id) {
@@ -1349,108 +1415,194 @@
             document.getElementById('app-no').value = rec.appNo || '';
             document.getElementById('app-name').value = rec.name || '';
             document.getElementById('app-type').value = rec.appType || 'নতুন';
-            document.getElementById('form-application').dataset.editId = id;
-            alaminConfirmed = rec.alaminReceive || false;
-            secretaryConfirmed = rec.secretaryReceive || false;
-            completeStatus = rec.completed || false;
-            document.getElementById('alamin-date').textContent = rec.alaminDate || '';
-            document.getElementById('secretary-date').textContent = rec.secretaryDate || '';
-            document.getElementById('btn-fee-collect').dataset.amount = rec.feeCollect || '';
-            document.getElementById('btn-fee-receive').dataset.amount = rec.feeReceive || '';
-            document.getElementById('btn-fee-collect').innerHTML = rec.feeCollect ? '৳' + rec.feeCollect : 'ফি আদায় করুন';
-            document.getElementById('btn-fee-receive').innerHTML = rec.feeReceive ? '৳' + rec.feeReceive : 'ফি রিসিভ করুন';
-            document.getElementById('fee-collect-date').textContent = rec.feeCollectDate || '';
-            document.getElementById('fee-receive-date').textContent = rec.feeReceiveDate || '';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            document.getElementById('form-application').dataset.editId = String(id);
+            document.getElementById('app-edit-badge').style.display = 'inline-block';
+            document.getElementById('btn-app-submit').innerHTML = '💾 আপডেট করুন';
+
+            alaminConfirmed = !!rec.alaminReceive;
+            alaminDateValue = rec.alaminDate || '';
+            const btnAlamin = document.getElementById('btn-alamin');
+            if (alaminConfirmed) {
+                btnAlamin.className = 'popup-btn popup-btn-done-alamin';
+                btnAlamin.innerHTML = '✅ রিসিভ সম্পন্ন';
+            } else {
+                btnAlamin.className = 'popup-btn popup-btn-alamin';
+                btnAlamin.innerHTML = 'আল আমিন রিসিভ';
+            }
+            document.getElementById('alamin-date').textContent = alaminDateValue;
+
+            secretaryConfirmed = !!rec.secretaryReceive;
+            secretaryDateValue = rec.secretaryDate || '';
+            const btnSec = document.getElementById('btn-secretary');
+            if (secretaryConfirmed) {
+                btnSec.className = 'popup-btn popup-btn-done-sec';
+                btnSec.innerHTML = '✅ রিসিভ সম্পন্ন';
+            } else {
+                btnSec.className = 'popup-btn popup-btn-secretary';
+                btnSec.innerHTML = 'সচিব রিসিভ';
+            }
+            document.getElementById('secretary-date').textContent = secretaryDateValue;
+
+            feeCollectVal = rec.feeCollect || '';
+            feeCollectDateVal = rec.feeCollectDate || '';
+            const btnFeeCol = document.getElementById('btn-fee-collect');
+            if (feeCollectVal) {
+                btnFeeCol.className = 'fee-btn fee-btn-filled';
+                btnFeeCol.innerHTML = '৳ ' + feeCollectVal;
+            } else {
+                btnFeeCol.className = 'fee-btn fee-btn-collect';
+                btnFeeCol.innerHTML = 'ফি আদায় করুন';
+            }
+            document.getElementById('fee-collect-date').textContent = feeCollectDateVal;
+
+            feeReceiveVal = rec.feeReceive || '';
+            feeReceiveDateVal = rec.feeReceiveDate || '';
+            const btnFeeRec = document.getElementById('btn-fee-receive');
+            if (feeReceiveVal) {
+                btnFeeRec.className = 'fee-btn fee-btn-filled-receive';
+                btnFeeRec.innerHTML = '৳ ' + feeReceiveVal;
+            } else {
+                btnFeeRec.className = 'fee-btn fee-btn-receive';
+                btnFeeRec.innerHTML = 'ফি রিসিভ করুন';
+            }
+            document.getElementById('fee-receive-date').textContent = feeReceiveDateVal;
+
+            completeStatus = !!rec.completed;
+
+            window.scrollTo({ top: document.getElementById('tab-application').offsetTop, behavior: 'smooth' });
         }
 
-        // ============ সম্পন্ন মডাল ============
-        function openCompleteModal(id) {
-            completeTargetId = id;
-            document.getElementById('complete-modal').style.display = 'flex';
+        // ============ মডাল লজিক (আল আমিন, সচিব, ফি, সম্পন্ন) ============
+        function openAlaminModal(appId = null) {
+            if (appId) {
+                const rec = masterDB.applications.find(r => r.id === appId);
+                if (rec && rec.completed) {
+                    alert("⚠️ আবেদনটি ইতিমধ্যে সম্পন্ন হয়েছে! পরিবর্তন করতে চাইলে 'এডিট' করুন।");
+                    return;
+                }
+            }
+            activeAppModalId = appId;
+            document.getElementById('alamin-modal').style.display = 'flex';
         }
-        function closeCompleteModal() { document.getElementById('complete-modal').style.display = 'none'; completeTargetId = null; }
-        function confirmComplete() {
-            if (completeTargetId) {
-                const idx = masterDB.applications.findIndex(r => r.id === completeTargetId);
+        function closeAlaminModal() { document.getElementById('alamin-modal').style.display = 'none'; activeAppModalId = null; }
+
+        function confirmAlamin() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+            if (activeAppModalId) {
+                const idx = masterDB.applications.findIndex(r => r.id === activeAppModalId);
                 if (idx !== -1) {
-                    masterDB.applications[idx].completed = true;
+                    masterDB.applications[idx].alaminReceive = true;
+                    masterDB.applications[idx].alaminDate = dateStr;
                     saveToDatabase().then(() => {
                         renderApplicationTable(masterDB.applications);
-                        closeCompleteModal();
-                        alert("✅ আবেদন সম্পন্ন হয়েছে!");
+                        closeAlaminModal();
+                        alert("✅ আল আমিন রিসিভ সম্পন্ন!");
                     });
                 }
+            } else {
+                alaminConfirmed = true;
+                alaminDateValue = dateStr;
+                document.getElementById('alamin-date').textContent = dateStr;
+                const btn = document.getElementById('btn-alamin');
+                btn.innerHTML = '✅ রিসিভ সম্পন্ন';
+                btn.className = 'popup-btn popup-btn-done-alamin';
+                closeAlaminModal();
             }
         }
 
-        // ============ আল আমিন ও সচিব মডাল ============
-        function openAlaminModal() { document.getElementById('alamin-modal').style.display = 'flex'; }
-        function closeAlaminModal() { document.getElementById('alamin-modal').style.display = 'none'; }
-        function confirmAlamin() {
-            alaminConfirmed = true;
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('alamin-date').textContent = dateStr;
-            document.getElementById('btn-alamin').innerHTML = '✅ রিসিভ সম্পন্ন';
-            document.getElementById('btn-alamin').style.background = '#27ae60';
-            document.getElementById('btn-alamin').style.color = 'white';
-            closeAlaminModal();
+        function openSecretaryModal(appId = null) {
+            if (appId) {
+                const rec = masterDB.applications.find(r => r.id === appId);
+                if (rec && rec.completed) {
+                    alert("⚠️ আবেদনটি ইতিমধ্যে সম্পন্ন হয়েছে! পরিবর্তন করতে চাইলে 'এডিট' করুন।");
+                    return;
+                }
+            }
+            activeAppModalId = appId;
+            document.getElementById('secretary-modal').style.display = 'flex';
         }
+        function closeSecretaryModal() { document.getElementById('secretary-modal').style.display = 'none'; activeAppModalId = null; }
 
-        function openSecretaryModal() { document.getElementById('secretary-modal').style.display = 'flex'; }
-        function closeSecretaryModal() { document.getElementById('secretary-modal').style.display = 'none'; }
         function confirmSecretary() {
-            secretaryConfirmed = true;
             const now = new Date();
             const dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('secretary-date').textContent = dateStr;
-            document.getElementById('btn-secretary').innerHTML = '✅ রিসিভ সম্পন্ন';
-            document.getElementById('btn-secretary').style.background = '#6a1b9a';
-            document.getElementById('btn-secretary').style.color = 'white';
-            closeSecretaryModal();
+            if (activeAppModalId) {
+                const idx = masterDB.applications.findIndex(r => r.id === activeAppModalId);
+                if (idx !== -1) {
+                    masterDB.applications[idx].secretaryReceive = true;
+                    masterDB.applications[idx].secretaryDate = dateStr;
+                    saveToDatabase().then(() => {
+                        renderApplicationTable(masterDB.applications);
+                        closeSecretaryModal();
+                        alert("✅ সচিব রিসিভ সম্পন্ন!");
+                    });
+                }
+            } else {
+                secretaryConfirmed = true;
+                secretaryDateValue = dateStr;
+                document.getElementById('secretary-date').textContent = dateStr;
+                const btn = document.getElementById('btn-secretary');
+                btn.innerHTML = '✅ রিসিভ সম্পন্ন';
+                btn.className = 'popup-btn popup-btn-done-sec';
+                closeSecretaryModal();
+            }
         }
 
-        // ============ ফি মডাল ============
-        function openFeeModal(type, appId) {
+        function openFeeModal(type, appId = null) {
+            if (appId) {
+                const rec = masterDB.applications.find(r => r.id === appId);
+                if (rec && rec.completed) {
+                    alert("⚠️ আবেদনটি ইতিমধ্যে সম্পন্ন হয়েছে! পরিবর্তন করতে চাইলে 'এডিট' করুন।");
+                    return;
+                }
+            }
             feeModalType = type;
+            activeAppModalId = appId;
             const modal = document.getElementById('fee-modal');
             const title = document.getElementById('fee-modal-title');
             const amountInput = document.getElementById('fee-amount');
             const msgEl = document.getElementById('fee-modal-msg');
             msgEl.textContent = '';
             amountInput.value = '';
+            
             if (type === 'collect') {
                 title.textContent = '💰 ফি আদায়';
                 if (appId) {
                     const rec = masterDB.applications.find(r => r.id === appId);
                     if (rec && rec.feeCollect) amountInput.value = rec.feeCollect;
+                } else if (feeCollectVal) {
+                    amountInput.value = feeCollectVal;
                 }
             } else {
                 title.textContent = '💰 ফি রিসিভ';
                 if (appId) {
                     const rec = masterDB.applications.find(r => r.id === appId);
                     if (rec && rec.feeReceive) amountInput.value = rec.feeReceive;
+                } else if (feeReceiveVal) {
+                    amountInput.value = feeReceiveVal;
                 }
             }
-            modal.dataset.appId = appId || '';
             modal.style.display = 'flex';
         }
 
         function closeFeeModal() {
             document.getElementById('fee-modal').style.display = 'none';
             feeModalType = null;
+            activeAppModalId = null;
         }
 
         function saveFeeModal() {
             const amount = document.getElementById('fee-amount').value.trim();
-            const appId = document.getElementById('fee-modal').dataset.appId;
             const msgEl = document.getElementById('fee-modal-msg');
             if (!amount) { msgEl.style.color = '#e74c3c'; msgEl.textContent = '⚠️ ফি এর পরিমাণ লিখুন!'; return; }
+            
             const now = new Date();
             const dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
-            if (appId) {
-                const idx = masterDB.applications.findIndex(r => r.id === parseInt(appId));
+
+            if (activeAppModalId) {
+                const idx = masterDB.applications.findIndex(r => r.id === activeAppModalId);
                 if (idx !== -1) {
                     if (feeModalType === 'collect') {
                         masterDB.applications[idx].feeCollect = amount;
@@ -1462,17 +1614,22 @@
                     saveToDatabase().then(() => {
                         renderApplicationTable(masterDB.applications);
                         closeFeeModal();
-                        alert('✅ ফি সংরক্ষিত হয়েছে!');
+                        alert('✅ ফি আপডেট সম্পন্ন!');
                     });
                 }
             } else {
-                const btn = feeModalType === 'collect' ? document.getElementById('btn-fee-collect') : document.getElementById('btn-fee-receive');
-                btn.dataset.amount = amount;
-                btn.innerHTML = '৳' + amount;
                 if (feeModalType === 'collect') {
+                    feeCollectVal = amount;
+                    feeCollectDateVal = dateStr;
+                    const btn = document.getElementById('btn-fee-collect');
+                    btn.innerHTML = '৳ ' + amount;
                     btn.className = 'fee-btn fee-btn-filled';
                     document.getElementById('fee-collect-date').textContent = dateStr;
                 } else {
+                    feeReceiveVal = amount;
+                    feeReceiveDateVal = dateStr;
+                    const btn = document.getElementById('btn-fee-receive');
+                    btn.innerHTML = '৳ ' + amount;
                     btn.className = 'fee-btn fee-btn-filled-receive';
                     document.getElementById('fee-receive-date').textContent = dateStr;
                 }
@@ -1480,9 +1637,122 @@
             }
         }
 
-        // ============ নাম্বার আপডেট ============
-        function openUpdateNumberModal() { document.getElementById('update-number-modal').style.display = 'flex'; setDefaultDate(); }
+        function openCompleteModal(id) {
+            completeTargetId = id;
+            document.getElementById('complete-modal').style.display = 'flex';
+        }
+        function closeCompleteModal() { document.getElementById('complete-modal').style.display = 'none'; completeTargetId = null; }
+        
+        function confirmComplete() {
+            if (completeTargetId) {
+                const idx = masterDB.applications.findIndex(r => r.id === completeTargetId);
+                if (idx !== -1) {
+                    masterDB.applications[idx].completed = true;
+                    saveToDatabase().then(() => {
+                        renderApplicationTable(masterDB.applications);
+                        closeCompleteModal();
+                        alert("✅ আবেদন সম্পন্ন হয়েছে! টেবিলের পপআপ অপশনগুলো লক করা হয়েছে।");
+                    });
+                }
+            }
+        }
+
+        // ===================================================
+        // ============ ৭. নাম্বার আপডেট (সংশোধিত) ============
+        // ===================================================
+        function openOldNumberModal(id) {
+            const rec = masterDB.update_numbers.find(r => r.id === id);
+            if (!rec) return;
+            if (rec.applicationCompleted) {
+                alert("⚠️ এটি সম্পন্ন হয়েছে! পরিবর্তন করতে চাইলে এডিট (✏️) বাটনে ক্লিক করুন।");
+                return;
+            }
+            activeNumberUpdateId = id;
+            activeNumberFieldType = 'oldNumber';
+            document.getElementById('single-number-title').textContent = '🔢 পুরাতন নাম্বার পরিবর্তন';
+            document.getElementById('single-number-label').textContent = 'পুরাতন নাম্বার লিখুন';
+            document.getElementById('single-number-input').value = rec.oldNumber || '';
+            document.getElementById('single-number-msg').textContent = '';
+            document.getElementById('single-number-modal').style.display = 'flex';
+        }
+
+        function openNewNumberModal(id) {
+            const rec = masterDB.update_numbers.find(r => r.id === id);
+            if (!rec) return;
+            if (rec.applicationCompleted) {
+                alert("⚠️ এটি সম্পন্ন হয়েছে! পরিবর্তন করতে চাইলে এডিট (✏️) বাটনে ক্লিক করুন।");
+                return;
+            }
+            activeNumberUpdateId = id;
+            activeNumberFieldType = 'newNumber';
+            document.getElementById('single-number-title').textContent = '🔢 নতুন নাম্বার পরিবর্তন';
+            document.getElementById('single-number-label').textContent = 'নতুন নাম্বার লিখুন';
+            document.getElementById('single-number-input').value = rec.newNumber || '';
+            document.getElementById('single-number-msg').textContent = '';
+            document.getElementById('single-number-modal').style.display = 'flex';
+        }
+
+        function closeSingleNumberModal() {
+            document.getElementById('single-number-modal').style.display = 'none';
+            activeNumberUpdateId = null;
+            activeNumberFieldType = null;
+        }
+
+        function saveSingleNumberModal() {
+            const val = document.getElementById('single-number-input').value.trim();
+            const msg = document.getElementById('single-number-msg');
+            if (!val) {
+                msg.style.color = '#e74c3c';
+                msg.textContent = '⚠️ অনুগ্রহ করে নাম্বারটি লিখুন!';
+                return;
+            }
+
+            if (activeNumberUpdateId) {
+                const idx = masterDB.update_numbers.findIndex(r => r.id === activeNumberUpdateId);
+                if (idx !== -1) {
+                    masterDB.update_numbers[idx][activeNumberFieldType] = val;
+                    saveToDatabase().then(() => {
+                        renderUpdateTable(masterDB.update_numbers);
+                        closeSingleNumberModal();
+                        alert("✅ নাম্বার সফলভাবে আপডেট করা হয়েছে!");
+                    });
+                }
+            }
+        }
+
+        function openUpdateNumberModal(editId = null) {
+            const modal = document.getElementById('update-number-modal');
+            const title = document.getElementById('update-modal-title');
+            const msgEl = document.getElementById('update-number-msg');
+            msgEl.textContent = '';
+            
+            if (editId) {
+                const rec = masterDB.update_numbers.find(r => r.id === editId);
+                if (rec) {
+                    title.textContent = '✏️ নাম্বার আপডেট এডিট';
+                    document.getElementById('update-old-number').value = rec.oldNumber || '';
+                    document.getElementById('update-date').value = rec.date || '';
+                    document.getElementById('update-name').value = rec.name || '';
+                    document.getElementById('update-father').value = rec.father || '';
+                    document.getElementById('update-mother').value = rec.mother || '';
+                    document.getElementById('update-new-number').value = rec.newNumber || '';
+                    modal.dataset.editId = String(editId);
+                }
+            } else {
+                title.textContent = '🔄 নাম্বার আপডেট এন্ট্রি';
+                document.getElementById('update-old-number').value = '';
+                document.getElementById('update-date').value = new Date().toISOString().split('T')[0];
+                document.getElementById('update-name').value = '';
+                document.getElementById('update-father').value = '';
+                document.getElementById('update-mother').value = '';
+                document.getElementById('update-new-number').value = '';
+                modal.dataset.editId = '';
+            }
+            modal.style.display = 'flex';
+        }
+
         function closeUpdateNumberModal() { document.getElementById('update-number-modal').style.display = 'none'; }
+
         function saveUpdateNumber() {
             const oldNumber = document.getElementById('update-old-number').value.trim();
             const date = document.getElementById('update-date').value;
@@ -1491,35 +1761,74 @@
             const mother = document.getElementById('update-mother').value.trim();
             const newNumber = document.getElementById('update-new-number').value.trim();
             const msgEl = document.getElementById('update-number-msg');
-            if (!oldNumber && !date && !name && !father && !mother && !newNumber) { msgEl.style.color = '#e74c3c'; msgEl.textContent = '⚠️ অন্তত একটি ফিল্ড পূরণ করুন!'; return; }
-            const record = { id: Date.now(), oldNumber, date, name, father, mother, newNumber, applicationCompleted: false };
-            masterDB.update_numbers.push(record);
+            const editId = document.getElementById('update-number-modal').dataset.editId;
+
+            if (!oldNumber && !newNumber && !name) {
+                msgEl.style.color = '#e74c3c';
+                msgEl.textContent = '⚠️ অনুগ্রহ করে প্রয়োজনীয় তথ্য লিখুন!';
+                return;
+            }
+
+            // ডুপ্লিকেট চেক (পুরাতন বা নতুন নাম্বার ডুপ্লিকেট রোধ)
+            const checkData = { oldNumber, newNumber, name };
+            if (oldNumber && checkDuplicate('update_numbers', checkData, ['oldNumber'], editId)) {
+                msgEl.style.color = '#e74c3c';
+                msgEl.textContent = '⚠️ এই পুরাতন নাম্বারটি দিয়ে ইতিমধ্যে একটি এন্ট্রি আছে!';
+                return;
+            }
+
+            const record = {
+                id: editId ? parseInt(editId) : Date.now(),
+                oldNumber,
+                date,
+                name,
+                father,
+                mother,
+                newNumber,
+                applicationCompleted: editId ? (masterDB.update_numbers.find(r => r.id === parseInt(editId))?.applicationCompleted || false) : false
+            };
+
+            if (editId) {
+                const idx = masterDB.update_numbers.findIndex(r => r.id === parseInt(editId));
+                if (idx !== -1) masterDB.update_numbers[idx] = record;
+            } else {
+                masterDB.update_numbers.push(record);
+            }
+
             saveToDatabase().then(() => {
                 renderUpdateTable(masterDB.update_numbers);
                 closeUpdateNumberModal();
-                document.getElementById('update-old-number').value = '';
-                document.getElementById('update-date').value = '';
-                document.getElementById('update-name').value = '';
-                document.getElementById('update-father').value = '';
-                document.getElementById('update-mother').value = '';
-                document.getElementById('update-new-number').value = '';
-                alert("✅ নাম্বার আপডেট সংরক্ষিত হয়েছে!");
+                alert(editId ? "✅ নাম্বার আপডেট সংরক্ষিত হয়েছে!" : "✅ নতুন নাম্বার আপডেট এন্ট্রি সম্পন্ন হয়েছে!");
             });
         }
 
         function renderUpdateTable(data) {
             const list = document.getElementById('list-update-number');
             if (!list) return;
-            list.innerHTML = data.length ? data.map(item => `<tr>
-                <td>${item.oldNumber||'-'}</td>
-                <td>${item.date||'-'}</td>
-                <td><div class="inner-scroller"><strong>${item.name||'-'}</strong></div></td>
-                <td><div class="inner-scroller">${item.father||'-'}</div></td>
-                <td><div class="inner-scroller">${item.mother||'-'}</div></td>
-                <td>${item.newNumber||'-'}</td>
-                <td>${item.applicationCompleted ? '<button class="complete-btn done">✅ সম্পন্ন</button>' : '<button class="complete-btn" onclick="completeUpdateApplication(' + item.id + ')">সম্পন্ন</button>'}</td>
-                <td><div class="action-flex"><button class="act-edit" onclick="editUpdateRecord(${item.id})">✏️</button></div></td>
-            </tr>`).join('') : '<tr><td colspan="8">কোনো আপডেট নেই</td></tr>';
+            list.innerHTML = data.length ? data.map(item => {
+                const isLocked = !!item.applicationCompleted;
+                const lockTooltip = isLocked ? 'title="সম্পন্ন হয়েছে, শুধুমাত্র এডিট করা যাবে"' : '';
+                return `<tr>
+                    <td>
+                        <button class="popup-btn btn-tiny ${isLocked ? 'btn-locked' : ''}" style="background:#f1f3f5;color:#1e3c72;border:1px solid #ced4da;width:100%;" 
+                            ${lockTooltip} ${isLocked ? '' : `onclick="openOldNumberModal(${item.id})"`}>
+                            ${item.oldNumber ? '🔢 ' + item.oldNumber : '+ পুরাতন নং'}
+                        </button>
+                    </td>
+                    <td>${item.date||'-'}</td>
+                    <td><div class="inner-scroller"><strong>${item.name||'-'}</strong></div></td>
+                    <td><div class="inner-scroller">${item.father||'-'}</div></td>
+                    <td><div class="inner-scroller">${item.mother||'-'}</div></td>
+                    <td>
+                        <button class="popup-btn btn-tiny ${isLocked ? 'btn-locked' : ''}" style="background:#e8f0fe;color:#1565c0;border:1px solid #bbdefb;width:100%;font-weight:700;" 
+                            ${lockTooltip} ${isLocked ? '' : `onclick="openNewNumberModal(${item.id})"`}>
+                            ${item.newNumber ? '📱 ' + item.newNumber : '+ নতুন নং'}
+                        </button>
+                    </td>
+                    <td>${item.applicationCompleted ? '<button class="complete-btn done">✅ সম্পন্ন</button>' : '<button class="complete-btn" onclick="completeUpdateApplication(' + item.id + ')">সম্পন্ন</button>'}</td>
+                    <td><div class="action-flex"><button class="act-edit" onclick="openUpdateNumberModal(${item.id})" title="এডিট করুন">✏️</button></div></td>
+                </tr>`;
+            }).join('') : '<tr><td colspan="8">কোনো আপডেট নেই</td></tr>';
         }
 
         function filterUpdateTable() {
@@ -1539,22 +1848,9 @@
                 masterDB.update_numbers[idx].applicationCompleted = true;
                 saveToDatabase().then(() => {
                     renderUpdateTable(masterDB.update_numbers);
-                    alert("✅ আবেদন সম্পন্ন হয়েছে!");
+                    alert("✅ নাম্বার আপডেট সম্পন্ন হিসেবে চিহ্নিত করা হয়েছে!");
                 });
             }
-        }
-
-        function editUpdateRecord(id) {
-            const rec = masterDB.update_numbers.find(r => r.id === id);
-            if (!rec) return;
-            document.getElementById('update-old-number').value = rec.oldNumber || '';
-            document.getElementById('update-date').value = rec.date || '';
-            document.getElementById('update-name').value = rec.name || '';
-            document.getElementById('update-father').value = rec.father || '';
-            document.getElementById('update-mother').value = rec.mother || '';
-            document.getElementById('update-new-number').value = rec.newNumber || '';
-            document.getElementById('update-number-modal').dataset.editId = id;
-            document.getElementById('update-number-modal').style.display = 'flex';
         }
 
         // ============ ATD পিন ও ডিলিট ============
@@ -1651,53 +1947,73 @@
             const doc = new jsPDF();
             doc.autoTable({
                 head: [['তারিখ', 'আবেদন নং', 'নাম', 'ধরন', 'আল আমিন', 'ফি আদায়', 'সচিব', 'ফি রিসিভ', 'সম্পন্ন']],
-                body: masterDB.applications.map(item => [item.date, item.appNo, item.name, item.appType, item.alaminReceive ? 'হ্যাঁ' : 'না', item.feeCollect || '', item.secretaryReceive ? 'হ্যাঁ' : 'না', item.feeReceive || '', item.completed ? 'হ্যাঁ' : 'না']),
+                body: masterDB.applications.map(item => [
+                    item.date, 
+                    item.appNo, 
+                    item.name, 
+                    item.appType, 
+                    item.alaminReceive ? 'হ্যাঁ' : 'না', 
+                    item.feeCollect || '', 
+                    item.secretaryReceive ? 'হ্যাঁ' : 'না', 
+                    item.feeReceive || '', 
+                    item.completed ? 'হ্যাঁ' : 'না'
+                ]),
                 styles: { fontSize: 8 },
                 headStyles: { fillColor: [30, 60, 114] }
             });
             doc.save('আবেদন_তালিকা.pdf');
         }
 
-        // ============ কমন ক্লিনিং ============
-        function recoverBrokenBengali(text) { if (!text) return ""; let t = text; const map = { "Ï": "মো", "Ɔ": "হু", "ƃ": "দ", "Ō": "ল্ল", "ē": "ত্ত", "å": "গ্র", "ũ": "স্ত", "Ŕ": "ব", "ý": "ঞ্জ", "Â": "ম", "⁄": "ি", "€": "ু", "‹": "ে", "›": "ো", "ﬁ": "র্", "Í": "হ", "Î": "য়", "Ì": "স", "Ê": "শ", "Ë": "ষ", "‡": "জ", "·": "ত", "‚": "ন", "„": "প", "‰": "ল", "Ò": "ঃ", "Ó": "ং", "Ô": "ঁ", "ì": "র", "ï": "ি", "î": "ী", "ë": "ে", "ê": "ে", "è": "ে", "é": "ে", "ð": "ড়", "ò": "ঢ়", "ó": "য়", "ô": "ড়", "õ": "ঢ়", "œ": "র্", "›": "ো", "¡": "া", "²": "ু", "³": "ু", "æ": "হ্য", "Æ": "হ্যা", "À": "া", "Á": "া", "Â": "া", "à": "া", "á": "া", "â": "া", "È": "ে", "É": "ে", "Ê": "ে", "è": "ে", "é": "ে", "ê": "ে", "Ì": "ি", "Í": "ি", "Î": "ি", "ì": "ি", "í": "ি", "î": "ি", "Ò": "ো", "Ó": "ো", "Ô": "ো", "ò": "ো", "ó": "ো", "ô": "ো", "Ù": "ু", "Ú": "ু", "Û": "ু", "ù": "ু", "ú": "ু", "û": "ু", "Ý": "ড়", "ý": "ড়", "ÿ": "ড়" }; for (let k in map) t = t.split(k).join(map[k]); const words = { "ছুমাইপুর": "হুমাইপুর", "ছমাইপুর": "হুমাইপুর", "মোহােসনপুর": "হোসেনপুর", "পিশ্চম": "পশ্চিম", "িকশোরগঞ্জ": "কিশোরগঞ্জ", "বাঙিতপুর": "বাজিতপুর" }; for (let k in words) t = t.split(k).join(words[k]); return t.replace(/\s+/g, ' ').trim(); }
-
-        function extractPossibleNames(text) { let clean = recoverBrokenBengali(text); const namePattern = /(?:মোঃ|মোছাঃ|মোছা|মো)[\s]*[\u0980-\u09FFঃ]+\s*(?:[\u0980-\u09FFঃ]+\s*)*/gi; let names = []; let match; while ((match = namePattern.exec(clean)) !== null) { let n = match[0].replace(/\s+/g, ' ').trim(); n = n.replace(/[0-9০-৯A-Za-z]/g, ' ').replace(/\s+/g, ' ').trim(); if (n.length > 3 && !/ঠিকানা|পিতা|মাতা|নাম|জন্ম|রক্ত|গ্রুপ|Date|ID|No/i.test(n)) names.push(n); } return [...new Set(names)]; }
-
-        function cleanName(raw) { if (!raw) return ""; let str = recoverBrokenBengali(raw);
-            str = str.replace(/(?:প্রদানকারী\s*কর্তৃপক্ষের\s*স্বাক্ষর|প্রদানের\s*তারিখ|Date\s*of\s*Issue|রক্তের\s*গ্রুপ|Blood\s*Group|প্রদানকারী|জন্ম\s*তারিখ|জন্মস্থান|কিশোরগঞ্জ|ঠিকানা|পোস্ট|ডাকঘর|ID\s*No|NID\s*No|পিতা|মাতা|নাম)[\s:.]*/gi, ' ');
-            str = str.replace(/[0-9০-৯A-Za-z\.\,\;\:\!\?\@\#\$\%\^\&\*\(\)\_\+\=\[\]\{\}\\\|\`\~\"\'\<\>\?\/]/g, ' ');
-            str = str.replace(/[৷॥]/g, ' ');
-            str = str.replace(/\b(?:রগ|তা|কী|পচ|সিন|নে|ar|SR|TR|দিন|দাম|বাইত|পুর|হুমাইপু|পু|জাতীয়|পরিচয়|পত্র)\b/gi, ' ');
-            str = str.replace(/\s+/g, ' ').trim(); let parts = str.split(/\s+/).filter(p => /^[\u0980-\u09FFঃ]+$/.test(p) || /^(মোঃ|মোছাঃ|মো|মোছা|আঃ)$/i.test(p)); return parts.join(' ') || ""; }
-
-        function cleanAddress(raw) { if (!raw) return ""; let str = recoverBrokenBengali(raw);
-            str = str.replace(/(?:নাম|Name|পিতা|Father|মাতা|Mother|রক্তের গ্রুপ|Blood Group|প্রদানকারী|প্রদানের তারিখ|Date of Issue|জন্ম তারিখ|ID No|NID No|জাতীয়|পরিচয়|পত্র)[\s:.]*/gi, ' ');
-            str = str.replace(/[A-Za-z]/g, ' ');
-            str = str.replace(/[!?@#$%^&*()_+={}\[\]\\|`~"'<>]/g, ' ');
-            str = str.replace(/[৷॥]/g, ' ');
-            str = str.replace(/\bদিন\b/gi, ' ');
-            str = str.replace(/\s*-\s*/g, ' - ');
-            str = str.replace(/\s+/g, ' ').trim(); return str || ""; }
-
-        // ============ ডাউনলোড ও ভিউয়ার ============
+        // ============ ভিউয়ার ও গ্লোবাল ডাউনলোড ============
         function downloadFile(fileName, dataUrl) { if (!dataUrl) return; const a = document.createElement('a'); a.href = dataUrl; a.download = fileName || 'file'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 
-        function openFlashFileModal(title, b64) { if (!b64) return;
-            currentViewFileData = b64; currentViewFileName = title || 'file'; const container = document.getElementById('file-view-container'); const downloadBtn = document.getElementById('viewer-download-btn');
-            downloadBtn.style.display = 'inline-flex'; const isPDF = b64.includes('data:application/pdf') || b64.startsWith('data:application/pdf'); const isImage = b64.startsWith('data:image'); if (isPDF) { container.innerHTML = `<iframe src="${b64}" width="100%" height="100%" style="border:none;" title="PDF Viewer"></iframe>`; } else if (isImage) { container.innerHTML = `<img src="${b64}" style="max-width:100%;max-height:100%;object-fit:contain;" alt="Image">`; } else { container.innerHTML = `<iframe src="${b64}" width="100%" height="100%" style="border:none;" title="File Viewer"></iframe>`; }
+        function openFlashFileModal(title, b64) { 
+            if (!b64) return;
+            currentViewFileData = b64; currentViewFileName = title || 'file'; 
+            const container = document.getElementById('file-view-container'); 
+            const downloadBtn = document.getElementById('viewer-download-btn');
+            downloadBtn.style.display = 'inline-flex'; 
+            const isPDF = b64.includes('data:application/pdf') || b64.startsWith('data:application/pdf'); 
+            const isImage = b64.startsWith('data:image'); 
+            if (isPDF) { 
+                container.innerHTML = `<iframe src="${b64}" width="100%" height="100%" style="border:none;" title="PDF Viewer"></iframe>`; 
+            } else if (isImage) { 
+                container.innerHTML = `<img src="${b64}" style="max-width:100%;max-height:100%;object-fit:contain;" alt="Image">`; 
+            } else { 
+                container.innerHTML = `<iframe src="${b64}" width="100%" height="100%" style="border:none;" title="File Viewer"></iframe>`; 
+            }
             document.getElementById('global-viewer-modal').style.display = 'flex';
-            document.querySelector('#global-viewer-modal .modal-content').classList.remove('fullscreen'); }
+            document.querySelector('#global-viewer-modal .modal-content').classList.remove('fullscreen'); 
+        }
 
         function downloadCurrentViewFile() { if (currentViewFileData) { downloadFile(currentViewFileName, currentViewFileData); } }
 
         function closeGlobalModal() { document.getElementById('global-viewer-modal').style.display = 'none'; currentViewFileData = null; currentViewFileName = ''; if (document.fullscreenElement) document.exitFullscreen(); }
 
-        function toggleFullscreen() { const modalContent = document.querySelector('#global-viewer-modal .modal-content'); if (!document.fullscreenElement) { modalContent.requestFullscreen().catch(err => alert('ফুলস্ক্রিন সক্রিয় করা যায়নি: ' + err.message)); } else { document.exitFullscreen(); }
-            modalContent.classList.toggle('fullscreen'); }
-        document.addEventListener('fullscreenchange', () => { const modalContent = document.querySelector('#global-viewer-modal .modal-content'); if (document.fullscreenElement) modalContent.classList.add('fullscreen'); else modalContent.classList.remove('fullscreen'); });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeGlobalModal(); closeEditModal(); closeScanEditModal(); closeBirthEditModal(); closeResetPasswordModal(); closeAdminResetModal(); closeFeeModal(); closeAlaminModal(); closeSecretaryModal(); closeUpdateNumberModal(); closeCompleteModal(); } });
+        function toggleFullscreen() { 
+            const modalContent = document.querySelector('#global-viewer-modal .modal-content'); 
+            if (!document.fullscreenElement) { 
+                modalContent.requestFullscreen().catch(err => alert('ফুলস্ক্রিন সক্রিয় করা যায়নি: ' + err.message)); 
+            } else { 
+                document.exitFullscreen(); 
+            }
+            modalContent.classList.toggle('fullscreen'); 
+        }
 
-        // ============ ডাউনলোড ফাংশন (অন্যান্য) ============
+        document.addEventListener('fullscreenchange', () => { 
+            const modalContent = document.querySelector('#global-viewer-modal .modal-content'); 
+            if (document.fullscreenElement) modalContent.classList.add('fullscreen'); 
+            else modalContent.classList.remove('fullscreen'); 
+        });
+
+        document.addEventListener('keydown', e => { 
+            if (e.key === 'Escape') { 
+                closeGlobalModal(); closeEditModal(); closeScanEditModal(); closeBirthEditModal(); 
+                closeResetPasswordModal(); closeAdminResetModal(); closeFeeModal(); closeAlaminModal(); 
+                closeSecretaryModal(); closeUpdateNumberModal(); closeCompleteModal(); closeSingleNumberModal();
+            } 
+        });
+
         async function downloadAllData(key, label) {
             let data = [];
             let isFileBased = false;
