@@ -147,7 +147,6 @@
         .application-table th { background: #f1f3f5; }
         .application-table td { text-align: center; }
         
-        /* ছোট ও স্লিম বাটন ডিজাইন */
         .btn-tiny { padding: 3px 6px !important; font-size: 11px !important; border-radius: 4px !important; line-height: 1.2 !important; white-space: nowrap; font-weight: 600; }
         .fee-btn { padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 11.5px; font-weight: 600; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 3px; justify-content: center; }
         .fee-btn-collect { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
@@ -164,7 +163,6 @@
         .popup-btn-done-alamin { background: #27ae60 !important; color: white !important; }
         .popup-btn-done-sec { background: #6a1b9a !important; color: white !important; }
         
-        /* সম্পন্ন হলে লক স্টাইল */
         .btn-locked { cursor: not-allowed !important; opacity: 0.85 !important; }
         
         .complete-btn { background: #27ae60; color: white; border: none; padding: 4px 8px; border-radius: 5px; cursor: pointer; font-size: 11px; font-weight: 600; }
@@ -680,7 +678,6 @@
         let pendingProfilePicData = null;
         let ppOriginalImage = null, ppProcessedDataUrl = null;
         
-        // আবেদন ব্যবস্থাপনা স্টেট
         let feeModalType = null;
         let activeAppModalId = null;
         let alaminConfirmed = false, secretaryConfirmed = false, completeStatus = false;
@@ -689,9 +686,8 @@
         let feeReceiveVal = '', feeReceiveDateVal = '';
         let completeTargetId = null;
 
-        // একক নাম্বার পপআপ স্টেট (পুরাতন/নতুন)
         let activeNumberUpdateId = null;
-        let activeNumberFieldType = null; // 'oldNumber' or 'newNumber'
+        let activeNumberFieldType = null;
 
         const TESSERACT_OPTIONS = {
             workerBlobURL: false,
@@ -702,7 +698,6 @@
             user_defined_dpi: '300'
         };
 
-        // ============ সঠিক ডুপ্লিকেট চেক ফাংশন ============
         function checkDuplicate(category, data, checkKeys, excludeId = null) {
             if (!checkKeys || checkKeys.length === 0) return false;
             return (masterDB[category] || []).some(item => {
@@ -1284,7 +1279,8 @@
                     masterDB.applications[idx] = record;
                 }
             } else {
-                masterDB.applications.push(record);
+                // নতুন ডাটা তালিকার একদম শুরুতে (উপরে) যুক্ত করা হচ্ছে
+                masterDB.applications.unshift(record);
             }
 
             saveToDatabase().then(() => {
@@ -1335,9 +1331,13 @@
         function renderApplicationTable(data) {
             const list = document.getElementById('list-applications');
             if (!list) return;
-            list.innerHTML = data.length ? data.map(item => {
+
+            // সর্বশেষ এন্ট্রি সবসময় টেবিলের শীর্ষে প্রদর্শনের জন্য সাজানো
+            const displayData = [...data].sort((a, b) => Number(b.id || 0) - Number(a.id || 0));
+
+            list.innerHTML = displayData.length ? displayData.map(item => {
                 const isLocked = !!item.completed;
-                const lockTooltip = isLocked ? 'title="আবেদন সম্পন্ন হয়েছে, শুধুমাত্র এডিট করা যাবে"' : '';
+                const lockTooltip = isLocked ? 'title="আবেদন সম্পন্ন হয়েছে, শুধুমাত্র এডিট করা যাবে"' : '';
                 return `<tr>
                     <td>${item.date||''}</td>
                     <td><strong>${item.appNo||''}</strong></td>
@@ -1658,7 +1658,7 @@
         }
 
         // ===================================================
-        // ============ ৭. নাম্বার আপডেট (সংশোধিত) ============
+        // ============ ৭. নাম্বার আপডেট ============
         // ===================================================
         function openOldNumberModal(id) {
             const rec = masterDB.update_numbers.find(r => r.id === id);
@@ -1769,7 +1769,6 @@
                 return;
             }
 
-            // ডুপ্লিকেট চেক (পুরাতন বা নতুন নাম্বার ডুপ্লিকেট রোধ)
             const checkData = { oldNumber, newNumber, name };
             if (oldNumber && checkDuplicate('update_numbers', checkData, ['oldNumber'], editId)) {
                 msgEl.style.color = '#e74c3c';
@@ -1792,7 +1791,7 @@
                 const idx = masterDB.update_numbers.findIndex(r => r.id === parseInt(editId));
                 if (idx !== -1) masterDB.update_numbers[idx] = record;
             } else {
-                masterDB.update_numbers.push(record);
+                masterDB.update_numbers.unshift(record);
             }
 
             saveToDatabase().then(() => {
@@ -1805,9 +1804,10 @@
         function renderUpdateTable(data) {
             const list = document.getElementById('list-update-number');
             if (!list) return;
-            list.innerHTML = data.length ? data.map(item => {
+            const displayData = [...data].sort((a, b) => Number(b.id || 0) - Number(a.id || 0));
+            list.innerHTML = displayData.length ? displayData.map(item => {
                 const isLocked = !!item.applicationCompleted;
-                const lockTooltip = isLocked ? 'title="সম্পন্ন হয়েছে, শুধুমাত্র এডিট করা যাবে"' : '';
+                const lockTooltip = isLocked ? 'title="সম্পন্ন হয়েছে, শুধুমাত্র এডিট করা যাবে"' : '';
                 return `<tr>
                     <td>
                         <button class="popup-btn btn-tiny ${isLocked ? 'btn-locked' : ''}" style="background:#f1f3f5;color:#1e3c72;border:1px solid #ced4da;width:100%;" 
@@ -1945,9 +1945,10 @@
         function downloadApplicationPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
+            const sortedApps = [...masterDB.applications].sort((a, b) => Number(b.id || 0) - Number(a.id || 0));
             doc.autoTable({
                 head: [['তারিখ', 'আবেদন নং', 'নাম', 'ধরন', 'আল আমিন', 'ফি আদায়', 'সচিব', 'ফি রিসিভ', 'সম্পন্ন']],
-                body: masterDB.applications.map(item => [
+                body: sortedApps.map(item => [
                     item.date, 
                     item.appNo, 
                     item.name, 
